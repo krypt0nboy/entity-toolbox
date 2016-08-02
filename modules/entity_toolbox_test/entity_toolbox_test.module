@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Entity info test.
+ */
+module_load_include('inc', 'entity_toolbox_test', 'entity_toolbox_test.test');
+
+/**
+ * Implements @see hook_menu().
+ */
+function entity_toolbox_test_menu() {
+  $items                                     = array();
+  $items['admin/config/entity_toolbox/test'] = array(
+	'title'            => 'Entity Toolbox test page',
+	'type'             => MENU_NORMAL_ITEM,
+	'page callback'    => 'entity_toolbox_test',
+	'access arguments' => array('access site configuration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Entity toolbox test function.
+ */
+function entity_toolbox_test() {
+//  $info = entity_property_info_build('product');
+  $builder = new hook_entity_toolbox_fieldable_entity_info_builder('product', entity_toolbox_test_entity_toolbox_entity_info()['product']);
+  $build   = $builder->build();
+}

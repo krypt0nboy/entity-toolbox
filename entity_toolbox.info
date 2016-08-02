@@ -1,0 +1,26 @@
+name = Entity toolbox
+description = "Automation functions for entities"
+core = 7.x
+version = 7.x-1.0-beta1
+
+dependencies[] = entity
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = ctools
+dependencies[] = entityreference
+dependencies[] = inline_entity_form
+
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+
+#Note : this module will be contributed to community.
+
+files[] = src/classes/controllers/EntityGroupController.inc
+files[] = src/classes/controllers/EntityToolboxController.inc
+files[] = src/classes/controllers/EntityToolboxEntityInlineEntityFormController.inc
+files[] = src/classes/controllers/EntityToolboxUIController.inc
+files[] = src/classes/entities/EntityToolboxEntity
+files[] = src/classes/groups/EntityGroup.inc
+files[] = src/classes/handlers/views/entity_toolbox_handler_link_field.inc
+files[] = src/classes/builders/hook_entity_toolbox_entity_info_builder.inc
+files[] = src/classes/exceptions/entity_toolbox.exceptions.inc
