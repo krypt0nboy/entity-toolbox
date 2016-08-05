@@ -5,7 +5,7 @@
  *
  * Class EntityToolboxEntityController
  */
-class EntityToolboxEntityController extends EntityAPIController {
+class EntityToolboxController extends EntityAPIController {
 
   /**
    * Toolbox info retrieved and processed by entity toolbox.
@@ -87,7 +87,7 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Returns the entity author.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity.
    *
    * @return \Entity
@@ -99,7 +99,7 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Returns the entity author uid.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity.
    *
    * @return int
@@ -132,7 +132,7 @@ class EntityToolboxEntityController extends EntityAPIController {
    * @param null|string $type
    *   The bundle name, or NULL to return every bundle.
    *
-   * @return \EntityToolboxNotFieldableEntity[]
+   * @return \NotFieldableEntityToolbox[]
    */
   public function types($type = NULL) {
 	return entity_load_multiple_by_name($this->toolboxInfo['bundle_entity'], isset($type) ? array($type) : FALSE);
@@ -201,9 +201,9 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Returns the parameters of a relation table between two entity types.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
    *
    * @return array
@@ -220,11 +220,11 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Inserts values for a multi value reference property.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param int[]                $add_ids
+   * @param int[]          $add_ids
    *   A list of numeric ids to insert as values.
    *
    * @return array
@@ -250,11 +250,11 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Deletes values of a multi value reference property.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param int[]                $del_ids
+   * @param int[]          $del_ids
    *   The references to delete.
    */
   public function deleteMultiReferenceValues($entity, $name, $del_ids = array()) {
@@ -328,13 +328,13 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Validates an entity property.    $property    = $this->toolboxInfo['properties'][$name];
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param array                $form
+   * @param array          $form
    *   The entity form, passed by reference
-   * @param array                $form_state
+   * @param array          $form_state
    *   The form state, passed by reference.
    */
   public function propertyValidate(&$entity, $name, &$form, &$form_state) {
@@ -345,13 +345,13 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Submits an entity property.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param array                $form
+   * @param array          $form
    *   The entity form, passed by reference
-   * @param array                $form_state
+   * @param array          $form_state
    *   The form state, passed by reference.
    */
   public function propertySubmit(&$entity, $name, &$form, &$form_state) {
@@ -361,15 +361,15 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Sets an entity multi value property.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity for which to set the value.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param array                $values
+   * @param array          $values
    *   The values to set.
-   * @param null|string          $langcode
+   * @param null|string    $langcode
    *   The language code.
-   * @param array                $options
+   * @param array          $options
    *   The set options.
    */
   public function setMultiValueProperty($entity, $name, $values, $langcode = NULL, $options = array()) {
@@ -382,15 +382,15 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Sets an entity multi value property.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity for which to set the value.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param array                $values
+   * @param array          $values
    *   The values to set.
-   * @param null|string          $langcode
+   * @param null|string    $langcode
    *   The language code.
-   * @param array                $options
+   * @param array          $options
    *   The set options.
    */
   public function setMultiValueReferenceProperty($entity, $name, $values = array(), $langcode = NULL, $options = array()) {
@@ -412,15 +412,15 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Gets an entity multi value property.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity for which to set the value.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param int                  $delta
+   * @param int            $delta
    *   The values to set.
-   * @param null|string          $langcode
+   * @param null|string    $langcode
    *   The language code.
-   * @param array                $options
+   * @param array          $options
    *   The get options.
    *
    * @return array
@@ -439,15 +439,15 @@ class EntityToolboxEntityController extends EntityAPIController {
   /**
    * Gets an entity multi value reference property.
    *
-   * @param \EntityToolboxEntity $entity
+   * @param \EntityToolbox $entity
    *   The entity for which to set the value.
-   * @param string               $name
+   * @param string         $name
    *   The property name.
-   * @param int                  $delta
+   * @param int            $delta
    *   The values to set.
-   * @param null|string          $langcode
+   * @param null|string    $langcode
    *   The language code.
-   * @param array                $options
+   * @param array          $options
    *   The get options.
    *
    * @return \Entity[]
@@ -515,7 +515,7 @@ class EntityToolboxEntityController extends EntityAPIController {
  * Class EntityToolboxFieldableEntityController
  * Used for fieldable entities.
  */
-class EntityToolboxFieldableEntityController extends EntityToolboxEntityController {
+class FieldableEntityToolboxController extends EntityToolboxController {
 
   /**
    * @var array $inheritableFields
@@ -591,5 +591,5 @@ class EntityToolboxFieldableEntityController extends EntityToolboxEntityControll
  * Class EntityToolboxNotFieldableEntityController
  * Used for non fieldable entities.
  */
-class EntityToolboxNotFieldableEntityController extends EntityToolboxEntityController {
+class NotFieldableEntityToolboxController extends EntityToolboxController {
 }

@@ -22,6 +22,12 @@ define('CACHE_WEEKLY', 604800);
 define('ENTITY_TOOLBOX__CACHE_INFO', 'entity_toolbox_cache_info');
 
 /**
+ * Cache cid for hook register info.
+ * @see hook_hook_register_info().
+ */
+define('ENTITY_TOOLBOX__HOOK_REGISTER_INFO', 'entity_toolbox_hook_register_info');
+
+/**
  * Cache cid for property type info.
  * @see hook_toolbox_property_type_info().
  * @see entity_toolbox_property_type_get_info().
@@ -56,6 +62,10 @@ define('ENTITY_TOOLBOX__CALLBACK_TYPE_INFO', 'callback_type_info');
  */
 define('ENTITY_TOOLBOX__ACTION_TYPE_INFO', 'action_type_info');
 
+/**
+ * Cache cid for class type info.
+ * @see hook_class_type_info().
+ */
 define('ENTITY_TOOLBOX__CLASS_TYPE_INFO', 'class_type_info');
 
 /**
@@ -134,8 +144,11 @@ define('ENTITY_TOOLBOX__INHERITED_FIELD_INFO', 'inherited_field_info');
  *   The expiration in seconds.
  */
 function entity_toolbox_cache_set($cid, $data, $expire = CACHE_PERMANENT) {
+  $cache_enabled = variable_get('cache_enabled');
   list($expires) = array_values(entity_toolbox_cache_get_info($cid));
-  cache_set($cid, $data, ENTITY_TOOLBOX_DB__CACHE, isset($expires) ? $expires : $expire);
+  if ($cache_enabled) {
+	cache_set($cid, $data, ENTITY_TOOLBOX_DB__CACHE, isset($expires) ? $expires : $expire);
+  }
 }
 
 /**
@@ -180,8 +193,11 @@ function entity_toolbox_cache_clear_all() {
  */
 function entity_toolbox_entity_toolbox_cache_info() {
   $info                                            = array();
+  $info[ENTITY_TOOLBOX__HOOK_REGISTER_INFO]        = array(
+	'expires' => CACHE_PERMANENT
+  );
   $info[ENTITY_TOOLBOX__PROPERTY_TYPE_INFO]        = array(
-	'expires' > CACHE_PERMANENT,
+	'expires' => CACHE_PERMANENT,
   );
   $info[ENTITY_TOOLBOX__PROPERTY_WIDGET_INFO]      = array(
 	'expires' => CACHE_PERMANENT,

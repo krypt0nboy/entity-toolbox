@@ -8,12 +8,6 @@
  * @see \EntityToolboxEntityController
  */
 
-function entity_toolbox_info_controller($entity_type, $toolbox_info = array(), $entity_toolbox_version = NULL) {
-  if (empty($entity_toolbox_version)) {
-	return new ToolboxInfoController($entity_type, $toolbox_info);
-  }
-}
-
 /**
  * Returns the toolbox entity controller for an entity type.
  *
@@ -22,14 +16,14 @@ function entity_toolbox_info_controller($entity_type, $toolbox_info = array(), $
  * @param string $bundle
  *   The entity bundle, or NULL to use the entity type default controller.
  *
- * @return \EntityToolboxEntityController
+ * @return \EntityToolboxController
  */
 function entity_toolbox_controller($entity_type, $bundle = NULL) {
   $controllers = &drupal_static(__FUNCTION__, array());
   if (!isset($controllers[$entity_type])) {
 	$type_info = entity_toolbox_entity_get_info($entity_type);
 	$class     = $type_info['classes']['controllers']['controller'];
-	/** @var \EntityToolboxEntityController */
+	/** @var \EntityToolboxController */
 	//@todo handle bundle controllers.
 	$controllers[$entity_type] = new $class($entity_type);
   }
@@ -72,7 +66,7 @@ function entity_toolbox_get_inherited_properties($entity_type) {
  * @return array
  */
 function entity_toolbox_get_inheritable_fields($entity_type, $bundle) {
-  /** @var \EntityToolboxFieldableEntityController $controller */
+  /** @var \FieldableEntityToolboxController $controller */
   $controller = entity_toolbox_controller($entity_type);
 
   return $controller->inheritableFields($bundle);
@@ -89,7 +83,7 @@ function entity_toolbox_get_inheritable_fields($entity_type, $bundle) {
  * @return array
  */
 function entity_toolbox_get_inherited_fields($entity_type, $bundle) {
-  /** @var \EntityToolboxFieldableEntityController $controller */
+  /** @var \FieldableEntityToolboxController $controller */
   $controller = entity_toolbox_controller($entity_type);
 
   return $controller->inheritedFields($bundle);

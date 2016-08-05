@@ -94,6 +94,45 @@ function entity_toolbox_cache_hooks_get_info() {
 }
 
 /**
+ * Returns the available hooks builders info.
+ *
+ * @param null $hook
+ *   The hook name, or NULL to return all hooks.
+ *
+ * @return array
+ *
+ * @see hook_hook_register_info().
+ */
+function entity_toolbox_hook_get_info($hook = NULL) {
+  $HOOK     = 'hook_register_info';
+  $CACHEKEY = ENTITY_TOOLBOX__HOOK_REGISTER_INFO;
+
+  /**
+   * Cached since used very often.
+   */
+  static $drupal_static_fast;
+  if (!isset($drupal_static_fast)) {
+	$drupal_static_fast['hook_register_info'] = &drupal_static(__FUNCTION__);
+  }
+
+  $hook_register_info = &$drupal_static_fast['hook_register_info'];
+  if (empty($hook_register_info)) {
+	if ($cache = entity_toolbox_cache_get($CACHEKEY)) {
+	  $hook_register_info = $cache->data;
+	}
+	else {
+	  $hooks = array();
+	  $data  = module_invoke_all($HOOK);
+	  drupal_alter($HOOK, $data);
+	  $hook_register_info = $hooks;
+	  entity_toolbox_cache_set($CACHEKEY, $hook_register_info);
+	}
+  }
+
+  return isset($hook) ? $hook_register_info[$hook] : $hook_register_info;
+}
+
+/**
  * Returns info on an entity_toolbox property type.
  *
  * @param null $property_type
@@ -311,6 +350,55 @@ function entity_toolbox_entity_action_type_get_info($action = NULL) {
 }
 
 /**
+ * Returns a module entity_toolbox settings, declared in the module's info file.
+ *
+ * @param string $module
+ *   The module's name.
+ *
+ * @return mixed
+ */
+function entity_toolbox_module_info_get_info($module) {
+  $modules = &drupal_static(__FUNCTION__, array());
+  if (!in_array($module, $modules)) {
+	$info_file = drupal_parse_info_file(drupal_get_path('module', $module) . '/' . $module . '.info');
+	if (!empty($info_file['entity_toolbox'])) {
+	  $info             = $info_file['entity_toolbox'];
+	  $info2obj         = new stdClass();
+	  $info2obj->api    = $info['toolbox_api'][0];
+	  $modules[$module] = $info2obj;
+	}
+  }
+
+  return $modules[$module];
+}
+
+/**
+ * Returns a module entity_toolbox api, declared in the module's info file.
+ *
+ * @param string $module
+ *   The module's name.
+ *
+ * @return mixed
+ */
+function entity_toolbox_module_api_get_info($module) {
+  $modules = &drupal_static(__FUNCTION__, array());
+  if (!in_array($module, $modules)) {
+	$info             = entity_toolbox_module_info_get_info($module);
+	$modules[$module] = $info->api;
+  }
+
+  return $modules[$module];
+}
+
+/**
+ * @param $entity_type
+ * renamed function for entity_toolbox_entity_get_info
+ * @return array
+ */
+function entity_toolbox_get_info($entity_type) {
+}
+
+/**
  * Returns entities info declared through entity_toolbox.
  *
  * @param null|string $entity_type
@@ -328,16 +416,6 @@ function entity_toolbox_entity_action_type_get_info($action = NULL) {
 function entity_toolbox_entity_get_info($entity_type = NULL, $update_N = NULL, $reset = FALSE) {
   $HOOK     = 'entity_toolbox_entity_info';
   $CACHEKEY = ENTITY_TOOLBOX__ENTITY_INFO;
-
-  //@TODO : add default_required_properties() & remove this ugly array
-  $required_properties = array(
-	'id',
-	'bundle',
-	'name',
-	'author',
-	'created',
-	'changed',
-  );
 
   /**
    * We cache entity_toolbox_entity_info since its used very often.
@@ -360,8 +438,20 @@ function entity_toolbox_entity_get_info($entity_type = NULL, $update_N = NULL, $
 	  $entity_toolbox_entity_info = $cache->data;
 	}
 	else {
-	  $data = module_invoke_all($HOOK);
-	  drupal_alter($HOOK, $data);
+	  $data    = array();
+	  $modules = module_implements($HOOK);
+	  foreach ($modules as $module) {
+		$function = $module . '_' . $HOOK;
+		$call     = $function();
+		/**
+		 * @var string $t
+		 * @var array  $v
+		 */
+		foreach ($call as $t => $v) {
+		  $v['module'] = !empty($v['module']) ? $v['module'] : $module;
+		  $data[$t]    = $v;
+		}
+	  }
 	  $processed = array();
 	  /**
 	   * @var string $type
@@ -370,51 +460,7 @@ function entity_toolbox_entity_get_info($entity_type = NULL, $update_N = NULL, $
 	   *   The matching entity type raw info, as retrieved in module_invoke().
 	   */
 	  foreach ($data as $type => $info) {
-		//@todo add hook_entity_info_builder_info()
-		/**
-		 * We add default/required values.
-		 */
-		$default_callbacks = toolbox_entity_default_callbacks_info_build($type);
-		$default_labels    = toolbox_entity_default_labels_info_build($type);
-		$default_classes   = toolbox_entity_default_classes_info_build($type, $info['fieldable']);
-		$default           = array(
-		  'entity_type'      => $type,
-		  'base table'       => $type,
-		  'has_revisions'    => TRUE,
-		  'has_translations' => FALSE,
-		  //If the entity type is fieldable, the entity type is not exportable by default.
-		  'exportable'       => !$info['fieldable'],
-		  //Stores processed labels.
-		  'labels'           => $default_labels,
-		  //Stores processed classes.
-		  'classes'          => $default_classes,
-		  //Stores processed callbacks.
-		  'callbacks'        => $default_callbacks,
-		  //@todo process later
-		  'tables'           => array(),
-		);
-		if (!empty($info['has_revisions']) && $info['has_revisions']) {
-		  $default['revision table'] = $type . '_revision';
-		}
-		$info = array_merge($default, $info);
-		//@TODO : add toolbox_entity_tables_process().
-		if (!empty($info['properties'])) {
-		  foreach ($info['properties'] as $name => $property) {
-			toolbox_property_info_build($info, $type, $name);
-		  }
-		}
-		$info['keys'] = toolbox_info_extract_keys($info, $type);
-		if ($info['has_revisions']) {
-		  $info['keys']['revision'] = 'vid';
-		  //@todo add toolbox_info_revision_key_build().
-		}
-		if ($info['has_translations']) {
-		  $info['keys']['tid'] = 'tid';
-		  //@todo add toolbox_info_translation_key_build().
-		}
-		$info['tables'] += toolbox_info_extract_schemas($info, $type);
-		_toolbox_info_process($type, $info);
-		$processed[$type] = $info;
+		$processed[$type] = entity_toolbox_info_build($type, $info);
 	  }
 	  $entity_toolbox_entity_info = $processed;
 	  entity_toolbox_cache_set($CACHEKEY, $entity_toolbox_entity_info);

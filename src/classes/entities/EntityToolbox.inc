@@ -7,11 +7,9 @@
  */
 
 /**
- * The class used for entities managed by entity toolbox.
- *
- * Class EntityToolboxEntity
+ * Class EntityToolbox
  */
-class EntityToolboxEntity extends Entity {
+class EntityToolbox extends Entity {
 
   /**
    * Toolbox info retrieved and processed by entity toolbox.
@@ -93,15 +91,15 @@ class EntityToolboxEntity extends Entity {
 }
 
 /**
- * Class EntityToolboxFieldableEntity
+ * Class EntityToolboxFieldable
  */
-class EntityToolboxFieldableEntity extends EntityToolboxEntity {
+class EntityToolboxFieldable extends EntityToolbox {
 
 }
 
 /**
- * Class EntityToolboxFieldableEntity
+ * Class EntityToolboxNotFieldable
  */
-class EntityToolboxNotFieldableEntity extends EntityToolboxEntity {
+class EntityToolboxNotFieldable extends EntityToolbox {
 
 }

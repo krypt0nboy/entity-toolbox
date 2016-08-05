@@ -39,11 +39,11 @@ function entity_property_type_default($entity_type, $name) {
 /**
  * Returns the default value for an entity property.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
  *
  * @return mixed
@@ -55,13 +55,13 @@ function entity_property_default($entity_type, $entity, $name) {
 /**
  * Default multi value setter callback for entity_toolbox entities.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity to set the values for.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param array                $values
+ * @param array          $values
  *   The values to set.
  */
 function entity_toolbox_multi_value_property_set($entity_type, $entity, $name, $values) {
@@ -71,11 +71,11 @@ function entity_toolbox_multi_value_property_set($entity_type, $entity, $name, $
 /**
  * Default multi value getter callback for entity_toolbox entities.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity to get the values from.
- * @param string               $name
+ * @param string         $name
  *   The property name.
  *
  * @return array

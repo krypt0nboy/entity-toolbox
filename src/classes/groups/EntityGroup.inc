@@ -24,7 +24,7 @@ class EntityGroup {
   protected $groupInfo;
 
   /**
-   * @var \EntityToolboxEntity[] $tree
+   * @var \EntityToolbox[] $tree
    *   An array of entities, forming a tree.
    */
   protected $tree;

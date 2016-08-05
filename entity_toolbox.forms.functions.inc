@@ -26,17 +26,17 @@ function field_heritage_settings_attach(&$form, &$form_state) {
 /**
  * Attach an entity properties to a form.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param array                $form
+ * @param array          $form
  *   The form, passed by reference.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form_state, passed by reference.
- * @param string               $langcode
+ * @param string         $langcode
  *   The language code.
- * @param string[]             $options
+ * @param string[]       $options
  *   The property fields options.
  */
 function properties_attach_form($entity_type, $entity, &$form, &$form_state, $langcode = NULL, $options = array()) {
@@ -48,19 +48,19 @@ function properties_attach_form($entity_type, $entity, &$form, &$form_state, $la
 /**
  * Attach a property to an entity form.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param array                $form
+ * @param array          $form
  *   The form, passed by reference.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form_state, passed by reference.
- * @param string               $langcode
+ * @param string         $langcode
  *   The language code.
- * @param array                $options
+ * @param array          $options
  *   The property fields options.
  */
 function property_attach_form($entity_type, $entity, $name, &$form, &$form_state, $langcode = NULL, $options = array()) {
@@ -80,19 +80,19 @@ function property_attach_form($entity_type, $entity, $name, &$form, &$form_state
 /**
  * Attach a property to an entity form.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param array                $form
+ * @param array          $form
  *   The form, passed by reference.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form_state, passed by reference.
- * @param string               $langcode
+ * @param string         $langcode
  *   The language code.
- * @param array                $options
+ * @param array          $options
  *   The property fields options.
  */
 function property_single_attach_form($entity_type, $entity, $name, &$form, &$form_state, $langcode = NULL, $options = array()) {
@@ -102,19 +102,19 @@ function property_single_attach_form($entity_type, $entity, $name, &$form, &$for
 /**
  * Attach a property to an entity form.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param array                $form
+ * @param array          $form
  *   The form, passed by reference.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form_state, passed by reference.
- * @param string               $langcode
+ * @param string         $langcode
  *   The language code.
- * @param array                $options
+ * @param array          $options
  *   The property fields options.
  */
 function property_multi_attach_form($entity_type, $entity, $name, &$form, &$form_state, $langcode = NULL, $options = array()) {
@@ -124,17 +124,17 @@ function property_multi_attach_form($entity_type, $entity, $name, &$form, &$form
 /**
  * Builds a property field to be used in an entity form.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type for which the field is built.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity for which the field is built.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param string               $form_id
+ * @param string         $form_id
  *   The form ID.
- * @param null|string          $widget
+ * @param null|string    $widget
  *   The widget type, or NULL to use the property type default widget.
- * @param array                $options
+ * @param array          $options
  *   The options, such as js_enabled, etc...
  *
  * @return array
@@ -164,17 +164,17 @@ function property_element_build($entity_type, $entity, $name, $form_id, $widget 
 /**
  * Builds the ajax component of an entity field.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type for which the field is built.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity for which the field is built.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param string               $form_id
+ * @param string         $form_id
  *   The form ID.
- * @param null|string          $widget
+ * @param null|string    $widget
  *   The widget type, or NULL to use the property type default widget.
- * @param array                $options
+ * @param array          $options
  *   The entity form options, such as js_enabled, etc...
  *
  * @return array
@@ -318,19 +318,19 @@ function field_ajax_process($form, &$form_state, $name) {
 /**
  * Extract property values from an entity form.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param array                $items
+ * @param array          $items
  *   The property values, passed by reference.
- * @param null|string          $langcode
+ * @param null|string    $langcode
  *   The langcode, defaults to NULL.
- * @param array                $form
+ * @param array          $form
  *   The entity form.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form state, passed by reference.
  */
 function property_default_extract_form_values($entity_type, $entity, $name, &$items, $langcode = NULL, $form, &$form_state) {

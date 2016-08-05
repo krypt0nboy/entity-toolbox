@@ -1,0 +1,8 @@
+<?php
+
+function entity_toolbox_test_schema() {
+  $info = array();
+  $info += build('schema', 'product');
+
+  return $info;
+}

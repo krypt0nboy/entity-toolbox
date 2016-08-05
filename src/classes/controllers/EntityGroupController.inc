@@ -4,7 +4,6 @@
  * Class EntityGroupController
  */
 class EntityGroupController {
-
   /**
    * @var string $groupType
    *   The group type for this entity group controller.

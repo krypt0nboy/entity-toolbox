@@ -134,11 +134,11 @@ function entity_toolbox_delete_form_submit(&$form, &$form_state, $entity_type) {
 /**
  * Returns the default options for an entity form.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $form_id
+ * @param string         $form_id
  *   The entity form ID.
  *
  * @return array

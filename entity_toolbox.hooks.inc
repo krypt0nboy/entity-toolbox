@@ -78,19 +78,19 @@ function _toolbox_cache_clear($hook) {
 /**
  * Alters a form element before it's attached to the entity form.
  *
- * @param array                $element
+ * @param array          $element
  *   The element to alter, passed by reference.
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param string               $form_id
+ * @param string         $form_id
  *   The entity form ID.
- * @param null|string          $widget
+ * @param null|string    $widget
  *   The field widget type.
- * @param array                $options
+ * @param array          $options
  *   An array of options.
  *
  * @see hook_property_element_alter().
@@ -106,15 +106,15 @@ function _property_element_alter(&$element, $entity_type, $entity, $name, $form_
 /**
  * Alters the validation of an entity property.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param array                $form
+ * @param array          $form
  *   The entity form, passed by reference
- * @param array                $form_state
+ * @param array          $form_state
  *   The form state, passed by reference.
  */
 function _property_attach_form_validate($entity_type, $entity, $name, &$form, &$form_state) {
@@ -127,13 +127,13 @@ function _property_attach_form_validate($entity_type, $entity, $name, &$form, &$
 /**
  * Call the alter hooks before returning an entity edit form.
  *
- * @param array                $form
+ * @param array          $form
  *   The form to alter, passed by reference.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form_state of the form to alter, passed by reference.
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
  *
  * @see hook_type_ENTITY_TYPE_edit_form__alter().
@@ -151,13 +151,13 @@ function _entity_edit_form__alter(&$form, &$form_state, $entity_type, $entity) {
 /**
  * Call the alter hooks before returning an entity delete form.
  *
- * @param array                $form
+ * @param array          $form
  *   The form to alter, passed by reference.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form_state of the form to alter, passed by reference.
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
  *
  * @see hook_type_ENTITY_TYPE_delete_form__alter().
@@ -175,13 +175,13 @@ function _entity_delete_form__alter(&$form, &$form_state, $entity_type, $entity)
 /**
  * Call the alter hooks before returning an entity delete form.
  *
- * @param array                $form
+ * @param array          $form
  *   The form to alter, passed by reference.
- * @param array                $form_state
+ * @param array          $form_state
  *   The form_state of the form to alter, passed by reference.
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
  *
  * @see hook_type_ENTITY_TYPE_inline_entity_form__alter().
@@ -203,9 +203,9 @@ function _entity_inline_entity_form__alter(&$form, &$form_state, $entity_type, $
 /**
  * Returns the modules implemented hook_entity_skip_load().
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
  *
  * @return array
@@ -229,13 +229,13 @@ function _entity_skip_load($entity_type, $entity) {
 /**
  * Alters the validation of an entity property.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param mixed                $value
+ * @param mixed          $value
  *   The property value to validate.
  */
 function _property_validate($entity_type, $entity, $name, $value) {
@@ -248,15 +248,15 @@ function _property_validate($entity_type, $entity, $name, $value) {
 /**
  * Alters the submit of an entity property.
  *
- * @param string               $entity_type
+ * @param string         $entity_type
  *   The entity type.
- * @param \EntityToolboxEntity $entity
+ * @param \EntityToolbox $entity
  *   The entity.
- * @param string               $name
+ * @param string         $name
  *   The property name.
- * @param array                $form
+ * @param array          $form
  *   The entity form, passed by reference
- * @param array                $form_state
+ * @param array          $form_state
  *   The form state, passed by reference.
  */
 function _property_submit($entity_type, $entity, $name, &$form, &$form_state) {

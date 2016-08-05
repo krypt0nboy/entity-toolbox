@@ -34,7 +34,7 @@ function entity_bundle($entity) {
 /**
  * Returns the author of the entity.
  *
- * @param \Entity|\EntityToolboxEntity $entity
+ * @param \Entity|\EntityToolbox $entity
  *   The entity.
  *
  * @return Entity
@@ -55,7 +55,7 @@ function entity_author($entity) {
 /**
  * Returns the entity author uid.
  *
- * @param \Entity|\EntityToolboxEntity $entity
+ * @param \Entity|\EntityToolbox $entity
  *   The entity.
  *
  * @return int
@@ -463,9 +463,9 @@ function entity_action_path($entity_type, $action) {
 /**
  * Returns the edit path of an entity.
  *
- * @param int|\EntityToolboxEntity $entity
+ * @param int|\EntityToolbox $entity
  *   The entity.
- * @param string                   $entity_type
+ * @param string             $entity_type
  *   The entity type.
  *
  * @return string
@@ -486,9 +486,9 @@ function entity_edit_path($entity, $entity_type) {
 /**
  * Returns the view path of an entity.
  *
- * @param int|\EntityToolboxEntity $entity
+ * @param int|\EntityToolbox $entity
  *   The entity.
- * @param string                   $entity_type
+ * @param string             $entity_type
  *   The entity type.
  *
  * @return string
@@ -509,9 +509,9 @@ function entity_view_path($entity, $entity_type) {
 /**
  * Returns the delete path of an entity.
  *
- * @param int|\EntityToolboxEntity $entity
+ * @param int|\EntityToolbox $entity
  *   The entity.
- * @param string                   $entity_type
+ * @param string             $entity_type
  *   The entity type.
  *
  * @return string

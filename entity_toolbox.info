@@ -1,26 +1,62 @@
-name = Entity toolbox
-description = "Automation functions for entities"
+name = "Entity toolbox"
+description = "Easily create and manage entities"
 core = 7.x
 version = 7.x-1.0-beta1
 
+# Dependencies
 dependencies[] = entity
 dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = inline_entity_form
+dependencies[] = operations
 
+# Features
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 
-#Note : this module will be contributed to community.
+# Entities
+files[] = src/classes/entities/EntityToolbox
 
-files[] = src/classes/controllers/EntityGroupController.inc
+# Controllers
 files[] = src/classes/controllers/EntityToolboxController.inc
-files[] = src/classes/controllers/EntityToolboxEntityInlineEntityFormController.inc
 files[] = src/classes/controllers/EntityToolboxUIController.inc
-files[] = src/classes/entities/EntityToolboxEntity
+files[] = src/classes/controllers/EntityGroupController.inc
+
+# Builders
+files[] = src/classes/builders/BuilderBase.inc
+files[] = src/classes/builders/hooks/HookBuilder.inc
+files[] = src/classes/builders/hooks/ContribHookBuilder.inc
+files[] = src/classes/builders/hooks/entity_info/EntityInfoBuilder.inc
+files[] = src/classes/builders/hooks/entity_info/EntityInfoBuilderFieldable.inc
+files[] = src/classes/builders/hooks/entity_info/EntityInfoBuilderNotFieldable.inc
+files[] = src/classes/builders/hooks/entity_info_alter/EntityInfoAlterBuilder.inc
+files[] = src/classes/builders/hooks/entity_info_alter/EntityInfoAlterBuilderFieldable.inc
+files[] = src/classes/builders/hooks/entity_info_alter/EntityInfoAlterBuilderNotFieldable.inc
+files[] = src/classes/builders/hooks/entity_toolbox_info/EntityToolboxInfoBuilder.inc
+files[] = src/classes/builders/hooks/entity_property_info/EntityPropertyInfoBuilder.inc
+files[] = src/classes/builders/hooks/entity_property_info_alter/EntityPropertyInfoBuilderFieldable.inc
+files[] = src/classes/builders/hooks/menu/MenuBuilder.inc
+files[] = src/classes/builders/hooks/menu_local_task_alter/MenuLocalTaskAlterBuilder.inc
+files[] = src/classes/builders/hooks/operations_info/OperationsInfoBuilder.inc
+files[] = src/classes/builders/hooks/operations_info_alter/OperationsInfoAlterBuilder.inc
+files[] = src/classes/builders/hooks/permission/PermissionBuilder.inc
+files[] = src/classes/builders/hooks/schema/SchemaBuilder.inc
+files[] = src/classes/builders/hooks/schema_alter/SchemaAlterBuilder.inc
+files[] = src/classes/builders/hooks/theme/ThemeBuilder.inc
+files[] = src/classes/builders/hooks/token_info/TokenInfoBuilder.inc
+files[] = src/classes/builders/hooks/token_info_alter/TokenInfoBuilder.inc
+files[] = src/classes/builders/values/ValueBuilder.inc
+files[] = src/classes/builders/values/ArrayValueBuilder.inc
+
+# Groups
 files[] = src/classes/groups/EntityGroup.inc
-files[] = src/classes/handlers/views/entity_toolbox_handler_link_field.inc
-files[] = src/classes/builders/hook_entity_toolbox_entity_info_builder.inc
+
+# Operations
+files[] = src/classes/operations/
+
+# Exceptions
 files[] = src/classes/exceptions/entity_toolbox.exceptions.inc
+
+#Note : this module will be contributed to community.

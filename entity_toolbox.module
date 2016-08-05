@@ -35,20 +35,29 @@ module_load_include('inc', 'entity_toolbox', 'entity_toolbox.entities');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.controllers');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.cache');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.build');
+module_load_include('inc', 'entity_toolbox', 'entity_toolbox.admin');
 
 /**
  * Implements hook_menu().
  */
 function entity_toolbox_menu() {
-  $items                                = array();
-  $items['admin/config/entity_toolbox'] = array(
-	'title'            => 'Entity Toolbox',
-	'description'      => t('Entity Toolbox settings.'),
+  $items                                         = array();
+  $items['admin/config/entity_toolbox']          = array(
+	'title'            => t('Entity toolbox'),
+	'description'      => t('Entity Toolbox.'),
 	'type'             => MENU_NORMAL_ITEM,
 	'page callback'    => 'system_admin_menu_block_page',
 	'access arguments' => array('access administration pages'),
 	'file path'        => drupal_get_path('module', 'system'),
 	'file'             => 'system.admin.inc',
+  );
+  $items['admin/config/entity_toolbox/settings'] = array(
+	'title'            => t('Entity toolbox settings'),
+	'description'      => t('Entity Toolbox settings.'),
+	'type'             => MENU_NORMAL_ITEM,
+	'page callback'    => 'drupal_get_form',
+	'page arguments'   => array('entity_toolbox_settings_form'),
+	'access arguments' => array('access administration pages'),
   );
 
   return $items;
@@ -619,4 +628,11 @@ function entity_toolbox_field_create_instance($instance) {
  */
 function entity_toolbox_form_field_ui_field_edit_form_alter(&$form, &$form_state) {
   field_heritage_settings_attach($form, $form_state);
+}
+
+/**
+ * Implements @see hook_theme_registry_alter().
+ */
+function entity_toolbox_theme($existing, $type, $theme, $path) {
+
 }

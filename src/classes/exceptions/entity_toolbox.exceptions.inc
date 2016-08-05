@@ -37,8 +37,6 @@ class EntityToolboxException extends Exception {
 class MissingEntityTypeException extends EntityToolboxException {
   /**
    * MissingEntityTypeException constructor.
-   * @param array          $variables
-   * @param null|Exception $previous
    */
   public function __construct(array $variables = array(), Exception $previous = NULL) {
 	$template = "Cannot create an instance of %class% without a specified entity type.";
@@ -52,8 +50,6 @@ class MissingEntityTypeException extends EntityToolboxException {
 class ToolboxInfoNotProvidedException extends EntityToolboxException {
   /**
    * MissingRawToolboxInfoException constructor.
-   * @param array          $variables
-   * @param null|Exception $previous
    */
   public function __construct(array $variables = array(), Exception $previous = NULL) {
 	$template = "Toolbox info not provided.";
@@ -62,16 +58,66 @@ class ToolboxInfoNotProvidedException extends EntityToolboxException {
 }
 
 /**
- * Class MissingRawToolboxInfoException
+ * Class MissingRawInfoException
  */
-class MissingRawToolboxInfoException extends EntityToolboxException {
+class MissingRawInfoException extends EntityToolboxException {
   /**
-   * MissingRawToolboxInfoException constructor.
-   * @param array          $variables
-   * @param null|Exception $previous
+   * MissingRawInfoException constructor.
    */
   public function __construct(array $variables = array(), Exception $previous = NULL) {
-	$template = "Entity type raw info not set.";
+	$template = "Raw hook info not provided.";
 	parent::__construct($template, 103, $variables, $previous);
+  }
+}
+
+/**
+ * Class HookNameNotProvided
+ */
+class HookNameNotProvided extends EntityToolboxException {
+  /**
+   * HookNameNotProvided constructor.
+   */
+  public function __construct(array $variables = array(), Exception $previous = NULL) {
+	$template = "Hook name not provided.";
+	parent::__construct($template, 104, $variables, $previous);
+  }
+}
+
+/**
+ * Class ExtractMethodMissing
+ */
+class ExtractMethodMissing extends EntityToolboxException {
+  /**
+   * ExtractMethodMissing constructor.
+   */
+  public function __construct(array $variables = array(), Exception $previous = NULL) {
+	$template = "Extract method %method% does not exists.";
+	parent::__construct($template, 105, $variables, $previous);
+  }
+}
+
+/**
+ * Class ProcessMethodMissing
+ */
+class ProcessMethodMissing extends EntityToolboxException {
+  /**
+   * ExtractMethodMissing constructor.
+   */
+  public function __construct(array $variables = array(), Exception $previous = NULL) {
+	$template = "Process method %method% does not exists.";
+	parent::__construct($template, 105, $variables, $previous);
+  }
+}
+
+/**
+ * Class InfoNotSet
+ */
+class InfoNotSet extends EntityToolboxException {
+  /**
+   * InfoNotSet constructor.
+   */
+  public function __construct(array $variables = array(), $previous = NULL) {
+	$template = "Cannot extract info. Info is not set.";
+	parent::__construct($template, 106, $variables, $previous);
   }
 }
