@@ -9,38 +9,38 @@
 function entity_toolbox_schema() {
   $schema                           = array();
   $schema['installed_entities']     = array(
-	'description' => 'Keeps track of installed entities.',
-	'fields'      => array(
-	  'entity_type' => array(
-		'description' => 'The entity type.',
-		'type'        => 'varchar',
-		'length'      => 255,
-		'default'     => '',
-		'not null'    => TRUE,
-	  ),
-	  'module'      => array(
-		'description' => 'The module managing the entity type.',
-		'type'        => 'varchar',
-		'length'      => 255,
-		'default'     => '',
-		'not null'    => TRUE,
-	  ),
-	  'table'       => array(
-		'description' => 'The base table for this entity type.',
-		'type'        => 'varchar',
-		'length'      => 255,
-		'default'     => '',
-		'not null'    => TRUE,
-	  ),
-	  'installed'   => array(
-		'description' => 'A boolean indicating if the entity type is installed.',
-		'type'        => 'int',
-		'size'        => 'tiny',
-		'default'     => 1,
-		'not null'    => TRUE,
-	  )
-	),
-	'primary key' => array('entity_type')
+    'description' => 'Keeps track of installed entities.',
+    'fields'      => array(
+      'entity_type' => array(
+        'description' => 'The entity type.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'default'     => '',
+        'not null'    => TRUE,
+      ),
+      'module'      => array(
+        'description' => 'The module managing the entity type.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'default'     => '',
+        'not null'    => TRUE,
+      ),
+      'table'       => array(
+        'description' => 'The base table for this entity type.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'default'     => '',
+        'not null'    => TRUE,
+      ),
+      'installed'   => array(
+        'description' => 'A boolean indicating if the entity type is installed.',
+        'type'        => 'int',
+        'size'        => 'tiny',
+        'default'     => 1,
+        'not null'    => TRUE,
+      )
+    ),
+    'primary key' => array('entity_type')
   );
   $schema[ENTITY_TOOLBOX_DB__CACHE] = drupal_get_schema_unprocessed('system', 'cache');
 

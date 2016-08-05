@@ -28,11 +28,11 @@
 function hook_entity_toolbox_cache_info() {
   $info               = array();
   $info['cache_name'] = array(
-	'expires' => CACHE_PERMANENT,
-	'clear'   => array(),
-	'hooks'   => array(
-	  'field_create_instance'
-	),
+    'expires' => CACHE_PERMANENT,
+    'clear'   => array(),
+    'hooks'   => array(
+      'field_create_instance'
+    ),
   );
 
   return $info;
@@ -51,51 +51,51 @@ function hook_entity_toolbox_cache_info() {
 function hook_hook_register_info() {
   $info                        = array();
   $info['entity_toolbox_info'] = array(
-	'build callback' => 'entity_toolbox_info_build',
-	'base builder'   => 'EntityToolboxInfoBuilder',
-	'struct'         => array(
-	  'fieldable'        => array('type' => 'bool'),
-	  'entity_type'      => array('type' => 'string', 'default' => '%entity_type%'),
-	  'has_translations' => array('type' => 'bool'),
-	  'has_revisions'    => array('type' => 'bool'),
-	  'is_exportable'    => array('type' => 'bool'),
-	  'bundle_entity'    => array('type' => 'string', 'default' => '%entity_type%_type'),
-	  'bundle_of'        => array('type' => 'string', 'builder' => 'BundleOf'),
-	  'module'           => array('type' => 'string'),
-	  'labels'           => array('type' => 'array', 'builder' => 'LabelsBuilder'),
-	  'callbacks'        => array('type' => 'array', 'builder' => 'CallbacksBuilder'),
-	  'classes'          => array('type' => 'array', 'builder' => 'ClassesBuilder'),
-	  'properties'       => array('type' => 'array', 'builder' => 'ToolboxPropertiesBuilder'),
-	  'tables'           => array('type' => 'array', 'builder' => 'TablesBuilder'),
-	  'children_inherit' => array('type' => 'array', 'builder' => 'ChildrenInheritBuilder'),
-	  'group'            => array('type' => 'string'),
-	),
+    'build callback' => 'entity_toolbox_info_build',
+    'base builder'   => 'EntityToolboxInfoBuilder',
+    'struct'         => array(
+      'fieldable'        => array('type' => 'bool'),
+      'entity_type'      => array('type' => 'string', 'default' => '%entity_type%'),
+      'has_translations' => array('type' => 'bool'),
+      'has_revisions'    => array('type' => 'bool'),
+      'is_exportable'    => array('type' => 'bool'),
+      'bundle_entity'    => array('type' => 'string', 'default' => '%entity_type%_type'),
+      'bundle_of'        => array('type' => 'string', 'builder' => 'BundleOf'),
+      'module'           => array('type' => 'string'),
+      'labels'           => array('type' => 'array', 'builder' => 'LabelsBuilder'),
+      'callbacks'        => array('type' => 'array', 'builder' => 'CallbacksBuilder'),
+      'classes'          => array('type' => 'array', 'builder' => 'ClassesBuilder'),
+      'properties'       => array('type' => 'array', 'builder' => 'ToolboxPropertiesBuilder'),
+      'tables'           => array('type' => 'array', 'builder' => 'TablesBuilder'),
+      'children_inherit' => array('type' => 'array', 'builder' => 'ChildrenInheritBuilder'),
+      'group'            => array('type' => 'string'),
+    ),
   );
   $info['entity_info']         = array(
-	'build callback'   => 'entity_info_build',
-	'base builder'     => 'EntityInfoBuilder',
-	'builder argument' => 'fieldable',
-	'builders'         => array(
-	  'EntityInfoBuilderFieldable'    => TRUE,
-	  'EntityInfoBuilderNotFieldable' => FALSE,
-	),
-	'struct'           => array(
-	  'label'             => array('type' => 'string'),
-	  'label plural'      => array('type' => 'string'),
-	  'entity class'      => array('type' => 'string'),
-	  'controller class'  => array('type' => 'string'),
-	  'base table'        => array('type' => 'string'),
-	  'fieldable'         => array('type' => 'bool'),
-	  'entity keys'       => array('type' => 'array', 'builder' => 'EntityKeysBuilder'),
-	  'creation callback' => array('type' => 'string'),
-	  'access callback'   => array('type' => 'string'),
-	  'uri callback'      => array('type' => 'string'),
-	  'label callback'    => array('type' => 'string'),
-	  'module'            => array('type' => 'string'),
-	  'admin ui'          => array('type' => 'array', 'builder' => 'AdminUIBuilder'),
-	  'exportable'        => array('type' => 'bool'),
-	  'bundle_keys'       => array('type' => 'array', 'builder' => 'BundleKeysBuilder'),
-	)
+    'build callback'   => 'entity_info_build',
+    'base builder'     => 'EntityInfoBuilder',
+    'builder argument' => 'fieldable',
+    'builders'         => array(
+      'EntityInfoBuilderFieldable'    => TRUE,
+      'EntityInfoBuilderNotFieldable' => FALSE,
+    ),
+    'struct'           => array(
+      'label'             => array('type' => 'string'),
+      'label plural'      => array('type' => 'string'),
+      'entity class'      => array('type' => 'string'),
+      'controller class'  => array('type' => 'string'),
+      'base table'        => array('type' => 'string'),
+      'fieldable'         => array('type' => 'bool'),
+      'entity keys'       => array('type' => 'array', 'builder' => 'EntityKeysBuilder'),
+      'creation callback' => array('type' => 'string'),
+      'access callback'   => array('type' => 'string'),
+      'uri callback'      => array('type' => 'string'),
+      'label callback'    => array('type' => 'string'),
+      'module'            => array('type' => 'string'),
+      'admin ui'          => array('type' => 'array', 'builder' => 'AdminUIBuilder'),
+      'exportable'        => array('type' => 'bool'),
+      'bundle_keys'       => array('type' => 'array', 'builder' => 'BundleKeysBuilder'),
+    )
   );
 
   return $info;
@@ -128,60 +128,60 @@ function hook_hook_register_info() {
 function hook_toolbox_property_type_info() {
   $info           = array();
   $info['id']     = array(
-	'description'              => 'An entity unique identifier property.',
-	'drupal_property'          => 'decimal',
-	'default_label'            => '%entity_type% ID',
-	'default_description'      => 'The %entity_type% ID.',
-	'default_value'            => 0,
-	'default_is_unique'        => TRUE,
-	'default_key'              => 'id',
-	'default_schema'           => array(
-	  'base' => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'unsigned' => TRUE,
-		'default'  => 0,
-	  )
-	),
-	'default_schemas_fields'   => array(
-	  'base'     => '%entity_type%_id',
-	  'revision' => '%entity_type%_id',
-	),
-	'default_views_expose'     => array(),
-	'default_forms_expose'     => array(
-	  'edit' => FALSE
-	),
-	'default_required'         => array(),
-	'default_has_revisions'    => FALSE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
+    'description'              => 'An entity unique identifier property.',
+    'drupal_property'          => 'decimal',
+    'default_label'            => '%entity_type% ID',
+    'default_description'      => 'The %entity_type% ID.',
+    'default_value'            => 0,
+    'default_is_unique'        => TRUE,
+    'default_key'              => 'id',
+    'default_schema'           => array(
+      'base' => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default'  => 0,
+      )
+    ),
+    'default_schemas_fields'   => array(
+      'base'     => '%entity_type%_id',
+      'revision' => '%entity_type%_id',
+    ),
+    'default_views_expose'     => array(),
+    'default_forms_expose'     => array(
+      'edit' => FALSE
+    ),
+    'default_required'         => array(),
+    'default_has_revisions'    => FALSE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
   );
   $info['bundle'] = array(
-	'description'              => 'A entity bundle.',
-	'drupal_property'          => 'text',
-	'default_description'      => 'The %entity_type% type.',
-	'default_value'            => '',
-	'default_key'              => 'bundle',
-	'default_schema'           => array(
-	  'type'     => 'varchar',
-	  'length'   => 255,
-	  'not null' => TRUE,
-	  'default'  => ''
-	),
-	'default_schemas_fields'   => array(
-	  'base' => 'type',
-	),
-	'default_views_expose'     => array(),
-	'default_forms_expose'     => array(
-	  'edit' => FALSE
-	),
-	'default_has_revisions'    => FALSE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_callbacks'        => array(),
-	'default_permissions'      => array(),
-	'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
+    'description'              => 'A entity bundle.',
+    'drupal_property'          => 'text',
+    'default_description'      => 'The %entity_type% type.',
+    'default_value'            => '',
+    'default_key'              => 'bundle',
+    'default_schema'           => array(
+      'type'     => 'varchar',
+      'length'   => 255,
+      'not null' => TRUE,
+      'default'  => ''
+    ),
+    'default_schemas_fields'   => array(
+      'base' => 'type',
+    ),
+    'default_views_expose'     => array(),
+    'default_forms_expose'     => array(
+      'edit' => FALSE
+    ),
+    'default_has_revisions'    => FALSE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_callbacks'        => array(),
+    'default_permissions'      => array(),
+    'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
   );
 
   return $info;
@@ -200,14 +200,14 @@ function hook_toolbox_property_type_info() {
 function hook_toolbox_property_widget_info() {
   $info                 = array();
   $info['textfield']    = array(
-	'drupal type'      => 'textfield',
-	'options'          => array(),
-	'multiple allowed' => TRUE,
+    'drupal type'      => 'textfield',
+    'options'          => array(),
+    'multiple allowed' => TRUE,
   );
   $info['text']         = array(
-	'drupal type'      => 'textarea',
-	'options'          => array(),
-	'multiple allowed' => TRUE,
+    'drupal type'      => 'textarea',
+    'options'          => array(),
+    'multiple allowed' => TRUE,
   );
   $info['date']         = array();
   $info['select']       = array();
@@ -234,19 +234,19 @@ function hook_schema_type_info() {
   $info                      = array();
   $info['base']              = 'EntityToolboxBuilderSchemaBase';
   $info['revision']          = array(
-	'name'           => '%entity_type%_revision',
-	'description'    => 'Keeps track of %entity_type% revisions.',
-	'build callback' => 'revision_schema_build',
+    'name'           => '%entity_type%_revision',
+    'description'    => 'Keeps track of %entity_type% revisions.',
+    'build callback' => 'revision_schema_build',
   );
   $info['relation']          = array(
-	'name'           => '%entity_type%_has_%relation_type%',
-	'description'    => 'A relation table between %entity_type% and %relation_type%.',
-	'build callback' => 'relation_schema_build',
+    'name'           => '%entity_type%_has_%relation_type%',
+    'description'    => 'A relation table between %entity_type% and %relation_type%.',
+    'build callback' => 'relation_schema_build',
   );
   $info['relation_revision'] = array(
-	'name'           => '%entity_type%_has_%relation_type%_revision',
-	'description'    => 'Keeps track of %relation_type% relation revisions.',
-	'build callback' => 'relation_revision_schema_build',
+    'name'           => '%entity_type%_has_%relation_type%_revision',
+    'description'    => 'Keeps track of %relation_type% relation revisions.',
+    'build callback' => 'relation_revision_schema_build',
   );
 
   return $info;
@@ -264,24 +264,24 @@ function hook_schema_type_info() {
 function hook_toolbox_callback_type_info() {
   $info           = array();
   $info['create'] = array(
-	'name'    => '%entity_type%_create',
-	'default' => 'entity_toolbox_create',
+    'name'    => '%entity_type%_create',
+    'default' => 'entity_toolbox_create',
   );
   $info['access'] = array(
-	'name'    => '%entity_type%_access',
-	'default' => 'entity_toolbox_access',
+    'name'    => '%entity_type%_access',
+    'default' => 'entity_toolbox_access',
   );
   $info['uri']    = array(
-	'name'    => '%entity_type%_uri',
-	'default' => 'entity_toolbox_uri',
+    'name'    => '%entity_type%_uri',
+    'default' => 'entity_toolbox_uri',
   );
   $info['page']   = array(
-	'name'    => '%entity_type%_page_view',
-	'default' => 'entity_toolbox_page',
+    'name'    => '%entity_type%_page_view',
+    'default' => 'entity_toolbox_page',
   );
   $info['label']  = array(
-	'name'    => '%entity_type%_label',
-	'default' => 'entity_toolbox_label',
+    'name'    => '%entity_type%_label',
+    'default' => 'entity_toolbox_label',
   );
 
   return $info;
@@ -300,9 +300,9 @@ function hook_toolbox_callback_type_info() {
 function hook_toolbox_action_type_info() {
   $info        = array();
   $info['add'] = array(
-	'title'     => 'Add %entity_type%',
-	'path item' => 'add',
-	'path'      => '%entity_path%/add/%wildcard%'
+    'title'     => 'Add %entity_type%',
+    'path item' => 'add',
+    'path'      => '%entity_path%/add/%wildcard%'
   );
 
   return $info;
@@ -319,11 +319,11 @@ function hook_toolbox_action_type_info() {
 function hook_toolbox_class_type_info() {
   $info           = array();
   $info['entity'] = array(
-	'default_name' => '$upper_case_first(%entity_type%)$',
-	'default_path' => '%module_path%/src/classes/entities/',
-	'default_file' => '$upper_case_first(%entity_type%)$',
-	'hook_info'    => 'entity_class_info',
-	'group'        => 'entities'
+    'default_name' => '$upper_case_first(%entity_type%)$',
+    'default_path' => '%module_path%/src/classes/entities/',
+    'default_file' => '$upper_case_first(%entity_type%)$',
+    'hook_info'    => 'entity_class_info',
+    'group'        => 'entities'
   );
 
   return $info;
@@ -342,9 +342,9 @@ function hook_toolbox_class_type_info() {
 function hook_entity_class_info() {
   $info            = array();
   $info['product'] = array(
-	'class' => 'Product',
-	'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/entities/',
-	'file'  => 'Product.inc'
+    'class' => 'Product',
+    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/entities/',
+    'file'  => 'Product.inc'
   );
 
   return $info;
@@ -363,9 +363,9 @@ function hook_entity_class_info() {
 function hook_entity_controller_info() {
   $info            = array();
   $info['product'] = array(
-	'class' => 'ProductController',
-	'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
-	'file'  => 'ProductController.inc'
+    'class' => 'ProductController',
+    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
+    'file'  => 'ProductController.inc'
   );
 
   return $info;
@@ -384,9 +384,9 @@ function hook_entity_controller_info() {
 function hook_entity_ui_controller_info() {
   $info            = array();
   $info['product'] = array(
-	'class' => 'ProductUIController',
-	'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
-	'file'  => 'ProductUIController.inc'
+    'class' => 'ProductUIController',
+    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
+    'file'  => 'ProductUIController.inc'
   );
 
   return $info;
@@ -405,9 +405,9 @@ function hook_entity_ui_controller_info() {
 function hook_entity_inline_form_controller_info() {
   $info            = array();
   $info['product'] = array(
-	'class' => 'ProductInlineFormController',
-	'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
-	'file'  => 'ProductInlineFormController.inc'
+    'class' => 'ProductInlineFormController',
+    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
+    'file'  => 'ProductInlineFormController.inc'
   );
 
   return $info;
@@ -426,20 +426,20 @@ function hook_entity_inline_form_controller_info() {
 function hook_entity_form_type_info() {
   $info           = array();
   $info['edit']   = array(
-	'name'     => '%entity_type%_edit_form',
-	'callback' => 'entity_toolbox_ui_edit_form',
+    'name'     => '%entity_type%_edit_form',
+    'callback' => 'entity_toolbox_ui_edit_form',
   );
   $info['delete'] = array(
-	'name'     => '%entity_type%_delete_form',
-	'callback' => 'entity_toolbox_ui_delete_form',
+    'name'     => '%entity_type%_delete_form',
+    'callback' => 'entity_toolbox_ui_delete_form',
   );
   $info['clone']  = array(
-	'name'     => '%entity_type%_clone_form',
-	'callback' => 'entity_toolbox_ui_clone_form',
+    'name'     => '%entity_type%_clone_form',
+    'callback' => 'entity_toolbox_ui_clone_form',
   );
   $info['import'] = array(
-	'name'     => '%entity_type%_import_form',
-	'callback' => 'entity_toolbox_ui_import_form',
+    'name'     => '%entity_type%_import_form',
+    'callback' => 'entity_toolbox_ui_import_form',
   );
 
   return $info;
@@ -536,8 +536,8 @@ function hook_update_entity_field_settings($entity_type, $bundle, $name) {
 function hook_entity_toolbox_entity_info() {
   $info            = array();
   $info['product'] = array(
-	'fieldable' => TRUE,
-	'group'     => 'catalog',
+    'fieldable' => TRUE,
+    'group'     => 'catalog',
   );
 
   return $info;
@@ -553,10 +553,10 @@ function hook_entity_toolbox_entity_info() {
 function hook_entity_info_builder_info() {
   $info                                = array();
   $info['catalog_entity_info_builder'] = array(
-	'types' => array(
-	  'product_category',
-	  'product'
-	)
+    'types' => array(
+      'product_category',
+      'product'
+    )
   );
 
   return $info;
@@ -579,30 +579,30 @@ function hook_entity_info_builder_info() {
 function hook_entity_resources_info() {
   $info            = array();
   $info['product'] = array(
-	'classes'   => array(
-	  'controllers' => array(
-		'controller'    => array(
-		  'name' => 'ProductController.inc',
-		  'path' => ENTITY_TOOLBOX_PATH . '/Src/classes/controllers/'
-		),
-		'ui controller' => array(
-		  'name' => '',
-		  'path' => ENTITY_TOOLBOX_PATH . '/Src/classes/controllers'
-		)
-	  ),
-	  'entities'    => array(
-		'entity' => array(
-		  'name' => 'Product.inc',
-		  'path' => ENTITY_TOOLBOX_PATH . 'Src/classes/entities'
-		),
-	  ),
-	),
-	'templates' => array(
-	  'page' => array(
-		'name' => 'product.tpl.php',
-		'path' => ENTITY_TOOLBOX_PATH . 'templates/entities/page'
-	  )
-	),
+    'classes'   => array(
+      'controllers' => array(
+        'controller'    => array(
+          'name' => 'ProductController.inc',
+          'path' => ENTITY_TOOLBOX_PATH . '/Src/classes/controllers/'
+        ),
+        'ui controller' => array(
+          'name' => '',
+          'path' => ENTITY_TOOLBOX_PATH . '/Src/classes/controllers'
+        )
+      ),
+      'entities'    => array(
+        'entity' => array(
+          'name' => 'Product.inc',
+          'path' => ENTITY_TOOLBOX_PATH . 'Src/classes/entities'
+        ),
+      ),
+    ),
+    'templates' => array(
+      'page' => array(
+        'name' => 'product.tpl.php',
+        'path' => ENTITY_TOOLBOX_PATH . 'templates/entities/page'
+      )
+    ),
   );
 
   return $info;
@@ -623,7 +623,7 @@ function hook_entity_resources_info() {
  */
 function hook_toolbox_info_process($entity_type, &$info) {
   if ($entity_type == 'foobar') {
-	//do whatever
+    //do whatever
   }
 }
 
@@ -644,7 +644,7 @@ function hook_toolbox_info_process($entity_type, &$info) {
  */
 function hook_toolbox_property_info_process($entity_type, &$info, $name) {
   if ($entity_type == 'foobar') {
-	//do whatever
+    //do whatever
   }
 }
 
@@ -665,14 +665,14 @@ function hook_toolbox_property_info_process($entity_type, &$info, $name) {
 function hook_entity_group_info() {
   $info            = array();
   $info['catalog'] = array(
-	'label'       => t('Catalog'),
-	'description' => t('Catalog entities.'),
-	'path'        => 'admin/hedios/catalog',
-	'classes'     => array(
-	  'group'      => 'Catalog',
-	  'controller' => 'CatalogController'
-	),
-	'entities'    => array()
+    'label'       => t('Catalog'),
+    'description' => t('Catalog entities.'),
+    'path'        => 'admin/hedios/catalog',
+    'classes'     => array(
+      'group'      => 'Catalog',
+      'controller' => 'CatalogController'
+    ),
+    'entities'    => array()
   );
 
   return $info;
@@ -687,12 +687,12 @@ function hook_entity_group_info() {
  */
 function hook_entity_group_attach_info() {
   $info = array(
-	'product_category',
-	'product_family',
-	'product_line',
-	'product_pack',
-	'product',
-	'product_share'
+    'product_category',
+    'product_family',
+    'product_line',
+    'product_pack',
+    'product',
+    'product_share'
   );
 
   return array_fill_keys($info, array('group' => 'catalog'));
@@ -710,9 +710,9 @@ function hook_entity_group_attach_info() {
 function hook_entity_toolbox_field_category_group_info() {
   $info                       = array();
   $info['catalog_attributes'] = array(
-	'label'        => t('Catalog attribute field categories'),
-	'description'  => t('A short description'),
-	'entity group' => 'catalog',
+    'label'        => t('Catalog attribute field categories'),
+    'description'  => t('A short description'),
+    'entity group' => 'catalog',
   );
 
   return $info;
@@ -730,9 +730,9 @@ function hook_entity_toolbox_field_category_group_info() {
 function hook_entity_toolbox_field_category_info() {
   $info              = array();
   $info['technical'] = array(
-	'label'       => t('Technical'),
-	'description' => t('A category for technical data, such as an ISIN code, etc...'),
-	'group'       => 'catalog_attributes'
+    'label'       => t('Technical'),
+    'description' => t('A category for technical data, such as an ISIN code, etc...'),
+    'group'       => 'catalog_attributes'
   );
 
   return $info;
@@ -754,7 +754,7 @@ function hook_entity_toolbox_field_category_info() {
  */
 function hook_type_ENTITY_TYPE_edit_form__alter(&$form, &$form_state, $entity_type, $entity) {
   if ($entity_type == 'foobar') {
-	//do whatever
+    //do whatever
   }
 }
 
@@ -774,7 +774,7 @@ function hook_type_ENTITY_TYPE_edit_form__alter(&$form, &$form_state, $entity_ty
  */
 function hook_type_ENTITY_TYPE_delete_form__alter(&$form, &$form_state, $entity_type, $entity) {
   if ($entity_type == 'foobar') {
-	//do whatever
+    //do whatever
   }
 }
 
@@ -792,7 +792,7 @@ function hook_type_ENTITY_TYPE_delete_form__alter(&$form, &$form_state, $entity_
  */
 function hook_type_ENTITY_TYPE_inline_entity_form__alter(&$form, &$form_state, $entity_type, $entity) {
   if ($entity_type == 'foobar') {
-	//do whatever
+    //do whatever
   }
 }
 
@@ -816,7 +816,7 @@ function hook_type_ENTITY_TYPE_inline_entity_form__alter(&$form, &$form_state, $
  */
 function hook_property_attach_form($entity_type, $entity, $name, &$form, &$form_state, $langcode = NULL, $options = array()) {
   if ($entity_type == 'foobar') {
-	//do whatever
+    //do whatever
   }
 }
 
@@ -832,7 +832,7 @@ function hook_property_attach_form($entity_type, $entity, $name, &$form, &$form_
  */
 function hook_entity_skip_load($entity_type, $entity) {
   if ($entity_type == 'foobar') {
-	return TRUE;
+    return TRUE;
   }
 }
 
@@ -850,7 +850,7 @@ function hook_entity_skip_load($entity_type, $entity) {
  */
 function hook_entity_property_skip_load($entity_type, $entity, $name) {
   if ($entity_type == 'foobar') {
-	return TRUE;
+    return TRUE;
   }
 }
 
@@ -868,7 +868,7 @@ function hook_entity_property_skip_load($entity_type, $entity, $name) {
  */
 function hook_entity_field_skip_load($entity_type, $entity, $name) {
   if ($entity_type == 'foobar') {
-	return TRUE;
+    return TRUE;
   }
 }
 
@@ -892,7 +892,7 @@ function hook_entity_field_skip_load($entity_type, $entity, $name) {
  */
 function hook_property_element_alter(&$element, $entity_type, $entity, $name, $form_id, $widget = NULL, $options = array()) {
   if (in_array($name, array_keys(entity_toolbox_get_inherited_properties($entity_type)))) {
-	//do whatever
+    //do whatever
   }
 }
 
@@ -915,7 +915,7 @@ function hook_property_element_alter(&$element, $entity_type, $entity, $name, $f
  */
 function hooh_property_attach_form_validate($entity_type, $entity, $name, $form, &$form_state) {
   if (empty($entity->$name)) {
-	return FALSE;
+    return FALSE;
   }
 }
 
@@ -936,6 +936,6 @@ function hooh_property_attach_form_validate($entity_type, $entity, $name, $form,
  */
 function hook_property_validate($entity_type, $entity, $name, $value) {
   if (empty($entity->$name)) {
-	return FALSE;
+    return FALSE;
   }
 }
