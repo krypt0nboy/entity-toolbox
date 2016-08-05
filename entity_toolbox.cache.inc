@@ -71,7 +71,7 @@ define('ENTITY_TOOLBOX__CLASS_TYPE_INFO', 'class_type_info');
 /**
  * Cache cid for toolbox entity info.
  * @see hook_entity_toolbox_entity_info().
- * @see entity_toolbox_entity_get_info().
+ * @see entity_toolbox_get_info().
  */
 define('ENTITY_TOOLBOX__ENTITY_INFO', 'entity_info');
 

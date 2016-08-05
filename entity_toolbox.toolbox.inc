@@ -308,48 +308,6 @@ function entity_toolbox_entity_callback_type_get_info($type = NULL) {
 }
 
 /**
- * Returns the entities action types.
- *
- * @param null $action
- *   The action type name.
- *
- * @return array
- *
- * @see hook_toolbox_action_type_info().
- */
-function entity_toolbox_entity_action_type_get_info($action = NULL) {
-  $HOOK     = 'entity_action_type_info';
-  $CACHEKEY = ENTITY_TOOLBOX__ACTION_TYPE_INFO;
-
-  /**
-   * Cached since used very often.
-   */
-  static $drupal_static_fast;
-  if (!isset($drupal_static_fast)) {
-    $drupal_static_fast['entity_action_type_info'] = &drupal_static(__FUNCTION__);
-  }
-
-  $entity_action_type_info = &$drupal_static_fast['entity_action_type_info'];
-  if (empty($entity_action_type_info)) {
-    if ($cache = entity_toolbox_cache_get($CACHEKEY)) {
-      $entity_action_type_info = $cache->data;
-    }
-    else {
-      $types = array();
-      $data  = module_invoke_all($HOOK);
-      drupal_alter($HOOK, $data);
-      foreach ($data as $name => $info) {
-        $types[$name] = $info;
-      }
-      $entity_action_type_info = $types;
-      entity_toolbox_cache_set($CACHEKEY, $entity_action_type_info);
-    }
-  }
-
-  return isset($action) ? $entity_action_type_info[$action] : $entity_action_type_info;
-}
-
-/**
  * Returns a module entity_toolbox settings, declared in the module's info file.
  *
  * @param string $module
@@ -391,14 +349,6 @@ function entity_toolbox_module_api_get_info($module) {
 }
 
 /**
- * @param $entity_type
- * renamed function for entity_toolbox_entity_get_info
- * @return array
- */
-function entity_toolbox_get_info($entity_type) {
-}
-
-/**
  * Returns entities info declared through entity_toolbox.
  *
  * @param null|string $entity_type
@@ -413,29 +363,31 @@ function entity_toolbox_get_info($entity_type) {
  *
  * @return array
  */
-function entity_toolbox_entity_get_info($entity_type = NULL, $update_N = NULL, $reset = FALSE) {
-  $HOOK     = 'entity_toolbox_entity_info';
+function entity_toolbox_get_info($entity_type = NULL, $update_N = NULL, $reset = FALSE) {
+  /** @var string $HOOK */
+  $HOOK = 'entity_toolbox_info';
+  /** @var string $CACHEKEY */
   $CACHEKEY = ENTITY_TOOLBOX__ENTITY_INFO;
 
   /**
-   * We cache entity_toolbox_entity_info since its used very often.
+   * Cached since used very often.
    */
   static $drupal_static_fast;
   if (!isset($drupal_static_fast)) {
-    $drupal_static_fast['entity_toolbox_entity_info'] = &drupal_static(__FUNCTION__);
+    $drupal_static_fast['entity_toolbox_info'] = &drupal_static(__FUNCTION__);
   }
 
   if ($reset) {
     entity_toolbox_cache_clear_all();
-    $entity_toolbox_entity_info = NULL;
+    $entity_toolbox_info = NULL;
   }
   else {
-    $entity_toolbox_entity_info = &$drupal_static_fast['entity_toolbox_entity_info'];
+    $entity_toolbox_info = &$drupal_static_fast['entity_toolbox_info'];
   }
 
-  if (empty($entity_toolbox_entity_info)) {
+  if (empty($entity_toolbox_info)) {
     if (($cache = entity_toolbox_cache_get($CACHEKEY)) && (!$reset)) {
-      $entity_toolbox_entity_info = $cache->data;
+      $entity_toolbox_info = $cache->data;
     }
     else {
       $data    = array();
@@ -462,21 +414,21 @@ function entity_toolbox_entity_get_info($entity_type = NULL, $update_N = NULL, $
       foreach ($data as $type => $info) {
         $processed[$type] = entity_toolbox_info_build($type, $info);
       }
-      $entity_toolbox_entity_info = $processed;
-      entity_toolbox_cache_set($CACHEKEY, $entity_toolbox_entity_info);
+      $entity_toolbox_info = $processed;
+      entity_toolbox_cache_set($CACHEKEY, $entity_toolbox_info);
     }
   }
 
   if (isset($entity_type)) {
     if ($reset) {
-      return !empty($entity_toolbox_entity_info[$entity_type]) ? $entity_toolbox_entity_info[$entity_type] : NULL;
+      return !empty($entity_toolbox_info[$entity_type]) ? $entity_toolbox_info[$entity_type] : NULL;
     }
     else {
-      return !empty($entity_toolbox_entity_info[$entity_type]) ? $entity_toolbox_entity_info[$entity_type] : entity_toolbox_entity_get_info($entity_type, $update_N, TRUE);
+      return !empty($entity_toolbox_info[$entity_type]) ? $entity_toolbox_info[$entity_type] : entity_toolbox_get_info($entity_type, $update_N, TRUE);
     }
   }
   else {
-    return $entity_toolbox_entity_info;
+    return $entity_toolbox_info;
   }
 }
 
@@ -488,7 +440,7 @@ function entity_toolbox_entity_get_classes_info($entity_type = NULL) {
 }
 
 /**
- * Returns the generated schema.
+ * Returns a cached built schema.
  * Caching generated schemas is more reliable and avoids performance losses.
  *
  * @param null|string $entity_type
@@ -498,7 +450,7 @@ function entity_toolbox_entity_get_classes_info($entity_type = NULL) {
  *
  * @return array
  */
-function entity_toolbox_entity_get_schema($entity_type = NULL, $reset = FALSE) {
+function entity_toolbox_get_schema($entity_type = NULL, $reset = FALSE) {
   $CACHEKEY = ENTITY_TOOLBOX__ENTITY_SCHEMA;
 
   /**
@@ -519,7 +471,7 @@ function entity_toolbox_entity_get_schema($entity_type = NULL, $reset = FALSE) {
     }
     else {
       $buffer = array();
-      foreach (entity_toolbox_entity_get_info() as $type => $info) {
+      foreach (entity_toolbox_get_info() as $type => $info) {
         foreach (entity_schemas_build($type) as $schemas) {
           foreach ($schemas as $schema_name => $schema) {
             $buffer[$type][$schema_name] = $schema;
@@ -532,65 +484,6 @@ function entity_toolbox_entity_get_schema($entity_type = NULL, $reset = FALSE) {
   }
 
   return isset($entity_type) ? $entity_schema[$entity_type] : $entity_schema;
-}
-
-/**
- * Returns the entities resources info, such as classes files, templates, views, etc...
- *
- * @param null|string $entity_type
- *   The entity type for which to return the info, or NULL to return info for every type.
- *
- * @return array
- *
- * @see hook_entity_resources_info().
- */
-function entity_toolbox_entity_resources_get_info($entity_type = NULL) {
-  $HOOK     = 'entity_resources_info';
-  $CACHEKEY = ENTITY_TOOLBOX__ENTITY_RESOURCES_INFO;
-
-  /**
-   * We cache entity_toolbox_entity_info since its used very often.
-   */
-  static $drupal_static_fast;
-  if (!isset($drupal_static_fast)) {
-    $drupal_static_fast['entity_resources_info'] = &drupal_static(__FUNCTION__);
-  }
-  $entity_resources_info = &$drupal_static_fast['entity_resources_info'];
-  if (empty($entity_resources_info)) {
-    if ($cache = entity_toolbox_cache_get($CACHEKEY)) {
-      $entity_resources_info = $cache->data;
-    }
-    else {
-      $toolbox_info = entity_toolbox_entity_get_info();
-      $resources    = array();
-      $data         = module_invoke_all($HOOK);
-      drupal_alter($HOOK, $data);
-      //Retrieves the entity types for which no resource info was provided.
-      $not_provided = array_diff(array_keys($toolbox_info), array_keys($data));
-      /**
-       * @var string $type
-       *   The entity type matching the info returned.
-       * @var array  $info
-       *   The info retrieved.
-       */
-      foreach ($data as $type => $info) {
-        //@todo add process_resource_type_info().
-        //@todo add hook_entity_toolbox_resource_type_info().
-        $resources[$type] = $info;
-      }
-      /**
-       * @var string $n
-       *   The entity type which the info was not provided.
-       */
-      foreach ($not_provided as $n) {
-        $resources[$n] = entity_resource_default_build($n);
-      }
-      $entity_resources_info = $resources;
-      entity_toolbox_cache_set($CACHEKEY, $entity_resources_info);
-    }
-  }
-
-  return isset($entity_type) ? $entity_resources_info[$entity_type] : $entity_resources_info;
 }
 
 /**
@@ -649,7 +542,7 @@ function entity_toolbox_entity_group_get_info($group = NULL) {
  *
  * @return array
  *
- * @see hook_entity_group_attach_info().
+ * @see hook_group_attach_info().
  */
 function entity_toolbox_entity_group_attach_get_info($group = NULL) {
   $CACHEKEY = ENTITY_TOOLBOX__ENTITY_GROUP_ATTACH_INFO;
@@ -798,7 +691,7 @@ function entity_toolbox_entity_parent_properties_get_info($entity_type = NULL) {
     }
     else {
       $parents = array();
-      foreach (entity_toolbox_entity_get_info() as $type => $info) {
+      foreach (entity_toolbox_get_info() as $type => $info) {
         foreach ($info['properties'] as $prop_name => $property) {
           if ($property['type'] == 'parent') {
             //The key is the property name and the value is the parent entity_type.
@@ -839,7 +732,7 @@ function entity_toolbox_inheritable_property_get_info($entity_type = NULL) {
     }
     else {
       $inheritable = array();
-      foreach (entity_toolbox_entity_get_info() as $type => $info) {
+      foreach (entity_toolbox_get_info() as $type => $info) {
         foreach ($info['children_inherit'] as $inherit) {
           $inheritable[$type][] = $inherit;
         }
@@ -878,7 +771,7 @@ function entity_toolbox_inherited_property_get_info($entity_type = NULL) {
     }
     else {
       $inherited = array();
-      foreach (entity_toolbox_entity_get_info() as $type => $info) {
+      foreach (entity_toolbox_get_info() as $type => $info) {
         $buffer = array();
         /**
          * @var string $prop_name
@@ -935,7 +828,7 @@ function entity_toolbox_inheritable_field_get_info($entity_type = NULL, $bundle 
     }
     else {
       $inheritable = array();
-      foreach (entity_toolbox_entity_get_info() as $type => $info) {
+      foreach (entity_toolbox_get_info() as $type => $info) {
         foreach (entity_get_types($type) as $bnd) {
           foreach (field_info_instances($type, $bnd) as $field_info_instance) {
             if (isset($field_info_instance['settings']['toolbox']['inherit'])) {
@@ -993,7 +886,7 @@ function entity_toolbox_inherited_field_get_info($entity_type = NULL, $bundle = 
     else {
       $inherited   = array();
       $inheritable = entity_toolbox_inheritable_field_get_info();
-      foreach (entity_toolbox_entity_get_info() as $type => $info) {
+      foreach (entity_toolbox_get_info() as $type => $info) {
         /**
          * @var string $b
          *   A bundle of $type.
@@ -1033,7 +926,7 @@ function entity_toolbox_inherited_field_get_info($entity_type = NULL, $bundle = 
  *
  * @return array
  */
-function entity_toolbox_entity_edit_form_alter_get_info() {
+function entity_toolbox_edit_form_alter_get_info() {
   $calls = &drupal_static(__FUNCTION__, NULL);
   if (empty($calls)) {
     $regexp    = '/^(?P<module>.+)_type_(?P<entity_type>.+)_edit_form__alter$/';
@@ -1054,7 +947,7 @@ function entity_toolbox_entity_edit_form_alter_get_info() {
  *
  * @return array
  */
-function entity_toolbox_entity_delete_form_alter_get_info() {
+function entity_toolbox_delete_form_alter_get_info() {
   $calls = &drupal_static(__FUNCTION__, NULL);
   if (empty($calls)) {
     $regexp    = '/^(?P<module>.+)_type_(?P<entity_type>.+)_delete_form__alter$/';
@@ -1075,7 +968,7 @@ function entity_toolbox_entity_delete_form_alter_get_info() {
  *
  * @return array
  */
-function entity_toolbox_entity_inline_form_alter_get_info() {
+function entity_toolbox_inline_form_alter_get_info() {
   $calls = &drupal_static(__FUNCTION__, NULL);
   if (empty($calls)) {
     $regexp    = '/^(?P<module>.+)_type_(?P<entity_type>.+)_inline_entity_form__alter/';

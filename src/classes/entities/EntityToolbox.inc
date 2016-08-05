@@ -15,7 +15,7 @@ class EntityToolbox extends Entity {
    * Toolbox info retrieved and processed by entity toolbox.
    *
    * @see hook_entity_toolbox_entity_info().
-   * @see entity_toolbox_entity_get_info().
+   * @see entity_toolbox_get_info().
    */
   protected $toolboxInfo;
 
@@ -23,7 +23,7 @@ class EntityToolbox extends Entity {
    * @var string $entityGroup
    *   The entity group.
    *
-   * @see hook_entity_group_attach_info().
+   * @see hook_group_attach_info().
    */
   protected $entityGroup;
 
@@ -46,7 +46,7 @@ class EntityToolbox extends Entity {
    */
   public function setUp() {
     parent::setUp();
-    $this->toolboxInfo = entity_toolbox_entity_get_info($this->entityType);
+    $this->toolboxInfo = entity_toolbox_get_info($this->entityType);
     $this->entityGroup = $this->toolboxInfo['group'];
   }
 

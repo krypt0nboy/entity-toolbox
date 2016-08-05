@@ -221,7 +221,7 @@ function entity_toolbox_property_element_alter($entity_type, $entity, $name, $fo
  *   The form options.
  */
 function properties_attach_form_validate($entity_type, $entity, &$form, &$form_state, $options = array()) {
-  foreach (entity_toolbox_entity_get_info($entity_type)['properties'] as $name => $property) {
+  foreach (entity_toolbox_get_info($entity_type)['properties'] as $name => $property) {
     property_attach_form_validate($entity_type, $entity, $form, $form_state, $options);
   }
 }
@@ -262,7 +262,7 @@ function property_attach_form_validate($entity_type, $entity, $property, $form, 
  *   The form options.
  */
 function properties_attach_form_submit($entity_type, $entity, &$form, &$form_state, $options = array()) {
-  foreach (entity_toolbox_entity_get_info($entity_type)['properties'] as $name => $property) {
+  foreach (entity_toolbox_get_info($entity_type)['properties'] as $name => $property) {
     property_attach_form_submit($entity_type, $entity, $form, $form_state, $options);
   }
 }

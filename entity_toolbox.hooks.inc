@@ -140,7 +140,7 @@ function _property_attach_form_validate($entity_type, $entity, $name, &$form, &$
  */
 function _entity_edit_form__alter(&$form, &$form_state, $entity_type, $entity) {
   $hook = '_edit_form__alter';
-  foreach (entity_toolbox_entity_edit_form_alter_get_info() as $module => $form_alters) {
+  foreach (entity_toolbox_edit_form_alter_get_info() as $module => $form_alters) {
     if (in_array($entity_type, $form_alters)) {
       $function = $module . '_type_' . $entity_type . $hook;
       $function($form, $form_state, $entity_type, $entity);
@@ -164,7 +164,7 @@ function _entity_edit_form__alter(&$form, &$form_state, $entity_type, $entity) {
  */
 function _entity_delete_form__alter(&$form, &$form_state, $entity_type, $entity) {
   $hook = '_delete_form__alter';
-  foreach (entity_toolbox_entity_delete_form_alter_get_info() as $module => $form_alters) {
+  foreach (entity_toolbox_delete_form_alter_get_info() as $module => $form_alters) {
     if (in_array($entity_type, $form_alters)) {
       $function = $module . '_type_' . $entity_type . $hook;
       $function($form, $form_state, $entity_type, $entity);
@@ -188,7 +188,7 @@ function _entity_delete_form__alter(&$form, &$form_state, $entity_type, $entity)
  */
 function _entity_inline_entity_form__alter(&$form, &$form_state, $entity_type, $entity) {
   $hook = '_inline_entity_form__alter';
-  foreach (entity_toolbox_entity_inline_form_alter_get_info() as $module => $form_alters) {
+  foreach (entity_toolbox_inline_form_alter_get_info() as $module => $form_alters) {
     if (in_array($entity_type, $form_alters)) {
       $function = $module . '_type_' . $entity_type . $hook;
       $function($form, $form_state, $entity_type, $entity);

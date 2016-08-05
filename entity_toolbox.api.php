@@ -11,9 +11,10 @@
  *
  * Entity toolbox allows to easily create and manage entities.
  *
- * The module is based on two main concepts :
- * - Entities groups
- * - Heritage
+ * The module offers the following features :
+ *  - Auto hook data building
+ *  - Entity groups
+ *  - Behavior and properties heritage
  */
 
 /**
@@ -39,6 +40,195 @@ function hook_entity_toolbox_cache_info() {
 }
 
 /**
+ * Returns an array containing info to declare an entity_type.
+ * Foreach fieldable entity type, should be declared a non fieldable entity_type.
+ *
+ * @return array
+ *   An associative array where the keys are the entity types and whose values are :
+ *   - fieldable : Whether the entity type is fieldable or not.
+ *   - entity_type : (optional) The entity type.
+ *   - has_revisions : (optional) Whether the entity has revisions or not.
+ *   - has_translations : (optional) Whether the entity type properties can be translated.
+ *   - exportable : (optional) Whether the entity type can be exported.
+ *   - tables : (optional) An associative array where the keys are the tables type and the values are the tables name.
+ *   - bundle_entity : (optional) The bundle entity for a fieldable entity type.
+ *   - bundle_of : (optional) The bundle entity for a fieldable entity type.
+ *   - module : (optional) The module managing this entity.
+ *   - labels : (optional) An array containing the entity type labels.
+ *     - single : (optional) The single label.
+ *     - plural : (optional) The plural label.
+ *   - classes : (optional) An array containing the classes required to handle the entities :
+ *     - entities : (optional) The entity classes, having to provide at least "entity" as the default entity class, and additional classes foreach bundle.
+ *     - controllers : (optional) The entity controllers.
+ *   - callbacks : (optional) An associative array whose keys are the callback type and values are the callbacks themselves :
+ *   - properties : (optional) An associative array where the keys are the property name and the values are :
+ *    - type : (optional) The property type. For a list of available types @see toolbox_property_types().
+ *    - reference : (optional) If the type is reference|parent, the entity type of the reference entity.
+ *    - serialize : (optional) A boolean indicating if a multi value reference should be serialized rather than stored in a relation table. Will be implemented in a further version of the module.
+ *    - multiple : (optional) If a reference is multi value or not.
+ *    - key : (optional) The property key name.
+ *    - label : (optional) The property label, often used in edit_form and views.
+ *    - description : (optional) The property description, often used in edit_form and views.
+ *    - has_revisions : (optional) A boolean indicating if the property should be added to the revision table.
+ *    - has_translations : (optional) A boolean indicating if the property is translatable.
+ *    - schemas_fields : (optional) A associative array where the keys are the schema types and the values are the matching field within that schema.
+ *    - callbacks : (optional) An associative array where the keys are the callback types and the values the callbacks themselves :
+ *     - getter : (optional)A custom getter for the property.
+ *     - setter : (optional)A custom setter for the property.
+ *     - validation : (optional)A custom validation callback for this property.
+ *     - access : (optional)A custom access callback for this property.
+ *     - default : (optional)A callback to return a default value when not set, arguments passed are the entity_type.
+ *    - expose : (optional) An array indicating where the property should be exposed.
+ *     - forms : (optional)
+ *    - field : (optional) An array with the form field settings and parameters for a property.
+ *   - keys : (optional) An associative array where the keys are the properties keys and the values their matching schema fields.
+ *   - children inherit : (optional) An array whose values are the properties to be inherited by children entities.
+ *   - group : (optional) The entity group.
+ *
+ * @see entity_toolbox_get_info().
+ * @see hook_entity_toolbox_info_alter().
+ * @see hook_entity_toolbox_ENTITY_TYPE_properties_update_N().
+ * @see hook_entity_toolbox_entity_group_attach_info().
+ * @see hook_entity_toolbox_field_category_group_info().
+ * @see toolbox_property_types().
+ */
+function hook_entity_toolbox_info() {
+  $info                 = array();
+  $info['product']      = array(
+    'fieldable'        => TRUE,
+    'entity_type'      => 'product',
+    'has_revisions'    => TRUE,
+    'has_translations' => TRUE,
+    'exportable'       => FALSE,
+    'tables'           => array(
+      'base'     => 'product',
+      'revision' => 'product_revision',
+      'relation' => array(
+        'product_shares' => 'product_has_product_shares'
+      ),
+    ),
+    'bundle_entity'    => 'product_type',
+    'module'           => 'product',
+    'labels'           => array(
+      'single' => t('Product'),
+      'plural' => t('Products'),
+    ),
+    'classes'          => array(
+      'entity'        => '',
+      'controller'    => '',
+      'ui_controller' => '',
+    ),
+    'properties'       => array(
+      'product_id' => array(
+        'type'             => '',
+        'reference'        => '',
+        'multiple'         => '',
+        'serialize'        => '',
+        'key'              => '',
+        'has_revisions'    => '',
+        'has_translations' => '',
+        'label'            => '',
+        'description'      => '',
+        'schemas_fields'   => array(),
+        'callbacks'        => array(),
+        'expose'           => array(
+          'forms' => array()
+        ),
+        'forms'            => array(
+          'edit' => array()
+        )
+      ),
+    ),
+    'callbacks'        => array(
+      'create' => '',
+      'save'   => '',
+      'delete' => '',
+      'access' => '',
+      'label'  => '',
+      'uri'    => '',
+    ),
+    'operations'       => array(
+      'add'     => TRUE,
+      'delete'  => TRUE,
+      'preview' => FALSE,
+    ),
+    'keys'             => array(
+      'id' => 'product_id',
+    ),
+    'children_inherit' => array(
+      'status',
+    ),
+    'group'            => 'catalog',
+  );
+  $info['product_type'] = array(
+    'fieldable'        => FALSE,
+    'entity_type'      => 'product_type',
+    'has_revisions'    => FALSE,
+    'has_translations' => FALSE,
+    'exportable'       => TRUE,
+    'tables'           => array(
+      'base' => 'product_type',
+    ),
+    'module'           => 'product',
+    'labels'           => array(
+      'single' => t('Product type'),
+      'plural' => t('Product types'),
+    ),
+    'classes'          => array(
+      'entity'        => '',
+      'controller'    => '',
+      'ui_controller' => '',
+    ),
+    'properties'       => array(
+      'id' => array(
+        'type'                => 'id',
+        'label'               => t('Product_type ID'),
+        'description'         => t('The product_type ID'),
+        'schemas_fields_name' => array(
+          'base' => 'id'
+        ),
+        'schemas_fields'      => array(
+          'base' => array(
+            'type'        => 'int',
+            'description' => 'The product_type unique identifier.',
+            'serial'      => TRUE,
+          )
+        ),
+        'callbacks'           => array(),
+        'expose'              => array(
+          'forms' => array()
+        ),
+        'forms'               => array(
+          'edit' => array()
+        )
+      ),
+    ),
+    'callbacks'        => array(
+      'create' => '',
+      'save'   => '',
+      'delete' => '',
+      'access' => '',
+      'label'  => '',
+      'uri'    => '',
+    ),
+    'operations'       => array(
+      'add'     => TRUE,
+      'delete'  => TRUE,
+      'preview' => FALSE,
+    ),
+    'keys'             => array(
+      'id' => 'product_id',
+    ),
+    'children_inherit' => array(
+      'status',
+    ),
+    'group'            => 'catalog',
+  );
+
+  return $info;
+}
+
+/**
  * Registers a hook to process and generate code for.
  *
  * @return array
@@ -58,7 +248,7 @@ function hook_hook_register_info() {
       'entity_type'      => array('type' => 'string', 'default' => '%entity_type%'),
       'has_translations' => array('type' => 'bool'),
       'has_revisions'    => array('type' => 'bool'),
-      'is_exportable'    => array('type' => 'bool'),
+      'exportable'       => array('type' => 'bool'),
       'bundle_entity'    => array('type' => 'string', 'default' => '%entity_type%_type'),
       'bundle_of'        => array('type' => 'string', 'builder' => 'BundleOf'),
       'module'           => array('type' => 'string'),
@@ -106,83 +296,24 @@ function hook_hook_register_info() {
  *
  * @return array
  *   An associative array whose keys are the property type name and the values are :
- *   - description : A short description about the property type.
- *   - default_description : (optional) A default description template.
- *   - drupal_property : The data type as allowed by drupal.
- *   - drupal_property_callback : (optional) If "drupal_property" is unset, a callback to return the drupal property data type.
- *     To be used for reference and parent properties.
- *   - default_value : (optional) The default value when the entity property value is empty and none was set in hook_entity_toolbox_entity_info().
- *   - default_is_unique : (optional) A boolean indicating if the property should be unique.
- *   - default_key : (optional) The default key name.
- *   - default_schema : An array used to build the property schema field.
- *   - default_widget : (optional) The property type default widget.
- *   - default_views_expose : (optional) An array to indicate if the property type is by default exposed in views.
- *   - default_forms_expose : (optional) An array to indicate if the property type is by default exposed in the entities form types (edit, delete, clone, etc...)
- *   - default_has_revisions : (optional) A boolean indicating if the property type has by default revisions.
- *   - default_has_translations : (optional) A boolean indicating if the property type is by default translatable.
- *   - default_multiple : (optional) A boolean indicating if the property type is by default multi value.
- *   - default_callbacks : (optional) An array of default callbacks to be passed to hook_entity_property_info() & hook_entity_property_info_alter().
- *   - default_permissions : (optional) An array of permissions to be passed to hook_entity_property_info() & hook_entity_property_info_alter().
- *   - default_views_handlers : (optional) A callable function to retrieve the property type default views handlers.
+ *   - default : An array to store the default values for this property type :
+ *    - name :
+ *    - value :
+ *    - has_revisions :
+ *    - has_translations :
+ *    - key_name :
+ *    - is_multiple :
+ *    - callbacks :
+ *    - drupal_property :
+ *    - label :
+ *    - description :
+ *    - callbacks :
+ *    - permissions :
  */
 function hook_toolbox_property_type_info() {
   $info           = array();
-  $info['id']     = array(
-    'description'              => 'An entity unique identifier property.',
-    'drupal_property'          => 'decimal',
-    'default_label'            => '%entity_type% ID',
-    'default_description'      => 'The %entity_type% ID.',
-    'default_value'            => 0,
-    'default_is_unique'        => TRUE,
-    'default_key'              => 'id',
-    'default_schema'           => array(
-      'base' => array(
-        'type'     => 'int',
-        'not null' => TRUE,
-        'unsigned' => TRUE,
-        'default'  => 0,
-      )
-    ),
-    'default_schemas_fields'   => array(
-      'base'     => '%entity_type%_id',
-      'revision' => '%entity_type%_id',
-    ),
-    'default_views_expose'     => array(),
-    'default_forms_expose'     => array(
-      'edit' => FALSE
-    ),
-    'default_required'         => array(),
-    'default_has_revisions'    => FALSE,
-    'default_has_translations' => FALSE,
-    'default_multiple'         => FALSE,
-    'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
-  );
-  $info['bundle'] = array(
-    'description'              => 'A entity bundle.',
-    'drupal_property'          => 'text',
-    'default_description'      => 'The %entity_type% type.',
-    'default_value'            => '',
-    'default_key'              => 'bundle',
-    'default_schema'           => array(
-      'type'     => 'varchar',
-      'length'   => 255,
-      'not null' => TRUE,
-      'default'  => ''
-    ),
-    'default_schemas_fields'   => array(
-      'base' => 'type',
-    ),
-    'default_views_expose'     => array(),
-    'default_forms_expose'     => array(
-      'edit' => FALSE
-    ),
-    'default_has_revisions'    => FALSE,
-    'default_has_translations' => FALSE,
-    'default_multiple'         => FALSE,
-    'default_callbacks'        => array(),
-    'default_permissions'      => array(),
-    'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
-  );
+  $info['id']     = array();
+  $info['bundle'] = array();
 
   return $info;
 }
@@ -198,22 +329,8 @@ function hook_toolbox_property_type_info() {
  *   - multiple allowed :
  */
 function hook_toolbox_property_widget_info() {
-  $info                 = array();
-  $info['textfield']    = array(
-    'drupal type'      => 'textfield',
-    'options'          => array(),
-    'multiple allowed' => TRUE,
-  );
-  $info['text']         = array(
-    'drupal type'      => 'textarea',
-    'options'          => array(),
-    'multiple allowed' => TRUE,
-  );
-  $info['date']         = array();
-  $info['select']       = array();
-  $info['checkbox']     = array();
-  $info['radio']        = array();
-  $info['autocomplete'] = array();
+  $info              = array();
+  $info['textfield'] = array();
 
   return $info;
 }
@@ -232,22 +349,10 @@ function hook_toolbox_property_widget_info() {
  */
 function hook_schema_type_info() {
   $info                      = array();
-  $info['base']              = 'EntityToolboxBuilderSchemaBase';
-  $info['revision']          = array(
-    'name'           => '%entity_type%_revision',
-    'description'    => 'Keeps track of %entity_type% revisions.',
-    'build callback' => 'revision_schema_build',
-  );
-  $info['relation']          = array(
-    'name'           => '%entity_type%_has_%relation_type%',
-    'description'    => 'A relation table between %entity_type% and %relation_type%.',
-    'build callback' => 'relation_schema_build',
-  );
-  $info['relation_revision'] = array(
-    'name'           => '%entity_type%_has_%relation_type%_revision',
-    'description'    => 'Keeps track of %relation_type% relation revisions.',
-    'build callback' => 'relation_revision_schema_build',
-  );
+  $info['base']              = 'ValueSchemaBuilderBase';
+  $info['revision']          = 'ValueSchemaBuilderRevision';
+  $info['relation']          = 'ValueSchemaBuilderRelation';
+  $info['relation_revision'] = 'ValueSchemaBuilderRelationRevision';
 
   return $info;
 }
@@ -282,27 +387,6 @@ function hook_toolbox_callback_type_info() {
   $info['label']  = array(
     'name'    => '%entity_type%_label',
     'default' => 'entity_toolbox_label',
-  );
-
-  return $info;
-}
-
-/**
- * Declares an action type, to act on an entity.
- * Action info is used by EntityToolboxUIController to build menu items.
- *
- * @return array
- *   An associative array where the keys are the action type name and the values are :
- *   - title : The title of the action, used both for menu links and buttons.
- *   - path item : The isolated path item for this action.
- *   - path : The path model for this action.
- */
-function hook_toolbox_action_type_info() {
-  $info        = array();
-  $info['add'] = array(
-    'title'     => 'Add %entity_type%',
-    'path item' => 'add',
-    'path'      => '%entity_path%/add/%wildcard%'
   );
 
   return $info;
@@ -462,88 +546,6 @@ function hook_update_entity_field_settings($entity_type, $bundle, $name) {
 }
 
 /**
- * Returns an array containing info to declare an entity_type.
- * Foreach fieldable entity type, should be declared a non fieldable entity_type.
- *
- * @return array
- *   An associative array where the keys are the entity types and whose values are :
- *   - entity_type : The entity type.
- *   - base table : (optional) The base table for this entity type.
- *   - revision table : (optional) The table to store revisions.
- *   - has_revisions : Whether the entity type has revisions or not.
- *   - has_translations : Whether the entity type properties can be translated.
- *   - fieldable : Whether the entity type is fieldable or not.
- *   - exportable : Whether the entity type can be exported.
- *    - defaults : FALSE if entity is fieldable, TRUE if entity is not fieldable.
- *   - tables : (optional) An array of the tables required by the entity type, at the exception of "base table" and "revision table".
- *   - bundle_entity : (optional) The bundle entity for a fieldable entity type.
- *   - module : The module managing this entity.
- *   - paths : An array of paths used to manage the entities :
- *     - root : The root path of an entity type.
- *     - admin : The relative path to administer the entities.
- *     - manage : The relative path to edit an entity.
- *   - labels : (optional) An array containing the entity type labels.
- *     - single : The single label.
- *     - plural : The plural label.
- *   - classes : An array containing the classes required to handle the entities :
- *     - entities : The entity classes, having to provide at least "entity" as the default entity class, and additional classes foreach bundle.
- *     - controllers : The entity controllers.
- *   - callbacks : (optional) An associative array whose keys are the callback type and values are the callbacks themselves :
- *    - create : The entity creation callback.
- *    - access : The entity access callback.
- *    - uri : The entity uri callback.
- *    - label : The entity title callback.
- *    - page : The entity page view callback.
- *   - properties : An associative array where the keys are the property name and the values are :
- *    - type : The property type. For a list of available types @see toolbox_property_types().
- *    - reference : (optional) If the type is reference|parent, the entity type of the reference entity.
- *    - serialize : (optional) A boolean indicating if a multi value reference should be serialized rather than stored in a relation table. Will be implemented in a further version of the module.
- *    - multiple : (optional) If a reference is multi value or not.
- *    - limit : (optional) The number of values allowed when multi value.
- *    - key : The property key.
- *    - label : The property label, often used in edit_form and views.
- *    - description : The property description, often used in edit_form and views.
- *    - required :
- *    - has_revisions : (optional) A boolean indicating if the property should be added to the revision table.
- *    - has_translations : (optional) A boolean indicating if the property is translatable.
- *    - schemas : (optional) An associative array where the keys are schema types and the values are the matching schemas names.
- *    - schemas_fields : (optional) A associative array where the keys are the schema types and the values are the matching field within that schema.
- * @see hook_schema_type_info().
- *    - callbacks : (optional) An associative array where the keys are the callback types and the values the callbacks themselves :
- *     - getter : A custom getter for the property.
- *     - setter : A custom setter for the property.
- *     - validation : A custom validation callback for this property.
- *     - access : A custom access callback for this property.
- *     - default : A callback to return a default value when not set, arguments passed are the entity_type.
- *    - permissions : (optional)
- *    - expose : (optional) An array indicating where the property should be exposed.
- *     - forms : (optional)
- *     - views : A boolean indicating if a property should be exposed to the admin view.
- *    - field : (optional) An array with the form field settings and parameters for a property.
- *     - widget : (optional) The default widget to access the property in a form.
- *     - multiple : (optional) A boolean indicating if the fields accepts multiple values.
- *   - keys : (optional) An associative array where the keys are the properties keys and the values their matching schema fields.
- *   - children inherit : (optional) An array whose values are the properties to be inherited by children entities.
- *   - group : (optional) The entity group.
- *
- * @see entity_toolbox_entity_get_info().
- * @see hook_entity_toolbox_entity_info_alter().
- * @see hook_entity_toolbox_ENTITY_TYPE_properties_update_N().
- * @see hook_entity_toolbox_entity_group_attach_info().
- * @see hook_entity_toolbox_field_category_group_info().
- * @see toolbox_property_types().
- */
-function hook_entity_toolbox_entity_info() {
-  $info            = array();
-  $info['product'] = array(
-    'fieldable' => TRUE,
-    'group'     => 'catalog',
-  );
-
-  return $info;
-}
-
-/**
  * Declares an entity info builder.
  *
  * @return array
@@ -563,52 +565,6 @@ function hook_entity_info_builder_info() {
 }
 
 /**
- * Provides information on where to find the object resources, such as controllers, templates, etc...
- *
- * @return array
- *   An associative array where the keys are the resource types and the values are :
- *    - classes : An associative array where the keys are the classes types :
- *     - controllers : An associative array where the keys are the controllers class names and the values are :
- *       - class : The entity controller class.
- *       - path : The path to access the class.
- *     - entities : An associative array where the keys are the entity class names and the values are :
- *       - class : The entity controller class.
- *       - path : The path to access the class.
- *    - templates :
- */
-function hook_entity_resources_info() {
-  $info            = array();
-  $info['product'] = array(
-    'classes'   => array(
-      'controllers' => array(
-        'controller'    => array(
-          'name' => 'ProductController.inc',
-          'path' => ENTITY_TOOLBOX_PATH . '/Src/classes/controllers/'
-        ),
-        'ui controller' => array(
-          'name' => '',
-          'path' => ENTITY_TOOLBOX_PATH . '/Src/classes/controllers'
-        )
-      ),
-      'entities'    => array(
-        'entity' => array(
-          'name' => 'Product.inc',
-          'path' => ENTITY_TOOLBOX_PATH . 'Src/classes/entities'
-        ),
-      ),
-    ),
-    'templates' => array(
-      'page' => array(
-        'name' => 'product.tpl.php',
-        'path' => ENTITY_TOOLBOX_PATH . 'templates/entities/page'
-      )
-    ),
-  );
-
-  return $info;
-}
-
-/**
  * Acts on an entity info being process by entity toolbox.
  * This hook is invoked right before properties info are being processed.
  * Unlike "alter", this hook is here to allow other modules to add information to toolbox_info, not to alter existing data.
@@ -618,7 +574,7 @@ function hook_entity_resources_info() {
  * @param array  $info
  *   The entity info built and processed by entity_toolbox, passed by reference.
  *
- * @see entity_toolbox_entity_get_info().
+ * @see entity_toolbox_get_info().
  * @see _toolbox_info_process().
  */
 function hook_toolbox_info_process($entity_type, &$info) {
@@ -639,7 +595,7 @@ function hook_toolbox_info_process($entity_type, &$info) {
  * @param string $name
  *   The property being processed.
  *
- * @see entity_toolbox_entity_get_info().
+ * @see entity_toolbox_get_info().
  * @see _toolbox_property_info_process().
  */
 function hook_toolbox_property_info_process($entity_type, &$info, $name) {
@@ -685,7 +641,7 @@ function hook_entity_group_info() {
  *   An associative array where the keys are the entity types and whose values :
  *   - group : The group to attach the entity type to.
  */
-function hook_entity_group_attach_info() {
+function hook_group_attach_info() {
   $info = array(
     'product_category',
     'product_family',
@@ -913,7 +869,7 @@ function hook_property_element_alter(&$element, $entity_type, $entity, $name, $f
  *
  * @return bool
  */
-function hooh_property_attach_form_validate($entity_type, $entity, $name, $form, &$form_state) {
+function hook_property_attach_form_validate($entity_type, $entity, $name, $form, &$form_state) {
   if (empty($entity->$name)) {
     return FALSE;
   }

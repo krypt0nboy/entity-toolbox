@@ -11,7 +11,7 @@ class EntityToolboxController extends EntityAPIController {
    * Toolbox info retrieved and processed by entity toolbox.
    *
    * @see hook_entity_toolbox_entity_info().
-   * @see entity_toolbox_entity_get_info().
+   * @see entity_toolbox_get_info().
    */
   protected $toolboxInfo;
 
@@ -54,7 +54,7 @@ class EntityToolboxController extends EntityAPIController {
    */
   public function __construct($entity_type) {
     parent::__construct($entity_type);
-    $this->toolboxInfo = entity_toolbox_entity_get_info($this->entityType);
+    $this->toolboxInfo = entity_toolbox_get_info($this->entityType);
     $this->setInheritableProperties();
     $this->setInheritedProperties();
   }

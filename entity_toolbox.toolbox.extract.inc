@@ -7,40 +7,6 @@
  */
 
 /**
- * Extract the keys from entity info.
- *
- * @param array  $info
- *   The entity type info.
- * @param string $entity_type
- *   The entity type name.
- *
- * @return array
- */
-function toolbox_info_extract_keys($info, $entity_type) {
-  $keys       = array();
-  $properties = &$info['properties'];
-  foreach ($properties as $name => $property) {
-    if (!empty($property['schemas_field_names']['base'])) {
-      switch ($property['type']) {
-        case 'id':
-          $keys['id'] = $property['schemas_field_names']['base'];
-          break;
-        case 'bundle':
-          $keys['bundle'] = $property['schemas_field_names']['base'];
-          break;
-        default :
-          if (!empty($property['key'])) {
-            $keys[$property['key']] = $property['schemas_field_names']['base'];
-          }
-          break;
-      }
-    }
-  }
-
-  return $keys;
-}
-
-/**
  * Extracts the schemas names for an entity type.
  *
  * @param array  $info
@@ -75,7 +41,7 @@ function toolbox_info_extract_schemas($info, $entity_type) {
 function toolbox_info_extract_schema_fields($entity_type, $schema_type = 'base') {
   $schemas = &drupal_static(__FUNCTION__, array());
   if (!isset($schemas[$entity_type])) {
-    $info       = entity_toolbox_entity_get_info($entity_type);
+    $info       = entity_toolbox_get_info($entity_type);
     $properties = $info[$entity_type]['properties'];
     foreach ($properties as $name => $property) {
       if (!empty($property['schemas_fields'][$schema_type])) {
@@ -100,7 +66,7 @@ function toolbox_info_extract_schema_fields($entity_type, $schema_type = 'base')
  * @return string
  */
 function toolbox_property_extract_schema_field($entity_type, $name, $schema_type = 'base') {
-  $info = entity_toolbox_entity_get_info($entity_type);
+  $info = entity_toolbox_get_info($entity_type);
 
   return $info['properties'][$name]['schemas_field_names'][$schema_type];
 }

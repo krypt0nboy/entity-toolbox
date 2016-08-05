@@ -23,17 +23,16 @@ define('ENTITY_TOOLBOX_DB__INSTALLED', 'installed_entities');
 define('ENTITY_TOOLBOX_DB__CACHE', 'cache_entity_toolbox');
 
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.toolbox');
+module_load_include('inc', 'entity_toolbox', 'entity_toolbox.cache');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.toolbox.build');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.toolbox.extract');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.themes');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.hooks');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.functions');
-module_load_include('inc', 'entity_toolbox', 'entity_toolbox.property_default');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.forms.functions');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.format');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.entities');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.controllers');
-module_load_include('inc', 'entity_toolbox', 'entity_toolbox.cache');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.build');
 module_load_include('inc', 'entity_toolbox', 'entity_toolbox.admin');
 
@@ -44,7 +43,7 @@ function entity_toolbox_menu() {
   $items                                         = array();
   $items['admin/config/entity_toolbox']          = array(
     'title'            => t('Entity toolbox'),
-    'description'      => t('Entity Toolbox.'),
+    'description'      => t('Entity Toolbox'),
     'type'             => MENU_NORMAL_ITEM,
     'page callback'    => 'system_admin_menu_block_page',
     'access arguments' => array('access administration pages'),
@@ -529,22 +528,11 @@ function entity_toolbox_toolbox_property_widget_info() {
  * Implements hook_schema_type_info().
  */
 function entity_toolbox_schema_type_info() {
-  $info             = array();
-  $info['base']     = array(
-    'name'           => '%entity_type%',
-    'description'    => 'The base table for %entity_type% entities.',
-    'build callback' => 'base_schema_build',
-  );
-  $info['revision'] = array(
-    'name'           => '%entity_type%_revision',
-    'description'    => 'The base table for %entity_type% entities.',
-    'build callback' => 'revision_schema_build',
-  );
-  $info['relation'] = array(
-    'name'           => '%entity_type%_has_%relation_type%',
-    'description'    => 'A relation table between %entity_type% and %relation_type%.',
-    'build callback' => 'relation_schema_build',
-  );
+  $info                      = array();
+  $info['base']              = array();
+  $info['revision']          = array();
+  $info['relation']          = array();
+  $info['relation_revision'] = array();
 
   return $info;
 }
@@ -579,35 +567,6 @@ function entity_toolbox_toolbox_callback_type_info() {
 }
 
 /**
- * Implements hook_toolbox_action_type_info().
- */
-function entity_toolbox_toolbox_action_type_info() {
-  $info           = array();
-  $info['add']    = array(
-    'title'     => 'Add %entity_type%',
-    'path item' => 'add',
-    'path'      => '%entity_path%/%entity_id%/add'
-  );
-  $info['edit']   = array(
-    'title'     => 'Edit %entity_type%',
-    'path item' => 'edit',
-    'path'      => '%entity_path%/%entity_id%/edit'
-  );
-  $info['view']   = array(
-    'title'     => 'View %entity_type%',
-    'path item' => 'view',
-    'path'      => '%entity_path%/%entity_id%/view'
-  );
-  $info['delete'] = array(
-    'title'     => 'Delete %entity_type%',
-    'path item' => 'delete',
-    'path'      => '%entity_path%/%entity_id%/delete'
-  );
-
-  return $info;
-}
-
-/**
  * Implements hook_modules_installed().
  */
 function entity_toolbox_modules_installed($modules) {
@@ -621,18 +580,4 @@ function entity_toolbox_modules_installed($modules) {
 function entity_toolbox_field_create_instance($instance) {
   //Clear the cache that needs to be cleared when this hook is invoked.
   _toolbox_cache_clear('field_create_instance');
-}
-
-/**
- * Implements hook_form_alter().
- */
-function entity_toolbox_form_field_ui_field_edit_form_alter(&$form, &$form_state) {
-  field_heritage_settings_attach($form, $form_state);
-}
-
-/**
- * Implements @see hook_theme_registry_alter().
- */
-function entity_toolbox_theme($existing, $type, $theme, $path) {
-
 }

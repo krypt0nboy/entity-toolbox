@@ -21,7 +21,7 @@ function theme_entity_add_list($variables) {
     $output .= "</dl>";
   }
   else {
-    $toolbox_info  = entity_toolbox_entity_get_info($entity_type);
+    $toolbox_info  = entity_toolbox_get_info($entity_type);
     $bundle_entity = $toolbox_info['bundle entity'];
     $message       = t(
       "Entities cannot be added because you have not created any types yet. Go to the <a href=\"@create-entity-type\">$entity_type type creation page</a> to add a new type.",

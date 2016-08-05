@@ -54,4 +54,5 @@ function entity_toolbox_install() {
   //setting variables for default entity form settings
   variable_set('ajax_enabled', TRUE);
   variable_set('notifications_enabled', TRUE);
+  variable_set('cache_enabled', FALSE);
 }

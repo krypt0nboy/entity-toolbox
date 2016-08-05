@@ -42,7 +42,7 @@ function entity_bundle($entity) {
 function entity_author($entity) {
   //@todo add entity_type_is_entity_toolbox()
   $entity_type = $entity->entityType();
-  if (in_array($entity_type, entity_toolbox_entity_get_info())) {
+  if (in_array($entity_type, entity_toolbox_get_info())) {
     $controller = entity_toolbox_controller($entity_type);
 
     return $controller->author($entity);
@@ -63,7 +63,7 @@ function entity_author($entity) {
 function entity_author_id($entity) {
 //@todo add entity_type_is_entity_toolbox()
   $entity_type = $entity->entityType();
-  if (in_array($entity_type, entity_toolbox_entity_get_info())) {
+  if (in_array($entity_type, entity_toolbox_get_info())) {
     $controller = entity_toolbox_controller($entity_type);
 
     return $controller->authorUid($entity);
@@ -93,97 +93,6 @@ function entity_wrapper($entity) {
  */
 function toolbox_property_types() {
   return array_keys(entity_toolbox_property_type_get_info());
-}
-
-/**
- * Defaults views handlers for a numeric property.
- * References that are not multi value should use those default handlers as well.
- *
- * @return array
- */
-function toolbox_numeric_property_default_views_handlers() {
-  return array(
-    'field'    => array(
-      'handler'        => 'views_handler_field_numeric',
-      'click sortable' => TRUE
-    ),
-    'filter'   => array('handler' => 'views_handler_field_numeric'),
-    'sort'     => array('handler' => 'views_handler_field_numeric'),
-    'argument' => array('handler' => 'views_handler_field_numeric'),
-  );
-}
-
-/**
- * Defaults views handlers for a string property.
- *
- * @return array
- */
-function toolbox_string_property_default_views_handlers() {
-  return array(
-    'field'    => array(
-      'handler'        => 'views_handler_field',
-      'click sortable' => TRUE
-    ),
-    'filter'   => array('handler' => 'views_handler_filter_string'),
-    'sort'     => array('handler' => 'views_handler_sort'),
-    'argument' => array('handler' => 'views_handler_argument_string'),
-  );
-}
-
-/**
- * Default views handlers for a boolean property.
- *
- * @return array
- */
-function toolbox_boolean_property_default_views_handlers() {
-  return array(
-    'field'    => array(
-      'handler'        => 'views_handler_field_boolean',
-      'click sortable' => TRUE
-    ),
-    'filter'   => array(
-      'handler'   => 'views_handler_field_boolean_operator',
-      'type'      => 'yes-no',
-      'use equal' => TRUE,
-    ),
-    'sort'     => array('handler' => 'views_handler_sort'),
-    'argument' => array('handler' => 'views_handler_argument_string'),
-  );
-}
-
-/**
- * Default views handlers for a date property.
- * Can be used for any date related property.
- *
- * @return array
- */
-function toolbox_date_property_default_views_handlers() {
-  return array(
-    'field'  => array(
-      'handler'        => 'views_handler_field_date',
-      'click sortable' => TRUE
-    ),
-    'filter' => array('handler' => 'views_handler_filter_date'),
-    'sort'   => array('handler' => 'views_handler_sort_date'),
-  );
-}
-
-/**
- * Default views handlers for a serialized property.
- *
- * @return array
- */
-function toolbox_serialized_property_default_views_handlers() {
-  return array('field' => array('handler' => 'views_handler_field_serialized'));
-}
-
-/**
- * Default views handlers for an entity property.
- *
- * @return array
- */
-function toolbox_entity_property_default_views_handlers() {
-  return array('field' => array('handler' => 'views_handler_field_entity'));
 }
 
 /**
@@ -249,30 +158,9 @@ function toolbox_multiple2drupal_multiple($type) {
  * @return string
  */
 function toolbox_reference_type($entity_type, $name) {
-  $property = entity_toolbox_entity_get_info($entity_type)['properties'][$name];
+  $property = entity_toolbox_get_info($entity_type)['properties'][$name];
 
   return $property['reference'];
-}
-
-/**
- * Returns the processed name for an entity schema.
- *
- * @param string $type
- *   The schema type.
- * @param string $entity_type
- *   The entity type.
- *
- * @return string
- */
-function toolbox_schema_type_process_name($type, $entity_type) {
-  $schema_info = entity_toolbox_schema_type_get_info($type);
-  $string      = $schema_info['name'];
-  $wildcards   = string_extract_wildcards($schema_info['name']);
-  //add variables
-
-  $variables = array();
-
-  return string_replace_tokens($string, $wildcards, $variables);
 }
 
 /**
@@ -286,7 +174,7 @@ function toolbox_schema_type_process_name($type, $entity_type) {
 function toolbox_entity_get_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $toolbox_info          = entity_toolbox_get_info($entity_type);
     $classes[$entity_type] = $toolbox_info['classes']['entities']['entity'];
   }
 
@@ -304,7 +192,7 @@ function toolbox_entity_get_class($entity_type) {
 function toolbox_entity_get_controller_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $toolbox_info          = entity_toolbox_get_info($entity_type);
     $classes[$entity_type] = $toolbox_info['classes']['controllers']['controller'];
   }
 
@@ -322,7 +210,7 @@ function toolbox_entity_get_controller_class($entity_type) {
 function toolbox_entity_get_ui_controller_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $toolbox_info          = entity_toolbox_get_info($entity_type);
     $classes[$entity_type] = $toolbox_info['classes']['controllers']['ui'];
   }
 
@@ -340,45 +228,11 @@ function toolbox_entity_get_ui_controller_class($entity_type) {
 function toolbox_entity_get_inline_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $toolbox_info          = entity_toolbox_get_info($entity_type);
     $classes[$entity_type] = $toolbox_info['classes']['controllers']['inline'];
   }
 
   return $classes[$entity_type];
-}
-
-/**
- * Returns an entity type class file name and path.
- *
- * @param string $entity_type
- *   The entity type.
- * @param string $group
- *   The class group (controllers, entities, etc...)
- * @param string $type
- *   The class type (entity, controller, ui, etc...)
- *
- * @return array
- */
-function toolbox_entity_get_class_resource($entity_type, $group, $type) {
-  $resources = entity_toolbox_entity_resources_get_info($entity_type)['classes'];
-
-  return $resources[$group][$type];
-}
-
-/**
- * Returns an entity type templates file names and paths.
- *
- * @param string $entity_type
- *   The entity type.
- * @param string $type
- *   The template type.
- *
- * @return array
- */
-function toolbox_entity_get_template_resources($entity_type, $type) {
-  $resources = entity_toolbox_entity_resources_get_info($entity_type)['templates'];
-
-  return $resources[$type];
 }
 
 /**
@@ -392,7 +246,7 @@ function toolbox_entity_get_template_resources($entity_type, $type) {
  * @return array
  */
 function toolbox_relation_extract_parameters($entity_type, $name) {
-  $toolbox_info     = entity_toolbox_entity_get_info($entity_type);
+  $toolbox_info     = entity_toolbox_get_info($entity_type);
   $property         = $toolbox_info['properties'][$name];
   $rel_schema_field = $property['schemas_fields']['relation'];
 
@@ -414,7 +268,7 @@ function toolbox_relation_extract_parameters($entity_type, $name) {
  * @return string
  */
 function entity_get_path($entity_type, $alias) {
-  $toolbox_info = entity_toolbox_entity_get_info($entity_type);
+  $toolbox_info = entity_toolbox_get_info($entity_type);
 
   if ($alias == 'root') {
     return $toolbox_info['paths']['root'];
@@ -429,104 +283,6 @@ function entity_get_path($entity_type, $alias) {
 
     return $path;
   }
-}
-
-/**
- * Returns an entity type admin path.
- *entity_toolbox_
- * @param string $entity_type
- *   The entity type.
- *
- * @return string
- */
-function entity_admin_path($entity_type) {
-  $toolbox_info = entity_toolbox_entity_get_info($entity_type);
-
-  return $toolbox_info['paths']['root'] . '/' . $toolbox_info['paths']['admin'];
-}
-
-/**
- * Returns an entity type action path, such as edit, add, etc...
- *
- * @param string $entity_type
- *   The entity type.
- * @param string $action
- *   The action type.
- *
- * @return string
- */
-function entity_action_path($entity_type, $action) {
-
-  //@todo either pre process and store the processed paths or process it on the fly.
-}
-
-/**
- * Returns the edit path of an entity.
- *
- * @param int|\EntityToolbox $entity
- *   The entity.
- * @param string             $entity_type
- *   The entity type.
- *
- * @return string
- */
-function entity_edit_path($entity, $entity_type) {
-  $entity      = is_numeric($entity) ? entity_load_single($entity_type, $entity) : $entity;
-  $action_info = entity_toolbox_entity_action_type_get_info('edit');
-  $string      = $action_info['path'];
-  $wildcards   = string_extract_wildcards($action_info['path']);
-  $variables   = array(
-    'entity_path' => $entity->path(),
-    'wildcard'    => $entity->toolboxInfo(),
-  );
-
-  return string_replace_tokens($string, $wildcards, $variables);
-}
-
-/**
- * Returns the view path of an entity.
- *
- * @param int|\EntityToolbox $entity
- *   The entity.
- * @param string             $entity_type
- *   The entity type.
- *
- * @return string
- */
-function entity_view_path($entity, $entity_type) {
-  $entity      = is_numeric($entity) ? entity_load_single($entity_type, $entity) : $entity;
-  $action_info = entity_toolbox_entity_action_type_get_info('view');
-  $string      = $action_info['path'];
-  $wildcards   = string_extract_wildcards($action_info['path']);
-  $variables   = array(
-    'entity_path' => $entity->path(),
-    'wildcard'    => $entity->toolboxInfo(),
-  );
-
-  return string_replace_tokens($string, $wildcards, $variables);
-}
-
-/**
- * Returns the delete path of an entity.
- *
- * @param int|\EntityToolbox $entity
- *   The entity.
- * @param string             $entity_type
- *   The entity type.
- *
- * @return string
- */
-function entity_delete_path($entity, $entity_type) {
-  $entity      = is_numeric($entity) ? entity_load_single($entity_type, $entity) : $entity;
-  $action_info = entity_toolbox_entity_action_type_get_info('delete');
-  $string      = $action_info['path'];
-  $wildcards   = string_extract_wildcards($action_info['path']);
-  $variables   = array(
-    'entity_path' => $entity->path(),
-    'wildcard'    => $entity->toolboxInfo(),
-  );
-
-  return string_replace_tokens($string, $wildcards, $variables);
 }
 
 /**
@@ -600,79 +356,6 @@ function entity_default_callback_format($entity_type, $type) {
 }
 
 /**
- * Returns the default entity class for entities managed by entity_toolbox.
- *
- * @param bool   $fieldable
- *   If the entity type is fieldable.
- * @param string $class
- *   The class provided as default in hook_entity_toolbox_entity_info().
- *
- * @return string
- *
- * @see hook_entity_toolbox_entity_info().
- * @see entity_info_build().
- */
-function entity_valid_class($fieldable, $class = NULL) {
-  $toolbox_default = $fieldable ? 'EntityToolboxFieldableEntity' : 'EntityToolboxNotFieldableEntity';
-
-  return class_exists($class) ? $class : $toolbox_default;
-}
-
-/**
- * Returns the default entity controller for entities managed by entity_toolbox.
- *
- * @param bool   $fieldable
- *   If the entity type is fieldable.
- * @param string $controller
- *   The controller provided as default in hook_entity_toolbox_entity_info().
- *
- * @return string
- *
- * @see hook_entity_toolbox_entity_info().
- * @see entity_info_build().
- */
-function entity_valid_controller($fieldable, $controller = NULL) {
-  $toolbox_default = $fieldable ? 'EntityToolboxFieldableEntityController' : 'EntityToolboxNotFieldableEntityController';
-
-  return class_exists($controller) ? $controller : $toolbox_default;
-}
-
-/**
- * Returns the default entity controller for entities managed by entity_toolbox.
- *
- * @param bool   $fieldable
- *   If the entity type is fieldable.
- * @param string $controller
- *   The ui controller provided as default in hook_entity_toolbox_entity_info().
- *
- * @return string
- *
- * @see hook_entity_toolbox_entity_info().
- * @see entity_info_build().
- */
-function entity_ui_valid_controller($fieldable, $controller = NULL) {
-  $toolbox_default = $fieldable ? 'EntityToolboxFieldableUIController' : 'EntityToolboxNotFieldableUIController';
-
-  return class_exists($controller) ? $controller : $toolbox_default;
-}
-
-/**
- * Returns the default entity inline form controller for entities managed by entity_toolbox.
- *
- * @param string $controller
- *   The inline form controller provided as default in hook_entity_toolbox_entity_info().
- *
- * @return string
- *
- * @see hook_entity_toolbox_entity_info().
- * @see entity_info_build().
- */
-function entity_inline_form_valid_controller($controller = NULL) {
-
-  return class_exists($controller) ? $controller : 'EntityToolboxInlineEntityFormController';
-}
-
-/**
  * Returns the form type of a form.
  * Eg : "my_entity_edit_form" is a form of type "edit".
  * Base types are :
@@ -703,7 +386,7 @@ function entity_form_type($form_id) {
  * @return array
  */
 function reference_entity_info($entity_type) {
-  $toolbox_info = entity_toolbox_entity_get_info();
+  $toolbox_info = entity_toolbox_get_info();
 
   return in_array($entity_type, array_keys($toolbox_info)) ? $toolbox_info[$entity_type] : entity_get_info($entity_type);
 }

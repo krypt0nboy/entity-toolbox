@@ -18,7 +18,7 @@
  * @return \EntityToolboxUIController
  */
 function entity_toolbox_ui_controller($entity_type) {
-  if (in_array($entity_type, entity_toolbox_entity_get_info())) {
+  if (in_array($entity_type, entity_toolbox_get_info())) {
     return entity_ui_controller($entity_type);
   }
 }

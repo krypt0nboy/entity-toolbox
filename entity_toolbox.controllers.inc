@@ -21,7 +21,7 @@
 function entity_toolbox_controller($entity_type, $bundle = NULL) {
   $controllers = &drupal_static(__FUNCTION__, array());
   if (!isset($controllers[$entity_type])) {
-    $type_info = entity_toolbox_entity_get_info($entity_type);
+    $type_info = entity_toolbox_get_info($entity_type);
     $class     = $type_info['classes']['controllers']['controller'];
     /** @var \EntityToolboxController */
     //@todo handle bundle controllers.
@@ -39,7 +39,7 @@ function entity_toolbox_controller($entity_type, $bundle = NULL) {
  *
  * @return \string[]
  */
-function entity_toolbox_get_inheritable_properties($entity_type) {
+function entity_get_inheritable_properties($entity_type) {
   return entity_toolbox_controller($entity_type)->inheritableProperties();
 }
 
@@ -51,7 +51,7 @@ function entity_toolbox_get_inheritable_properties($entity_type) {
  *
  * @return \array[]
  */
-function entity_toolbox_get_inherited_properties($entity_type) {
+function entity_get_inherited_properties($entity_type) {
   return entity_toolbox_controller($entity_type)->inheritedProperties();
 }
 
@@ -65,7 +65,7 @@ function entity_toolbox_get_inherited_properties($entity_type) {
  *
  * @return array
  */
-function entity_toolbox_get_inheritable_fields($entity_type, $bundle) {
+function entity_get_inheritable_fields($entity_type, $bundle) {
   /** @var \FieldableEntityToolboxController $controller */
   $controller = entity_toolbox_controller($entity_type);
 
@@ -82,7 +82,7 @@ function entity_toolbox_get_inheritable_fields($entity_type, $bundle) {
  *
  * @return array
  */
-function entity_toolbox_get_inherited_fields($entity_type, $bundle) {
+function entity_get_inherited_fields($entity_type, $bundle) {
   /** @var \FieldableEntityToolboxController $controller */
   $controller = entity_toolbox_controller($entity_type);
 
@@ -99,6 +99,6 @@ function entity_toolbox_get_inherited_fields($entity_type, $bundle) {
  *
  * @return bool
  */
-function entity_toolbox_is_property_multi_value($entity_type, $name) {
+function is_property_multi_value($entity_type, $name) {
   return entity_toolbox_controller($entity_type)->isPropertyMultiValue($name);
 }
