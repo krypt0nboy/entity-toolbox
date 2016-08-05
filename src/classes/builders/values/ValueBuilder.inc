@@ -63,15 +63,15 @@ class ValueBuilder extends BuilderBase {
    *   The variables to be accessed by string_process_template when processing the default value.
    */
   public function __construct($entityType = NULL, $tableKey = NULL, array $rawData = array(), $defaultValue = NULL, $defaultValueIsTemplate = NULL, array $templateVariables = array()) {
-	parent::__construct($entityType, $rawData);
-	if (!isset($tableKey)) {
-	  //throw exception
-	}
-	$this->tableKey = $tableKey;
-	if (isset($defaultValue)) {
-	  $this->defaultValue           = $defaultValue;
-	  $this->defaultValueIsTemplate = isset($defaultValueIsTemplate) ? $defaultValueIsTemplate : preg_match('/%\w+%/', $defaultValue);
-	}
+    parent::__construct($entityType, $rawData);
+    if (!isset($tableKey)) {
+      //throw exception
+    }
+    $this->tableKey = $tableKey;
+    if (isset($defaultValue)) {
+      $this->defaultValue           = $defaultValue;
+      $this->defaultValueIsTemplate = isset($defaultValueIsTemplate) ? $defaultValueIsTemplate : preg_match('/%\w+%/', $defaultValue);
+    }
   }
 
   /**
@@ -80,9 +80,9 @@ class ValueBuilder extends BuilderBase {
    * @return mixed
    */
   public function build() {
-	$this->processedValueData = $this->valueIsNull() ? NULL : $this->buildDefault();
+    $this->processedValueData = $this->valueIsNull() ? NULL : $this->buildDefault();
 
-	return $this->processedValueData;
+    return $this->processedValueData;
   }
 
   /**
@@ -91,7 +91,7 @@ class ValueBuilder extends BuilderBase {
    * @return mixed
    */
   protected function buildDefault() {
-	return $this->defaultValueIsTemplate ? string_template_process($this->defaultValue, $this->templateVariables) : $this->defaultValue;
+    return $this->defaultValueIsTemplate ? string_template_process($this->defaultValue, $this->templateVariables) : $this->defaultValue;
   }
 
   /**
@@ -100,7 +100,7 @@ class ValueBuilder extends BuilderBase {
    * @return bool
    */
   protected function valueIsNull() {
-	return $this->rawData[$this->tableKey] === FALSE;
+    return $this->rawData[$this->tableKey] === FALSE;
   }
 }
 

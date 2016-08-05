@@ -31,12 +31,12 @@ class HookBuilder extends BuilderBase {
    * @throws EntityToolboxException
    */
   public function __construct($hook = NULL, $entityType = NULL, array $rawData = array()) {
-	parent::__construct($entityType, $rawData);
-	if (!isset($hook)) {
-	  throw new HookNameNotProvided();
-	}
-	$this->hook     = $hook;
-	$this->hookInfo = entity_toolbox_hook_get_info($this->hook);
+    parent::__construct($entityType, $rawData);
+    if (!isset($hook)) {
+      throw new HookNameNotProvided();
+    }
+    $this->hook     = $hook;
+    $this->hookInfo = entity_toolbox_hook_get_info($this->hook);
   }
 
   /** {{@inheritdoc}} */

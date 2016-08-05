@@ -11,10 +11,10 @@ module_load_include('inc', 'entity_toolbox_test', 'entity_toolbox_test.test');
 function entity_toolbox_test_menu() {
   $items                                     = array();
   $items['admin/config/entity_toolbox/test'] = array(
-	'title'            => 'Entity Toolbox test page',
-	'type'             => MENU_NORMAL_ITEM,
-	'page callback'    => 'entity_toolbox_test',
-	'access arguments' => array('access site configuration'),
+    'title'            => 'Entity Toolbox test page',
+    'type'             => MENU_NORMAL_ITEM,
+    'page callback'    => 'entity_toolbox_test',
+    'access arguments' => array('access site configuration'),
   );
 
   return $items;

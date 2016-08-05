@@ -20,21 +20,21 @@ function toolbox_info_extract_keys($info, $entity_type) {
   $keys       = array();
   $properties = &$info['properties'];
   foreach ($properties as $name => $property) {
-	if (!empty($property['schemas_field_names']['base'])) {
-	  switch ($property['type']) {
-		case 'id':
-		  $keys['id'] = $property['schemas_field_names']['base'];
-		  break;
-		case 'bundle':
-		  $keys['bundle'] = $property['schemas_field_names']['base'];
-		  break;
-		default :
-		  if (!empty($property['key'])) {
-			$keys[$property['key']] = $property['schemas_field_names']['base'];
-		  }
-		  break;
-	  }
-	}
+    if (!empty($property['schemas_field_names']['base'])) {
+      switch ($property['type']) {
+        case 'id':
+          $keys['id'] = $property['schemas_field_names']['base'];
+          break;
+        case 'bundle':
+          $keys['bundle'] = $property['schemas_field_names']['base'];
+          break;
+        default :
+          if (!empty($property['key'])) {
+            $keys[$property['key']] = $property['schemas_field_names']['base'];
+          }
+          break;
+      }
+    }
   }
 
   return $keys;
@@ -51,11 +51,11 @@ function toolbox_info_extract_keys($info, $entity_type) {
  * @return string[]
  */
 function toolbox_info_extract_schemas($info, $entity_type) {
-  $buffer  = array();
+  $buffer = array();
   foreach ($info['properties'] as $name => $property) {
-	foreach ($property['schemas'] as $schema_type => $schema_name) {
-	  $buffer[$schema_name] = $schema_type;
-	}
+    foreach ($property['schemas'] as $schema_type => $schema_name) {
+      $buffer[$schema_name] = $schema_type;
+    }
   }
   $schemas = array_unique($buffer);
 
@@ -75,13 +75,13 @@ function toolbox_info_extract_schemas($info, $entity_type) {
 function toolbox_info_extract_schema_fields($entity_type, $schema_type = 'base') {
   $schemas = &drupal_static(__FUNCTION__, array());
   if (!isset($schemas[$entity_type])) {
-	$info       = entity_toolbox_entity_get_info($entity_type);
-	$properties = $info[$entity_type]['properties'];
-	foreach ($properties as $name => $property) {
-	  if (!empty($property['schemas_fields'][$schema_type])) {
-		$schemas[$entity_type][$name] = $property['schemas_fields'][$schema_type];
-	  }
-	}
+    $info       = entity_toolbox_entity_get_info($entity_type);
+    $properties = $info[$entity_type]['properties'];
+    foreach ($properties as $name => $property) {
+      if (!empty($property['schemas_fields'][$schema_type])) {
+        $schemas[$entity_type][$name] = $property['schemas_fields'][$schema_type];
+      }
+    }
   }
 
   return $schemas[$entity_type];

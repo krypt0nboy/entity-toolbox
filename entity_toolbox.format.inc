@@ -20,12 +20,12 @@ function entity_type2entity_label($entity_type) {
   $split = explode('_', $entity_type);
   $count = count($split);
   for ($i = 0; $i < $count; $i++) {
-	if ($i == 0) {
-	  $label .= ucfirst($split[0]) . ' ';
-	}
-	else {
-	  $label .= ($i + 1) == $count ? $split[$i] : $split[$i] . ' ';
-	}
+    if ($i == 0) {
+      $label .= ucfirst($split[0]) . ' ';
+    }
+    else {
+      $label .= ($i + 1) == $count ? $split[$i] : $split[$i] . ' ';
+    }
   }
 
   return $label;
@@ -44,37 +44,37 @@ function entity_type2entity_label_plural($entity_type) {
   $label = '';
   $split = explode('_', $entity_type);
   switch (substr(end($split), (strlen(end($split)) - 1), 1)) {
-	case 's':
-	  $end = end($split) . 'es';
-	  break;
-	case 'y':
-	  $end = substr_replace(end($split), 'ies', (strlen(end($split)) - 1), 1);
-	  break;
-	default:
-	  $end = end($split) . 's';
-	  break;
+    case 's':
+      $end = end($split) . 'es';
+      break;
+    case 'y':
+      $end = substr_replace(end($split), 'ies', (strlen(end($split)) - 1), 1);
+      break;
+    default:
+      $end = end($split) . 's';
+      break;
   }
   $split[count($split) - 1] = $end;
   if (count($split) == 1) {
-	return ucfirst(reset($split));
+    return ucfirst(reset($split));
   }
   else {
-	if (count($split) > 1) {
-	  reset($split);
-	  for ($i = 0; $i < count($split); $i++) {
-		switch ($i) {
-		  case 0:
-			$label .= ucfirst($split[$i]) . ' ';
-			break;
-		  case (count($split) - 1):
-			$label .= $split[$i];
-			break;
-		  default:
-			$label .= $split[$i] . ' ';
-			break;
-		}
-	  }
-	}
+    if (count($split) > 1) {
+      reset($split);
+      for ($i = 0; $i < count($split); $i++) {
+        switch ($i) {
+          case 0:
+            $label .= ucfirst($split[$i]) . ' ';
+            break;
+          case (count($split) - 1):
+            $label .= $split[$i];
+            break;
+          default:
+            $label .= $split[$i] . ' ';
+            break;
+        }
+      }
+    }
   }
 
   return $label;
@@ -93,7 +93,7 @@ function entity_type2entity_class($entity_type) {
   $split = explode('_', $entity_type);
   $class = '';
   for ($i = 0; $i < count($split); $i++) {
-	$class .= ucfirst($split[$i]);
+    $class .= ucfirst($split[$i]);
   }
 
   return $class;
@@ -112,7 +112,7 @@ function entity_type2entity_controller_class($entity_type) {
   $split = explode('_', $entity_type);
   $class = '';
   for ($i = 0; $i < count($split); $i++) {
-	$class .= ucfirst($split[$i]);
+    $class .= ucfirst($split[$i]);
   }
 
   return $class . 'Controller';
@@ -131,7 +131,7 @@ function entity_type2entity_ui_controller_class($entity_type) {
   $split = explode('_', $entity_type);
   $class = '';
   for ($i = 0; $i < count($split); $i++) {
-	$class .= ucfirst($split[$i]);
+    $class .= ucfirst($split[$i]);
   }
 
   return $class . 'UIController';
@@ -146,11 +146,11 @@ function entity_type2entity_ui_controller_class($entity_type) {
  *
  * @return string
  */
-function entity_type2entity_inline_controller_class($entity_type){
+function entity_type2entity_inline_controller_class($entity_type) {
   $split = explode('_', $entity_type);
   $class = '';
   for ($i = 0; $i < count($split); $i++) {
-	$class .= ucfirst($split[$i]);
+    $class .= ucfirst($split[$i]);
   }
 
   return $class . 'EntityInlineFormController';
@@ -167,15 +167,15 @@ function entity_type2entity_inline_controller_class($entity_type){
  */
 function entity_type_single2plural($entity_type) {
   switch (substr($entity_type, (strlen($entity_type) - 1), 1)) {
-	case 's':
-	  return $entity_type . 'es';
-	  break;
-	case 'y':
-	  return substr_replace($entity_type, 'ies', (strlen($entity_type) - 1), 1);
-	  break;
-	default:
-	  return $entity_type . 's';
-	  break;
+    case 's':
+      return $entity_type . 'es';
+      break;
+    case 'y':
+      return substr_replace($entity_type, 'ies', (strlen($entity_type) - 1), 1);
+      break;
+    default:
+      return $entity_type . 's';
+      break;
   }
 }
 
@@ -193,9 +193,9 @@ function entity_type_single2plural($entity_type) {
  */
 function string_replace_tokens($string, $wildcards = array(), $variables) {
   for ($i = 0; $i < count($wildcards); $i++) {
-	$varname = str_replace('%', '', $wildcards[$i]);
-	$rgx     = '/' . $wildcards[$i] . '/';
-	$string  = preg_replace($rgx, $variables[$varname], $string);
+    $varname = str_replace('%', '', $wildcards[$i]);
+    $rgx     = '/' . $wildcards[$i] . '/';
+    $string  = preg_replace($rgx, $variables[$varname], $string);
   }
 
   return $string;

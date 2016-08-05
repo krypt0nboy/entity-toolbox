@@ -43,12 +43,12 @@ function entity_author($entity) {
   //@todo add entity_type_is_entity_toolbox()
   $entity_type = $entity->entityType();
   if (in_array($entity_type, entity_toolbox_entity_get_info())) {
-	$controller = entity_toolbox_controller($entity_type);
+    $controller = entity_toolbox_controller($entity_type);
 
-	return $controller->author($entity);
+    return $controller->author($entity);
   }
   else {
-	return user_load($entity->uid);
+    return user_load($entity->uid);
   }
 }
 
@@ -64,12 +64,12 @@ function entity_author_id($entity) {
 //@todo add entity_type_is_entity_toolbox()
   $entity_type = $entity->entityType();
   if (in_array($entity_type, entity_toolbox_entity_get_info())) {
-	$controller = entity_toolbox_controller($entity_type);
+    $controller = entity_toolbox_controller($entity_type);
 
-	return $controller->authorUid($entity);
+    return $controller->authorUid($entity);
   }
   else {
-	return $entity->uid;
+    return $entity->uid;
   }
 }
 
@@ -103,13 +103,13 @@ function toolbox_property_types() {
  */
 function toolbox_numeric_property_default_views_handlers() {
   return array(
-	'field'    => array(
-	  'handler'        => 'views_handler_field_numeric',
-	  'click sortable' => TRUE
-	),
-	'filter'   => array('handler' => 'views_handler_field_numeric'),
-	'sort'     => array('handler' => 'views_handler_field_numeric'),
-	'argument' => array('handler' => 'views_handler_field_numeric'),
+    'field'    => array(
+      'handler'        => 'views_handler_field_numeric',
+      'click sortable' => TRUE
+    ),
+    'filter'   => array('handler' => 'views_handler_field_numeric'),
+    'sort'     => array('handler' => 'views_handler_field_numeric'),
+    'argument' => array('handler' => 'views_handler_field_numeric'),
   );
 }
 
@@ -120,13 +120,13 @@ function toolbox_numeric_property_default_views_handlers() {
  */
 function toolbox_string_property_default_views_handlers() {
   return array(
-	'field'    => array(
-	  'handler'        => 'views_handler_field',
-	  'click sortable' => TRUE
-	),
-	'filter'   => array('handler' => 'views_handler_filter_string'),
-	'sort'     => array('handler' => 'views_handler_sort'),
-	'argument' => array('handler' => 'views_handler_argument_string'),
+    'field'    => array(
+      'handler'        => 'views_handler_field',
+      'click sortable' => TRUE
+    ),
+    'filter'   => array('handler' => 'views_handler_filter_string'),
+    'sort'     => array('handler' => 'views_handler_sort'),
+    'argument' => array('handler' => 'views_handler_argument_string'),
   );
 }
 
@@ -137,17 +137,17 @@ function toolbox_string_property_default_views_handlers() {
  */
 function toolbox_boolean_property_default_views_handlers() {
   return array(
-	'field'    => array(
-	  'handler'        => 'views_handler_field_boolean',
-	  'click sortable' => TRUE
-	),
-	'filter'   => array(
-	  'handler'   => 'views_handler_field_boolean_operator',
-	  'type'      => 'yes-no',
-	  'use equal' => TRUE,
-	),
-	'sort'     => array('handler' => 'views_handler_sort'),
-	'argument' => array('handler' => 'views_handler_argument_string'),
+    'field'    => array(
+      'handler'        => 'views_handler_field_boolean',
+      'click sortable' => TRUE
+    ),
+    'filter'   => array(
+      'handler'   => 'views_handler_field_boolean_operator',
+      'type'      => 'yes-no',
+      'use equal' => TRUE,
+    ),
+    'sort'     => array('handler' => 'views_handler_sort'),
+    'argument' => array('handler' => 'views_handler_argument_string'),
   );
 }
 
@@ -159,12 +159,12 @@ function toolbox_boolean_property_default_views_handlers() {
  */
 function toolbox_date_property_default_views_handlers() {
   return array(
-	'field'  => array(
-	  'handler'        => 'views_handler_field_date',
-	  'click sortable' => TRUE
-	),
-	'filter' => array('handler' => 'views_handler_filter_date'),
-	'sort'   => array('handler' => 'views_handler_sort_date'),
+    'field'  => array(
+      'handler'        => 'views_handler_field_date',
+      'click sortable' => TRUE
+    ),
+    'filter' => array('handler' => 'views_handler_filter_date'),
+    'sort'   => array('handler' => 'views_handler_sort_date'),
   );
 }
 
@@ -217,12 +217,12 @@ function toolbox_property_default_widget($type) {
 function toolbox_property2drupal_property($type, $entity_type = NULL, $name = NULL, $multiple = FALSE) {
   $info = entity_toolbox_property_type_get_info($type);
   if (!empty($info['drupal_property_callback'])) {
-	$callback = !empty($info['drupal_property_callback']) ? $info['drupal_property_callback'] : '';
+    $callback = !empty($info['drupal_property_callback']) ? $info['drupal_property_callback'] : '';
 
-	return isset($callback) ? $callback($entity_type, $name) : '';
+    return isset($callback) ? $callback($entity_type, $name) : '';
   }
   else {
-	return !empty($info['drupal_property']) ? $info['drupal_property'] : '';
+    return !empty($info['drupal_property']) ? $info['drupal_property'] : '';
   }
 }
 
@@ -286,8 +286,8 @@ function toolbox_schema_type_process_name($type, $entity_type) {
 function toolbox_entity_get_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-	$toolbox_info          = entity_toolbox_entity_get_info($entity_type);
-	$classes[$entity_type] = $toolbox_info['classes']['entities']['entity'];
+    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $classes[$entity_type] = $toolbox_info['classes']['entities']['entity'];
   }
 
   return $classes[$entity_type];
@@ -304,8 +304,8 @@ function toolbox_entity_get_class($entity_type) {
 function toolbox_entity_get_controller_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-	$toolbox_info          = entity_toolbox_entity_get_info($entity_type);
-	$classes[$entity_type] = $toolbox_info['classes']['controllers']['controller'];
+    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $classes[$entity_type] = $toolbox_info['classes']['controllers']['controller'];
   }
 
   return $classes[$entity_type];
@@ -322,8 +322,8 @@ function toolbox_entity_get_controller_class($entity_type) {
 function toolbox_entity_get_ui_controller_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-	$toolbox_info          = entity_toolbox_entity_get_info($entity_type);
-	$classes[$entity_type] = $toolbox_info['classes']['controllers']['ui'];
+    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $classes[$entity_type] = $toolbox_info['classes']['controllers']['ui'];
   }
 
   return $classes[$entity_type];
@@ -340,8 +340,8 @@ function toolbox_entity_get_ui_controller_class($entity_type) {
 function toolbox_entity_get_inline_class($entity_type) {
   $classes = &drupal_static(__FUNCTION__, array());
   if (!isset($classes[$entity_type])) {
-	$toolbox_info          = entity_toolbox_entity_get_info($entity_type);
-	$classes[$entity_type] = $toolbox_info['classes']['controllers']['inline'];
+    $toolbox_info          = entity_toolbox_entity_get_info($entity_type);
+    $classes[$entity_type] = $toolbox_info['classes']['controllers']['inline'];
   }
 
   return $classes[$entity_type];
@@ -397,9 +397,9 @@ function toolbox_relation_extract_parameters($entity_type, $name) {
   $rel_schema_field = $property['schemas_fields']['relation'];
 
   return array(
-	'key_id'     => $toolbox_info['keys']['id'],
-	'rel_key_id' => $rel_schema_field,
-	'rel_table'  => '',
+    'key_id'     => $toolbox_info['keys']['id'],
+    'rel_key_id' => $rel_schema_field,
+    'rel_table'  => '',
   );
 }
 
@@ -417,17 +417,17 @@ function entity_get_path($entity_type, $alias) {
   $toolbox_info = entity_toolbox_entity_get_info($entity_type);
 
   if ($alias == 'root') {
-	return $toolbox_info['paths']['root'];
+    return $toolbox_info['paths']['root'];
   }
   else {
-	$aliases = array_keys($toolbox_info['paths']);
-	$search  = array_search($alias, $aliases);
-	$path    = $toolbox_info['paths']['root'];
-	for ($i = 1; $i <= $search; $i++) {
-	  $path .= '/' . $toolbox_info['paths'][$aliases[$i]];
-	}
+    $aliases = array_keys($toolbox_info['paths']);
+    $search  = array_search($alias, $aliases);
+    $path    = $toolbox_info['paths']['root'];
+    for ($i = 1; $i <= $search; $i++) {
+      $path .= '/' . $toolbox_info['paths'][$aliases[$i]];
+    }
 
-	return $path;
+    return $path;
   }
 }
 
@@ -476,8 +476,8 @@ function entity_edit_path($entity, $entity_type) {
   $string      = $action_info['path'];
   $wildcards   = string_extract_wildcards($action_info['path']);
   $variables   = array(
-	'entity_path' => $entity->path(),
-	'wildcard'    => $entity->toolboxInfo(),
+    'entity_path' => $entity->path(),
+    'wildcard'    => $entity->toolboxInfo(),
   );
 
   return string_replace_tokens($string, $wildcards, $variables);
@@ -499,8 +499,8 @@ function entity_view_path($entity, $entity_type) {
   $string      = $action_info['path'];
   $wildcards   = string_extract_wildcards($action_info['path']);
   $variables   = array(
-	'entity_path' => $entity->path(),
-	'wildcard'    => $entity->toolboxInfo(),
+    'entity_path' => $entity->path(),
+    'wildcard'    => $entity->toolboxInfo(),
   );
 
   return string_replace_tokens($string, $wildcards, $variables);
@@ -522,8 +522,8 @@ function entity_delete_path($entity, $entity_type) {
   $string      = $action_info['path'];
   $wildcards   = string_extract_wildcards($action_info['path']);
   $variables   = array(
-	'entity_path' => $entity->path(),
-	'wildcard'    => $entity->toolboxInfo(),
+    'entity_path' => $entity->path(),
+    'wildcard'    => $entity->toolboxInfo(),
   );
 
   return string_replace_tokens($string, $wildcards, $variables);
@@ -543,26 +543,26 @@ function entity_delete_path($entity, $entity_type) {
  */
 function toolbox_widget2form_field_type($widget, $multiple = FALSE) {
   switch ($widget) {
-	case 'textfield':
-	  return 'textfield';
-	  break;
-	case 'list':
-	  return 'select';
-	  break;
-	case 'autocomplete':
-	  return 'textfield';
-	  break;
-	case 'textarea':
-	  return 'textarea';
-	  break;
-	case 'checkbox':
-	  return $multiple ? 'checkbox' : 'checkboxes';
-	  break;
-	case 'radio':
-	  return $multiple ? 'radio' : 'radios';
-	  break;
-	default:
-	  break;
+    case 'textfield':
+      return 'textfield';
+      break;
+    case 'list':
+      return 'select';
+      break;
+    case 'autocomplete':
+      return 'textfield';
+      break;
+    case 'textarea':
+      return 'textarea';
+      break;
+    case 'checkbox':
+      return $multiple ? 'checkbox' : 'checkboxes';
+      break;
+    case 'radio':
+      return $multiple ? 'radio' : 'radios';
+      break;
+    default:
+      break;
   }
 }
 
@@ -690,7 +690,7 @@ function entity_inline_form_valid_controller($controller = NULL) {
 function entity_form_type($form_id) {
   $regexp = '/^(?P<entity_type>.+)_(?P<type>.+)_form$/';
   if (preg_match($regexp, $form_id, $matches)) {
-	return $matches['type'];
+    return $matches['type'];
   }
 }
 

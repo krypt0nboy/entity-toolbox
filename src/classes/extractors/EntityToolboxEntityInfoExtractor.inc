@@ -11,44 +11,44 @@ class EntityToolboxEntityInfoExtractor extends InfoExtractor {
 
   /** {@inheritdoc} */
   public function __construct($version, array $extractMethods = array()) {
-	$methods = array(
-	  'entity_type'      => 'extractEntityType',
-	  'fieldable'        => 'extractFieldable',
-	  'bundle_of'        => 'extractBundleOf',
-	  'bundle_entity'    => 'extractBundleEntity',
-	  'has_translations' => 'extractHasTranslations',
-	  'has_revisions'    => 'extractHasRevisions',
-	  'exportable'       => 'extractExportable',
-	  'paths'            => 'extractPaths',
-	  'module'           => 'extractModule',
-	  'labels'           => 'extractLabels',
-	  'label'            => 'extractLabel',
-	  'label_plural'     => 'extractLabelPlural',
-	  'classes'          => 'extractClasses',
-	  'callbacks'        => 'extractCallbacks',
-	  'base_table'       => 'extractBaseTable',
-	  'revision_table'   => 'extractRevisionTable',
-	  'tables'           => 'extractTables',
-	  'keys'             => 'extractKeys',
-	  'children_inherit' => 'extractChildrenInherit',
-	  'operations'       => 'extractOperations',
-	  'entity_group'     => 'extractEntityGroup',
-	  'api'              => 'extractApi',
-	);
-	$merged  = array_merge($methods, $extractMethods);
-	parent::__construct($version, 'entity_toolbox_entity_info', $merged);
+    $methods = array(
+      'entity_type'      => 'extractEntityType',
+      'fieldable'        => 'extractFieldable',
+      'bundle_of'        => 'extractBundleOf',
+      'bundle_entity'    => 'extractBundleEntity',
+      'has_translations' => 'extractHasTranslations',
+      'has_revisions'    => 'extractHasRevisions',
+      'exportable'       => 'extractExportable',
+      'paths'            => 'extractPaths',
+      'module'           => 'extractModule',
+      'labels'           => 'extractLabels',
+      'label'            => 'extractLabel',
+      'label_plural'     => 'extractLabelPlural',
+      'classes'          => 'extractClasses',
+      'callbacks'        => 'extractCallbacks',
+      'base_table'       => 'extractBaseTable',
+      'revision_table'   => 'extractRevisionTable',
+      'tables'           => 'extractTables',
+      'keys'             => 'extractKeys',
+      'children_inherit' => 'extractChildrenInherit',
+      'operations'       => 'extractOperations',
+      'entity_group'     => 'extractEntityGroup',
+      'api'              => 'extractApi',
+    );
+    $merged  = array_merge($methods, $extractMethods);
+    parent::__construct($version, 'entity_toolbox_entity_info', $merged);
   }
 
   protected function extractEntityType() {
-	if (!empty($this->info['entity_type'])) {
-	  return $this->info['entity_type'];
-	}
+    if (!empty($this->info['entity_type'])) {
+      return $this->info['entity_type'];
+    }
   }
 
   protected function extractFieldable() {
-	if (!empty($this->info['fieldable'])) {
-	  return $this->info['fieldable'];
-	}
+    if (!empty($this->info['fieldable'])) {
+      return $this->info['fieldable'];
+    }
   }
 
   protected function extractBundleOf() {
@@ -120,6 +120,6 @@ class EntityToolboxEntityInfoExtractor extends InfoExtractor {
  */
 class EntityToolboxEntityInfoExtractorApi1 extends EntityToolboxEntityInfoExtractor {
   public function __construct() {
-	parent::__construct("1");
+    parent::__construct("1");
   }
 }

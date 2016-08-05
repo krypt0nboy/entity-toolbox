@@ -31,11 +31,11 @@ class ArrayValueBuilder extends ValueBuilder {
    *   The array structure.
    */
   public function __construct($entityType, $tableKey, $valueKey, array $struct = array(), array $rawData = array()) {
-	parent::__construct($entityType, $tableKey, $rawData);
-	if (isset($valueKey)) {
-	  $this->valueKey = $valueKey;
-	}
-	$this->struct = $struct;
+    parent::__construct($entityType, $tableKey, $rawData);
+    if (isset($valueKey)) {
+      $this->valueKey = $valueKey;
+    }
+    $this->struct = $struct;
   }
 
 }

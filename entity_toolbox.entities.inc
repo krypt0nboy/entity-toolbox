@@ -106,6 +106,6 @@ function entity_get_types($entity_type, $type = NULL) {
  *
  * @return \string[]
  */
-function entity_get_bundles($entity_type){
-return entity_toolbox_controller($entity_type)->bundles();
+function entity_get_bundles($entity_type) {
+  return entity_toolbox_controller($entity_type)->bundles();
 }

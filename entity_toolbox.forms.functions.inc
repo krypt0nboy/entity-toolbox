@@ -10,16 +10,16 @@
  */
 function field_heritage_settings_attach(&$form, &$form_state) {
   if (!empty($form['instance']['settings']['toolbox']['inherit'])) {
-	$setting                   = &$form['instance']['settings']['toolbox']['inherit'];
-	$setting['#default_value'] = !empty($form['#instance']['settings']['toolbox']['inherit']) ? $form['#instance']['settings']['toolbox']['inherit'] : '';
+    $setting                   = &$form['instance']['settings']['toolbox']['inherit'];
+    $setting['#default_value'] = !empty($form['#instance']['settings']['toolbox']['inherit']) ? $form['#instance']['settings']['toolbox']['inherit'] : '';
   }
   else {
-	$form['instance']['settings']['toolbox']['inherit'] = array(
-	  '#type'          => 'checkbox',
-	  '#title'         => t('Children inherit'),
-	  '#description'   => t('Should the children inherit the value ?'),
-	  '#default_value' => '',
-	);
+    $form['instance']['settings']['toolbox']['inherit'] = array(
+      '#type'          => 'checkbox',
+      '#title'         => t('Children inherit'),
+      '#description'   => t('Should the children inherit the value ?'),
+      '#default_value' => '',
+    );
   }
 }
 
@@ -41,7 +41,7 @@ function field_heritage_settings_attach(&$form, &$form_state) {
  */
 function properties_attach_form($entity_type, $entity, &$form, &$form_state, $langcode = NULL, $options = array()) {
   foreach ($entity->toolboxInfo()['properties'] as $name => $property) {
-	property_attach_form($entity_type, $entity, $name, $form, $form_state, $langcode, $options);
+    property_attach_form($entity_type, $entity, $name, $form, $form_state, $langcode, $options);
   }
 }
 
@@ -68,12 +68,12 @@ function property_attach_form($entity_type, $entity, $name, &$form, &$form_state
   $property     = $toolbox_info['properties'][$name];
   //Check if the property is set to be exposed for this form.
   if (!empty($property['expose']['forms'][entity_form_type($form['form_id'])])) {
-	$function = entity_toolbox_is_property_multi_value($entity_type, $name) ? 'property_multi_attach_form' : 'property_single_attach_form';
-	$function($entity_type, $entity, $name, $form, $form_state, $langcode, $options);
-	foreach (module_implements('property_attach_form') as $module) {
-	  $hook = $module . '_property_attach_form';
-	  $hook($entity_type, $entity, $name, $form, $form_state, $langcode, $options);
-	}
+    $function = entity_toolbox_is_property_multi_value($entity_type, $name) ? 'property_multi_attach_form' : 'property_single_attach_form';
+    $function($entity_type, $entity, $name, $form, $form_state, $langcode, $options);
+    foreach (module_implements('property_attach_form') as $module) {
+      $hook = $module . '_property_attach_form';
+      $hook($entity_type, $entity, $name, $form, $form_state, $langcode, $options);
+    }
   }
 }
 
@@ -148,11 +148,11 @@ function property_element_build($entity_type, $entity, $name, $form_id, $widget 
   $toolbox_info = $entity->toolboxInfo();
   $property     = $toolbox_info['properties'][$name];
   $element      = array(
-	'#type'          => toolbox_widget2form_field_type($widget, $property['multiple']),
-	'#title'         => $property['label'],
-	'#description'   => !empty($property['description']) ? $property['description'] : '',
-	'#default_value' => entity_property_default($entity_type, $entity, $name),
-	'#required'      => $property['required'][entity_form_type($form_id)],
+    '#type'          => toolbox_widget2form_field_type($widget, $property['multiple']),
+    '#title'         => $property['label'],
+    '#description'   => !empty($property['description']) ? $property['description'] : '',
+    '#default_value' => entity_property_default($entity_type, $entity, $name),
+    '#required'      => $property['required'][entity_form_type($form_id)],
   );
 
   //Let other modules alter the element.
@@ -181,14 +181,14 @@ function property_element_build($entity_type, $entity, $name, $form_id, $widget 
  */
 function property_element_ajax_build($entity_type, $entity, $name, $form_id, $widget = NULL, $options = array()) {
   $ajax = array(
-	'callback' => 'property_ajax_process',
-	//@todo evaluate the type of property, widget to define which event to set
-	'event'    => '',
-	'effect'   => !empty($options['effect']) ? $options['effect'] : 'fade',
-	'method'   => 'replace',
-	//@todo add property_element_get_ajax_wrapper() function.
-	'wrapper'  => '',
-	//@todo add ajax progress
+    'callback' => 'property_ajax_process',
+    //@todo evaluate the type of property, widget to define which event to set
+    'event'    => '',
+    'effect'   => !empty($options['effect']) ? $options['effect'] : 'fade',
+    'method'   => 'replace',
+    //@todo add property_element_get_ajax_wrapper() function.
+    'wrapper'  => '',
+    //@todo add ajax progress
   );
 
   return $ajax;
@@ -202,7 +202,7 @@ function entity_toolbox_property_element_alter($entity_type, $entity, $name, $fo
    * Check if the property is to be inherited from one or more parents
    */
   if (in_array($name, array_keys(entity_toolbox_get_inherited_properties($entity_type)))) {
-	$element['#ajax'] = property_element_ajax_build($entity_type, $entity, $name, $form_id, $widget, $options);
+    $element['#ajax'] = property_element_ajax_build($entity_type, $entity, $name, $form_id, $widget, $options);
   }
 }
 
@@ -222,7 +222,7 @@ function entity_toolbox_property_element_alter($entity_type, $entity, $name, $fo
  */
 function properties_attach_form_validate($entity_type, $entity, &$form, &$form_state, $options = array()) {
   foreach (entity_toolbox_entity_get_info($entity_type)['properties'] as $name => $property) {
-	property_attach_form_validate($entity_type, $entity, $form, $form_state, $options);
+    property_attach_form_validate($entity_type, $entity, $form, $form_state, $options);
   }
 }
 
@@ -263,7 +263,7 @@ function property_attach_form_validate($entity_type, $entity, $property, $form, 
  */
 function properties_attach_form_submit($entity_type, $entity, &$form, &$form_state, $options = array()) {
   foreach (entity_toolbox_entity_get_info($entity_type)['properties'] as $name => $property) {
-	property_attach_form_submit($entity_type, $entity, $form, $form_state, $options);
+    property_attach_form_submit($entity_type, $entity, $form, $form_state, $options);
   }
 }
 

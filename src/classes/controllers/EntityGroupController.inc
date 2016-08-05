@@ -51,8 +51,8 @@ class EntityGroupController {
    *   The group type.
    */
   public function __construct($group_type) {
-	$this->groupType = $group_type;
-	$this->groupInfo = entity_toolbox_entity_group_get_info($group_type);
+    $this->groupType = $group_type;
+    $this->groupInfo = entity_toolbox_entity_group_get_info($group_type);
   }
 
   /**
@@ -61,7 +61,7 @@ class EntityGroupController {
    * @return string
    */
   public function groupType() {
-	return $this->groupType;
+    return $this->groupType;
   }
 
   /**
@@ -70,7 +70,7 @@ class EntityGroupController {
    * @return array
    */
   public function groupInfo() {
-	return $this->groupInfo;
+    return $this->groupInfo;
   }
 
   /**
@@ -79,7 +79,7 @@ class EntityGroupController {
    * @return string
    */
   public function rootPath() {
-	return $this->groupInfo['path'];
+    return $this->groupInfo['path'];
   }
 
   /**
@@ -90,17 +90,17 @@ class EntityGroupController {
    * @see hook_entity_toolbox_field_category_group_info().
    */
   public function fieldCategoryGroups() {
-	return $this->groupInfo['field_category_groups'];
+    return $this->groupInfo['field_category_groups'];
   }
 
   /**
    * Retrieves the fields categories available for this entity group.
    */
   protected function setFieldCategories() {
-	foreach ($this->fieldCategoryGroups() as $group) {
-	  $group_info                    = entity_toolbox_field_category_group_get_info($group);
-	  $this->fieldCategories[$group] = $group_info['field_categories'];
-	}
+    foreach ($this->fieldCategoryGroups() as $group) {
+      $group_info                    = entity_toolbox_field_category_group_get_info($group);
+      $this->fieldCategories[$group] = $group_info['field_categories'];
+    }
   }
 
   /**
@@ -112,6 +112,6 @@ class EntityGroupController {
    * @return string[]
    */
   public function fieldCategories($field_category_group) {
-	return $this->fieldCategories[$field_category_group];
+    return $this->fieldCategories[$field_category_group];
   }
 }

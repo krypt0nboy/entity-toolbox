@@ -53,10 +53,10 @@ class EntityToolboxController extends EntityAPIController {
    *   Entity type.
    */
   public function __construct($entity_type) {
-	parent::__construct($entity_type);
-	$this->toolboxInfo = entity_toolbox_entity_get_info($this->entityType);
-	$this->setInheritableProperties();
-	$this->setInheritedProperties();
+    parent::__construct($entity_type);
+    $this->toolboxInfo = entity_toolbox_entity_get_info($this->entityType);
+    $this->setInheritableProperties();
+    $this->setInheritedProperties();
   }
 
   /**
@@ -65,14 +65,14 @@ class EntityToolboxController extends EntityAPIController {
    * @return array
    */
   public function toolboxInfo() {
-	return $this->toolboxInfo;
+    return $this->toolboxInfo;
   }
 
   /**
    * Returns the entity type revision key.
    */
   public function revisionKey() {
-	return $this->entityInfo['keys']['revision'];
+    return $this->entityInfo['keys']['revision'];
   }
 
   /**
@@ -81,7 +81,7 @@ class EntityToolboxController extends EntityAPIController {
    * @return string
    */
   public function authorKey() {
-	return $this->toolboxInfo['author_key'];
+    return $this->toolboxInfo['author_key'];
   }
 
   /**
@@ -93,7 +93,7 @@ class EntityToolboxController extends EntityAPIController {
    * @return \Entity
    */
   public function author($entity) {
-	return user_load($entity->{$this->authorKey()});
+    return user_load($entity->{$this->authorKey()});
   }
 
   /**
@@ -105,16 +105,16 @@ class EntityToolboxController extends EntityAPIController {
    * @return int
    */
   public function authorUid($entity) {
-	return $entity->{$this->authorKey()};
+    return $entity->{$this->authorKey()};
   }
 
   /**
    * Retrieves the entity type existing bundles name.
    */
   protected function setBundles() {
-	foreach ($this->types() as $key => $value) {
-	  $this->bundles[] = $key;
-	}
+    foreach ($this->types() as $key => $value) {
+      $this->bundles[] = $key;
+    }
   }
 
   /**
@@ -123,7 +123,7 @@ class EntityToolboxController extends EntityAPIController {
    * @return \string[]
    */
   public function bundles() {
-	return $this->bundles;
+    return $this->bundles;
   }
 
   /**
@@ -135,14 +135,14 @@ class EntityToolboxController extends EntityAPIController {
    * @return \NotFieldableEntityToolbox[]
    */
   public function types($type = NULL) {
-	return entity_load_multiple_by_name($this->toolboxInfo['bundle_entity'], isset($type) ? array($type) : FALSE);
+    return entity_load_multiple_by_name($this->toolboxInfo['bundle_entity'], isset($type) ? array($type) : FALSE);
   }
 
   /**
    * Retrieves the inheritable properties.
    */
   protected function setInheritableProperties() {
-	$this->inheritableProperties = entity_toolbox_inheritable_property_get_info($this->entityType);
+    $this->inheritableProperties = entity_toolbox_inheritable_property_get_info($this->entityType);
   }
 
   /**
@@ -151,14 +151,14 @@ class EntityToolboxController extends EntityAPIController {
    * @return string[]
    */
   public function inheritableProperties() {
-	return $this->inheritableProperties;
+    return $this->inheritableProperties;
   }
 
   /**
    * Retrieves the entity type inherited properties.
    */
   protected function setInheritedProperties() {
-	$this->inheritedProperties = entity_toolbox_inherited_property_get_info($this->entityType);
+    $this->inheritedProperties = entity_toolbox_inherited_property_get_info($this->entityType);
   }
 
   /**
@@ -167,7 +167,7 @@ class EntityToolboxController extends EntityAPIController {
    * @return array
    */
   public function inheritedProperties() {
-	return $this->inheritedProperties;
+    return $this->inheritedProperties;
   }
 
   /**
@@ -179,9 +179,9 @@ class EntityToolboxController extends EntityAPIController {
    * @return string
    */
   public function propertyRelationTable($name) {
-	$property = $this->toolboxInfo['properties'][$name];
+    $property = $this->toolboxInfo['properties'][$name];
 
-	return key($property['schemas']['relation']['name']);
+    return key($property['schemas']['relation']['name']);
   }
 
   /**
@@ -193,9 +193,9 @@ class EntityToolboxController extends EntityAPIController {
    * @return string
    */
   public function propertyRelationTableField($name) {
-	$property = $this->toolboxInfo['properties'][$name];
+    $property = $this->toolboxInfo['properties'][$name];
 
-	return $property['schemas_fields']['relation'];
+    return $property['schemas_fields']['relation'];
   }
 
   /**
@@ -209,12 +209,12 @@ class EntityToolboxController extends EntityAPIController {
    * @return array
    */
   public function relationExtractInfo($entity, $name) {
-	return array(
-	  'self_id_key' => $this->idKey,
-	  'self_id'     => $entity->{$this->idKey},
-	  'rel_table'   => $this->propertyRelationTable($name),
-	  'ref_rel_key' => $this->propertyRelationTableField($name),
-	);
+    return array(
+      'self_id_key' => $this->idKey,
+      'self_id'     => $entity->{$this->idKey},
+      'rel_table'   => $this->propertyRelationTable($name),
+      'ref_rel_key' => $this->propertyRelationTableField($name),
+    );
   }
 
   /**
@@ -231,20 +231,20 @@ class EntityToolboxController extends EntityAPIController {
    * @throws \Exception
    */
   public function insertMultiReferenceValues($entity, $name, $add_ids = array()) {
-	list($self_id_key, $self_id, $rel_table, $ref_rel_key) = $this->relationExtractInfo($entity, $name);
-	$inserted = array();
-	foreach ($add_ids as $add_id) {
-	  $inserted[] = db_insert($rel_table)
-		->fields(
-		  array(
-			$self_id_key => $self_id,
-			$ref_rel_key => $add_id
-		  )
-		)
-		->execute();
-	}
+    list($self_id_key, $self_id, $rel_table, $ref_rel_key) = $this->relationExtractInfo($entity, $name);
+    $inserted = array();
+    foreach ($add_ids as $add_id) {
+      $inserted[] = db_insert($rel_table)
+        ->fields(
+          array(
+            $self_id_key => $self_id,
+            $ref_rel_key => $add_id
+          )
+        )
+        ->execute();
+    }
 
-	return $inserted;
+    return $inserted;
   }
 
   /**
@@ -258,11 +258,11 @@ class EntityToolboxController extends EntityAPIController {
    *   The references to delete.
    */
   public function deleteMultiReferenceValues($entity, $name, $del_ids = array()) {
-	list($self_id_key, $self_id, $rel_table, $ref_rel_key) = $this->relationExtractInfo($entity, $name);
-	db_delete($rel_table)
-	  ->condition($self_id_key, $self_id)
-	  ->condition($ref_rel_key, $del_ids, 'IN')
-	  ->execute();
+    list($self_id_key, $self_id, $rel_table, $ref_rel_key) = $this->relationExtractInfo($entity, $name);
+    db_delete($rel_table)
+      ->condition($self_id_key, $self_id)
+      ->condition($ref_rel_key, $del_ids, 'IN')
+      ->execute();
   }
 
   /**
@@ -286,15 +286,15 @@ class EntityToolboxController extends EntityAPIController {
    * @return mixed
    */
   public function propertyDefaultValue($name) {
-	$property = $this->toolboxInfo['properties'][$name];
-	if (!empty($property['default'])) {
-	  return $property['default'];
-	}
-	else {
-	  $callback = $property['callbacks']['default'];
+    $property = $this->toolboxInfo['properties'][$name];
+    if (!empty($property['default'])) {
+      return $property['default'];
+    }
+    else {
+      $callback = $property['callbacks']['default'];
 
-	  return $callback($this->entityType);
-	}
+      return $callback($this->entityType);
+    }
   }
 
   /**
@@ -303,12 +303,12 @@ class EntityToolboxController extends EntityAPIController {
    * @return array
    */
   public function propertiesDefaultValues() {
-	$values = array();
-	foreach ($this->toolboxInfo['properties'] as $name => $property) {
-	  $values[$property['key']] = $this->propertyDefaultValue($name);
-	}
+    $values = array();
+    foreach ($this->toolboxInfo['properties'] as $name => $property) {
+      $values[$property['key']] = $this->propertyDefaultValue($name);
+    }
 
-	return $values;
+    return $values;
   }
 
   /**
@@ -320,9 +320,9 @@ class EntityToolboxController extends EntityAPIController {
    * @return bool
    */
   public function isPropertyMultiValue($name) {
-	$property = $this->toolboxInfo['properties'][$name];
+    $property = $this->toolboxInfo['properties'][$name];
 
-	return $property['multiple'];
+    return $property['multiple'];
   }
 
   /**
@@ -338,8 +338,8 @@ class EntityToolboxController extends EntityAPIController {
    *   The form state, passed by reference.
    */
   public function propertyValidate(&$entity, $name, &$form, &$form_state) {
-	//@todo gather the property validation callbacks
-	_property_validate($this->entityType, $entity, $name, $form, $form_state);
+    //@todo gather the property validation callbacks
+    _property_validate($this->entityType, $entity, $name, $form, $form_state);
   }
 
   /**
@@ -355,7 +355,7 @@ class EntityToolboxController extends EntityAPIController {
    *   The form state, passed by reference.
    */
   public function propertySubmit(&$entity, $name, &$form, &$form_state) {
-	_property_submit($this->entityType, $entity, $name, $form, $form_state);
+    _property_submit($this->entityType, $entity, $name, $form, $form_state);
   }
 
   /**
@@ -373,10 +373,10 @@ class EntityToolboxController extends EntityAPIController {
    *   The set options.
    */
   public function setMultiValueProperty($entity, $name, $values, $langcode = NULL, $options = array()) {
-	//@todo handle serialized multi value.
-	//@todo handle non referential multi value.
-	//@todo add hook_property_pre_set
-	//@todo add hook_property_post_set
+    //@todo handle serialized multi value.
+    //@todo handle non referential multi value.
+    //@todo add hook_property_pre_set
+    //@todo add hook_property_post_set
   }
 
   /**
@@ -394,19 +394,19 @@ class EntityToolboxController extends EntityAPIController {
    *   The set options.
    */
   public function setMultiValueReferenceProperty($entity, $name, $values = array(), $langcode = NULL, $options = array()) {
-	//@todo add hook_property_pre_set
-	//@todo add hook_property_post_set
-	$values  = is_array($values) ? $values : array();
-	$cur_ids = $this->getMultiValueProperty($entity, $name, NULL, $langcode, $options);
-	$del_ids = array_diff($cur_ids, $values);
-	$add_ids = array_diff($values, $cur_ids);
+    //@todo add hook_property_pre_set
+    //@todo add hook_property_post_set
+    $values  = is_array($values) ? $values : array();
+    $cur_ids = $this->getMultiValueProperty($entity, $name, NULL, $langcode, $options);
+    $del_ids = array_diff($cur_ids, $values);
+    $add_ids = array_diff($values, $cur_ids);
 
-	if (!empty($add_ids)) {
-	  $this->insertMultiReferenceValues($entity, $name, $add_ids);
-	}
-	if (!empty($del_ids)) {
-	  $this->deleteMultiReferenceValues($entity, $name, $del_ids);
-	}
+    if (!empty($add_ids)) {
+      $this->insertMultiReferenceValues($entity, $name, $add_ids);
+    }
+    if (!empty($del_ids)) {
+      $this->deleteMultiReferenceValues($entity, $name, $del_ids);
+    }
   }
 
   /**
@@ -426,14 +426,14 @@ class EntityToolboxController extends EntityAPIController {
    * @return array
    */
   public function getMultiValueProperty($entity, $name, $delta = NULL, $langcode = NULL, $options = array()) {
-	$property = $this->toolboxInfo['properties'][$name];
-	if ($property['type'] == 'reference' || $property['type'] == 'parent') {
-	  return isset($delta) ? $this->getMultiValueReferenceProperty($entity, $name, $delta, $langcode, $options)[$delta] : $this->getMultiValueReferenceProperty($entity, $name, $delta, $langcode, $options);
-	}
-	else {
-	  //@todo handle serialized multi values
-	  return array();
-	}
+    $property = $this->toolboxInfo['properties'][$name];
+    if ($property['type'] == 'reference' || $property['type'] == 'parent') {
+      return isset($delta) ? $this->getMultiValueReferenceProperty($entity, $name, $delta, $langcode, $options)[$delta] : $this->getMultiValueReferenceProperty($entity, $name, $delta, $langcode, $options);
+    }
+    else {
+      //@todo handle serialized multi values
+      return array();
+    }
   }
 
   /**
@@ -453,17 +453,17 @@ class EntityToolboxController extends EntityAPIController {
    * @return \Entity[]
    */
   public function getMultiValueReferenceProperty($entity, $name, $delta = NULL, $langcode = NULL, $options = array()) {
-	list($self_id_key, $self_id, $rel_table, $ref_rel_key) = $this->relationExtractInfo($entity, $name);
-	$query   = db_select($rel_table, 'e')
-	  ->fields('e', array())
-	  ->condition('e.' . $self_id_key, $self_id)
-	  ->execute();
-	$results = array();
-	while ($result = $query->fetchAssoc()) {
-	  $results[] = $result[$ref_rel_key];
-	}
+    list($self_id_key, $self_id, $rel_table, $ref_rel_key) = $this->relationExtractInfo($entity, $name);
+    $query   = db_select($rel_table, 'e')
+      ->fields('e', array())
+      ->condition('e.' . $self_id_key, $self_id)
+      ->execute();
+    $results = array();
+    while ($result = $query->fetchAssoc()) {
+      $results[] = $result[$ref_rel_key];
+    }
 
-	return $results;
+    return $results;
   }
 
   /**
@@ -476,10 +476,10 @@ class EntityToolboxController extends EntityAPIController {
    *   An entity object with all default fields initialized.
    */
   public function create(array $values = array()) {
-	$values += $this->propertiesDefaultValues();
-	$entity = parent::create($values);
+    $values += $this->propertiesDefaultValues();
+    $entity = parent::create($values);
 
-	return $entity;
+    return $entity;
   }
 
   /**
@@ -498,9 +498,9 @@ class EntityToolboxController extends EntityAPIController {
    *   The content built.
    */
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
-	$content = parent::buildContent($entity, $view_mode, $langcode, $content);
+    $content = parent::buildContent($entity, $view_mode, $langcode, $content);
 
-	return $content;
+    return $content;
   }
 
   /**
@@ -534,21 +534,21 @@ class FieldableEntityToolboxController extends EntityToolboxController {
    * {@inheritdoc}
    */
   public function __construct($entity_type) {
-	parent::__construct($entity_type);
-	$this->setBundles();
-	$this->setInheritableFields();
-	$this->setInheritedFields();
+    parent::__construct($entity_type);
+    $this->setBundles();
+    $this->setInheritableFields();
+    $this->setInheritedFields();
   }
 
   /**
    * Retrieves the inheritable fields for the set entity bundle.
    */
   protected function setInheritableFields() {
-	foreach (entity_toolbox_inheritable_field_get_info($this->entityType) as $bundle => $fields) {
-	  foreach ($fields as $field => $info) {
-		$this->inheritableFields[$bundle][] = $field;
-	  }
-	}
+    foreach (entity_toolbox_inheritable_field_get_info($this->entityType) as $bundle => $fields) {
+      foreach ($fields as $field => $info) {
+        $this->inheritableFields[$bundle][] = $field;
+      }
+    }
   }
 
   /**
@@ -560,18 +560,18 @@ class FieldableEntityToolboxController extends EntityToolboxController {
    * @return array
    */
   public function inheritableFields($bundle) {
-	return $this->inheritableFields[$bundle];
+    return $this->inheritableFields[$bundle];
   }
 
   /**
    * Retrieves the inherited fields for the set entity bundle.
    */
   protected function setInheritedFields() {
-	foreach (entity_toolbox_inherited_field_get_info($this->entityType) as $bundle => $fields) {
-	  foreach ($fields as $field => $inherited_from) {
-		$this->inheritableFields[$bundle][$field] = $inherited_from;
-	  }
-	}
+    foreach (entity_toolbox_inherited_field_get_info($this->entityType) as $bundle => $fields) {
+      foreach ($fields as $field => $inherited_from) {
+        $this->inheritableFields[$bundle][$field] = $inherited_from;
+      }
+    }
   }
 
   /**
@@ -583,7 +583,7 @@ class FieldableEntityToolboxController extends EntityToolboxController {
    * @return array
    */
   public function InheritedFields($bundle) {
-	return $this->inheritedFields[$bundle];
+    return $this->inheritedFields[$bundle];
   }
 }
 

@@ -43,21 +43,21 @@ module_load_include('inc', 'entity_toolbox', 'entity_toolbox.admin');
 function entity_toolbox_menu() {
   $items                                         = array();
   $items['admin/config/entity_toolbox']          = array(
-	'title'            => t('Entity toolbox'),
-	'description'      => t('Entity Toolbox.'),
-	'type'             => MENU_NORMAL_ITEM,
-	'page callback'    => 'system_admin_menu_block_page',
-	'access arguments' => array('access administration pages'),
-	'file path'        => drupal_get_path('module', 'system'),
-	'file'             => 'system.admin.inc',
+    'title'            => t('Entity toolbox'),
+    'description'      => t('Entity Toolbox.'),
+    'type'             => MENU_NORMAL_ITEM,
+    'page callback'    => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file path'        => drupal_get_path('module', 'system'),
+    'file'             => 'system.admin.inc',
   );
   $items['admin/config/entity_toolbox/settings'] = array(
-	'title'            => t('Entity toolbox settings'),
-	'description'      => t('Entity Toolbox settings.'),
-	'type'             => MENU_NORMAL_ITEM,
-	'page callback'    => 'drupal_get_form',
-	'page arguments'   => array('entity_toolbox_settings_form'),
-	'access arguments' => array('access administration pages'),
+    'title'            => t('Entity toolbox settings'),
+    'description'      => t('Entity Toolbox settings.'),
+    'type'             => MENU_NORMAL_ITEM,
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('entity_toolbox_settings_form'),
+    'access arguments' => array('access administration pages'),
   );
 
   return $items;
@@ -77,8 +77,8 @@ function entity_toolbox_flush_caches() {
  */
 function entity_toolbox_admin_menu_cache_info() {
   $caches['entity_toolbox'] = array(
-	'title'    => t('Entity toolbox'),
-	'callback' => 'entity_toolbox_cache_clear_all',
+    'title'    => t('Entity toolbox'),
+    'callback' => 'entity_toolbox_cache_clear_all',
   );
 
   return $caches;
@@ -92,415 +92,415 @@ function entity_toolbox_admin_menu_cache_info() {
 function entity_toolbox_toolbox_property_type_info() {
   $info                 = array();
   $info['id']           = array(
-	'description'              => 'An entity unique identifier property.',
-	'drupal_property'          => 'decimal',
-	'default_label'            => '%entity_type% ID.',
-	'default_description'      => 'The %entity_type% ID.',
-	'default_value'            => 0,
-	'default_is_unique'        => TRUE,
-	'default_key'              => 'id',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'unsigned' => TRUE,
-		'default'  => 0,
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0,
-	  ),
-	),
-	'default_schemas_fields'   => array(
-	  'base'     => '%entity_type%_id',
-	  'revision' => '%entity_type%_id',
-	),
-	'default_views_expose'     => array(),
-	'default_forms_expose'     => array(
-	  'edit' => FALSE
-	),
-	'default_has_revisions'    => FALSE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
+    'description'              => 'An entity unique identifier property.',
+    'drupal_property'          => 'decimal',
+    'default_label'            => '%entity_type% ID.',
+    'default_description'      => 'The %entity_type% ID.',
+    'default_value'            => 0,
+    'default_is_unique'        => TRUE,
+    'default_key'              => 'id',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default'  => 0,
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0,
+      ),
+    ),
+    'default_schemas_fields'   => array(
+      'base'     => '%entity_type%_id',
+      'revision' => '%entity_type%_id',
+    ),
+    'default_views_expose'     => array(),
+    'default_forms_expose'     => array(
+      'edit' => FALSE
+    ),
+    'default_has_revisions'    => FALSE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
   );
   $info['bundle']       = array(
-	'description'              => 'A entity bundle.',
-	'drupal_property'          => 'text',
-	'default_label'            => 'Bundle',
-	'default_description'      => 'The %entity_type% bundle.',
-	'default_is_unique'        => FALSE,
-	'default_key'              => 'bundle',
-	'default_schema'           => array(
-	  'base' => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	),
-	'default_views_expose'     => array(),
-	'default_forms_expose'     => array(
-	  'edit' => FALSE
-	),
-	'default_has_revisions'    => FALSE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
+    'description'              => 'A entity bundle.',
+    'drupal_property'          => 'text',
+    'default_label'            => 'Bundle',
+    'default_description'      => 'The %entity_type% bundle.',
+    'default_is_unique'        => FALSE,
+    'default_key'              => 'bundle',
+    'default_schema'           => array(
+      'base' => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+    ),
+    'default_views_expose'     => array(),
+    'default_forms_expose'     => array(
+      'edit' => FALSE
+    ),
+    'default_has_revisions'    => FALSE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
   );
   $info['machine_name'] = array(
-	'description'              => 'A machine name.',
-	'drupal_property'          => 'text',
-	'default_widget'           => 'machine_name',
-	'default_schema'           => array(
-	  'base' => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	),
-	'default_forms_expose'     => array(
-	  'edit' => FALSE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_machine_name_property_default_views_handlers'
+    'description'              => 'A machine name.',
+    'drupal_property'          => 'text',
+    'default_widget'           => 'machine_name',
+    'default_schema'           => array(
+      'base' => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+    ),
+    'default_forms_expose'     => array(
+      'edit' => FALSE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_machine_name_property_default_views_handlers'
   );
   $info['reference']    = array(
-	'description'              => 'An entity reference.',
-	'drupal_property_callback' => 'toolbox_reference_type',
-	'default_value'            => 0,
-	'default_widget'           => 'select',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  ),
-	  'relation' => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  )
-	),
-	'default_schemas_fields'   => array(
-	  'base'     => '%relation_type%_id',
-	  'revision' => '%relation_type%_id',
-	  'relation' => '%relation_type%_id',
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_callbacks'        => array(
-	  'getter' => '',
-	  'setter' => '',
-	),
-	'default_views_handlers'   => 'toolbox_entity_property_default_views_handlers'
+    'description'              => 'An entity reference.',
+    'drupal_property_callback' => 'toolbox_reference_type',
+    'default_value'            => 0,
+    'default_widget'           => 'select',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      ),
+      'relation' => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      )
+    ),
+    'default_schemas_fields'   => array(
+      'base'     => '%relation_type%_id',
+      'revision' => '%relation_type%_id',
+      'relation' => '%relation_type%_id',
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_callbacks'        => array(
+      'getter' => '',
+      'setter' => '',
+    ),
+    'default_views_handlers'   => 'toolbox_entity_property_default_views_handlers'
   );
   $info['parent']       = array(
-	'description'              => 'A parent entity.',
-	'default_label'            => 'Parent %relation_type%',
-	'default_description'      => 'The %relation_type% parent.',
-	'drupal_property_callback' => 'toolbox_reference_type',
-	'default_value'            => 0,
-	'default_widget'           => 'select',
-	'default_schema'           => array(
-	  'base' => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  )
-	),
-	'default_schemas_fields'   => array(
-	  'base' => 'parent%relation_type%_id'
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_callbacks'        => array(
-	  'getter' => '',
-	  'setter' => '',
-	),
-	'default_views_handlers'   => 'toolbox_entity_property_default_views_handlers'
+    'description'              => 'A parent entity.',
+    'default_label'            => 'Parent %relation_type%',
+    'default_description'      => 'The %relation_type% parent.',
+    'drupal_property_callback' => 'toolbox_reference_type',
+    'default_value'            => 0,
+    'default_widget'           => 'select',
+    'default_schema'           => array(
+      'base' => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      )
+    ),
+    'default_schemas_fields'   => array(
+      'base' => 'parent%relation_type%_id'
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_callbacks'        => array(
+      'getter' => '',
+      'setter' => '',
+    ),
+    'default_views_handlers'   => 'toolbox_entity_property_default_views_handlers'
   );
   $info['integer']      = array(
-	'description'              => 'An integer.',
-	'drupal_property'          => 'decimal',
-	'default_value'            => 0,
-	'default_widget'           => 'textfield',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  ),
-	  'relation' => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  )
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
+    'description'              => 'An integer.',
+    'drupal_property'          => 'decimal',
+    'default_value'            => 0,
+    'default_widget'           => 'textfield',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      ),
+      'relation' => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      )
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
   );
   $info['float']        = array(
-	'description'              => 'A float.',
-	'drupal_property'          => 'decimal',
-	'default_widget'           => 'textfield',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  ),
-	  'relation' => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  )
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
+    'description'              => 'A float.',
+    'drupal_property'          => 'decimal',
+    'default_widget'           => 'textfield',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      ),
+      'relation' => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      )
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
   );
   $info['decimal']      = array(
-	'description'              => 'A decimal.',
-	'drupal_property'          => 'decimal',
-	'default_value'            => 0,
-	'default_widget'           => 'textfield',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  ),
-	  'relation' => array(
-		'type'     => 'int',
-		'default'  => 0,
-		'not null' => FALSE,
-	  )
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
+    'description'              => 'A decimal.',
+    'drupal_property'          => 'decimal',
+    'default_value'            => 0,
+    'default_widget'           => 'textfield',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      ),
+      'relation' => array(
+        'type'     => 'int',
+        'default'  => 0,
+        'not null' => FALSE,
+      )
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
   );
   $info['tiny_text']    = array(
-	'description'              => 'A small text.',
-	'drupal_property'          => 'text',
-	'default_widget'           => 'textfield',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	  'revision' => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
+    'description'              => 'A small text.',
+    'drupal_property'          => 'text',
+    'default_widget'           => 'textfield',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+      'revision' => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
   );
   $info['medium_text']  = array(
-	'description'              => 'A medium text.',
-	'drupal_property'          => 'text',
-	'default_widget'           => 'textarea',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	  'revision' => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
+    'description'              => 'A medium text.',
+    'drupal_property'          => 'text',
+    'default_widget'           => 'textarea',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+      'revision' => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
   );
   $info['long_text']    = array(
-	'description'              => 'A long text.',
-	'drupal_property'          => 'text',
-	'default_widget'           => 'textarea',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	  'revision' => array(
-		'type'     => 'varchar',
-		'length'   => 255,
-		'not null' => TRUE,
-		'default'  => ''
-	  ),
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
+    'description'              => 'A long text.',
+    'drupal_property'          => 'text',
+    'default_widget'           => 'textarea',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+      'revision' => array(
+        'type'     => 'varchar',
+        'length'   => 255,
+        'not null' => TRUE,
+        'default'  => ''
+      ),
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_string_property_default_views_handlers'
   );
   $info['timestamp']    = array(
-	'description'              => 'A UNIX timestamp.',
-	'drupal_property'          => 'int',
-	'default_widget'           => 'textfield',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  ),
-	),
-	'default_forms_expose'     => array(
-	  'edit' => FALSE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_date_property_default_views_handlers'
+    'description'              => 'A UNIX timestamp.',
+    'drupal_property'          => 'int',
+    'default_widget'           => 'textfield',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      ),
+    ),
+    'default_forms_expose'     => array(
+      'edit' => FALSE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_date_property_default_views_handlers'
   );
   $info['duration']     = array(
-	'description'              => 'A duration in seconds.',
-	'drupal_property'          => 'duration',
-	'default_value'            => 0,
-	'default_widget'           => 'textfield',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'not null' => TRUE,
-		'default'  => 0
-	  ),
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
+    'description'              => 'A duration in seconds.',
+    'drupal_property'          => 'duration',
+    'default_value'            => 0,
+    'default_widget'           => 'textfield',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'not null' => TRUE,
+        'default'  => 0
+      ),
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_numeric_property_default_views_handlers'
   );
   $info['date']         = array(
-	'description'              => 'A date.',
-	'drupal_property'          => 'date',
-	'default_widget'           => 'date',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'date',
-		'not null' => TRUE,
-	  ),
-	  'revision' => array(
-		'type'     => 'date',
-		'not null' => TRUE,
-	  ),
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_date_property_default_views_handlers'
+    'description'              => 'A date.',
+    'drupal_property'          => 'date',
+    'default_widget'           => 'date',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'date',
+        'not null' => TRUE,
+      ),
+      'revision' => array(
+        'type'     => 'date',
+        'not null' => TRUE,
+      ),
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_date_property_default_views_handlers'
   );
   $info['boolean']      = array(
-	'description'              => 'A boolean.',
-	'drupal_property'          => 'boolean',
-	'default_value'            => 0,
-	'default_widget'           => 'checkbox',
-	'default_schema'           => array(
-	  'base'     => array(
-		'type'     => 'int',
-		'size'     => 'tiny',
-		'not null' => TRUE,
-		'default'  => 0
-	  ),
-	  'revision' => array(
-		'type'     => 'int',
-		'size'     => 'tiny',
-		'not null' => TRUE,
-		'default'  => 0
-	  )
-	),
-	'default_forms_expose'     => array(
-	  'edit' => TRUE
-	),
-	'default_has_revisions'    => TRUE,
-	'default_has_translations' => FALSE,
-	'default_multiple'         => FALSE,
-	'default_views_handlers'   => 'toolbox_boolean_property_default_views_handlers'
+    'description'              => 'A boolean.',
+    'drupal_property'          => 'boolean',
+    'default_value'            => 0,
+    'default_widget'           => 'checkbox',
+    'default_schema'           => array(
+      'base'     => array(
+        'type'     => 'int',
+        'size'     => 'tiny',
+        'not null' => TRUE,
+        'default'  => 0
+      ),
+      'revision' => array(
+        'type'     => 'int',
+        'size'     => 'tiny',
+        'not null' => TRUE,
+        'default'  => 0
+      )
+    ),
+    'default_forms_expose'     => array(
+      'edit' => TRUE
+    ),
+    'default_has_revisions'    => TRUE,
+    'default_has_translations' => FALSE,
+    'default_multiple'         => FALSE,
+    'default_views_handlers'   => 'toolbox_boolean_property_default_views_handlers'
   );
 
   return $info;
@@ -512,14 +512,14 @@ function entity_toolbox_toolbox_property_type_info() {
 function entity_toolbox_toolbox_property_widget_info() {
   $info              = array();
   $info['textfield'] = array(
-	'drupal type'      => 'textfield',
-	'options'          => array(),
-	'multiple allowed' => TRUE,
+    'drupal type'      => 'textfield',
+    'options'          => array(),
+    'multiple allowed' => TRUE,
   );
   $info['text']      = array(
-	'drupal type'      => 'textarea',
-	'options'          => array(),
-	'multiple allowed' => TRUE,
+    'drupal type'      => 'textarea',
+    'options'          => array(),
+    'multiple allowed' => TRUE,
   );
 
   return $info;
@@ -531,19 +531,19 @@ function entity_toolbox_toolbox_property_widget_info() {
 function entity_toolbox_schema_type_info() {
   $info             = array();
   $info['base']     = array(
-	'name'           => '%entity_type%',
-	'description'    => 'The base table for %entity_type% entities.',
-	'build callback' => 'base_schema_build',
+    'name'           => '%entity_type%',
+    'description'    => 'The base table for %entity_type% entities.',
+    'build callback' => 'base_schema_build',
   );
   $info['revision'] = array(
-	'name'           => '%entity_type%_revision',
-	'description'    => 'The base table for %entity_type% entities.',
-	'build callback' => 'revision_schema_build',
+    'name'           => '%entity_type%_revision',
+    'description'    => 'The base table for %entity_type% entities.',
+    'build callback' => 'revision_schema_build',
   );
   $info['relation'] = array(
-	'name'           => '%entity_type%_has_%relation_type%',
-	'description'    => 'A relation table between %entity_type% and %relation_type%.',
-	'build callback' => 'relation_schema_build',
+    'name'           => '%entity_type%_has_%relation_type%',
+    'description'    => 'A relation table between %entity_type% and %relation_type%.',
+    'build callback' => 'relation_schema_build',
   );
 
   return $info;
@@ -555,24 +555,24 @@ function entity_toolbox_schema_type_info() {
 function entity_toolbox_toolbox_callback_type_info() {
   $info           = array();
   $info['create'] = array(
-	'name'    => '%entity_type%_create',
-	'default' => 'entity_toolbox_create',
+    'name'    => '%entity_type%_create',
+    'default' => 'entity_toolbox_create',
   );
   $info['access'] = array(
-	'name'    => '%entity_type%_access',
-	'default' => 'entity_toolbox_access',
+    'name'    => '%entity_type%_access',
+    'default' => 'entity_toolbox_access',
   );
   $info['uri']    = array(
-	'name'    => '%entity_type%_uri',
-	'default' => 'entity_toolbox_uri',
+    'name'    => '%entity_type%_uri',
+    'default' => 'entity_toolbox_uri',
   );
   $info['page']   = array(
-	'name'    => '%entity_type%_page',
-	'default' => 'entity_toolbox_page',
+    'name'    => '%entity_type%_page',
+    'default' => 'entity_toolbox_page',
   );
   $info['label']  = array(
-	'name'    => '%entity_type%_label',
-	'default' => 'entity_toolbox_label',
+    'name'    => '%entity_type%_label',
+    'default' => 'entity_toolbox_label',
   );
 
   return $info;
@@ -584,24 +584,24 @@ function entity_toolbox_toolbox_callback_type_info() {
 function entity_toolbox_toolbox_action_type_info() {
   $info           = array();
   $info['add']    = array(
-	'title'     => 'Add %entity_type%',
-	'path item' => 'add',
-	'path'      => '%entity_path%/%entity_id%/add'
+    'title'     => 'Add %entity_type%',
+    'path item' => 'add',
+    'path'      => '%entity_path%/%entity_id%/add'
   );
   $info['edit']   = array(
-	'title'     => 'Edit %entity_type%',
-	'path item' => 'edit',
-	'path'      => '%entity_path%/%entity_id%/edit'
+    'title'     => 'Edit %entity_type%',
+    'path item' => 'edit',
+    'path'      => '%entity_path%/%entity_id%/edit'
   );
   $info['view']   = array(
-	'title'     => 'View %entity_type%',
-	'path item' => 'view',
-	'path'      => '%entity_path%/%entity_id%/view'
+    'title'     => 'View %entity_type%',
+    'path item' => 'view',
+    'path'      => '%entity_path%/%entity_id%/view'
   );
   $info['delete'] = array(
-	'title'     => 'Delete %entity_type%',
-	'path item' => 'delete',
-	'path'      => '%entity_path%/%entity_id%/delete'
+    'title'     => 'Delete %entity_type%',
+    'path item' => 'delete',
+    'path'      => '%entity_path%/%entity_id%/delete'
   );
 
   return $info;

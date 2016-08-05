@@ -44,15 +44,15 @@ class InfoExtractor {
    * @throws EntityToolboxException
    */
   public function __construct($version = NULL, $hook = NULL, $extractMethods = array()) {
-	if (!isset($version)) {
-	  //@todo manage entity_toolbox version
-	}
-	$this->version = $version;
-	if (!isset($hook)) {
-	  throw new HookNameNotProvided();
-	}
-	$this->hook = $hook;
-	$this->provideExtractMethods($extractMethods);
+    if (!isset($version)) {
+      //@todo manage entity_toolbox version
+    }
+    $this->version = $version;
+    if (!isset($hook)) {
+      throw new HookNameNotProvided();
+    }
+    $this->hook = $hook;
+    $this->provideExtractMethods($extractMethods);
   }
 
   /**
@@ -64,9 +64,9 @@ class InfoExtractor {
    * @throws \ExtractMethodMissing
    */
   protected function provideExtractMethods(array $extractMethods = array()) {
-	foreach ($extractMethods as $extractKey => $method) {
-	  $this->provideExtractMethod($method, $extractKey);
-	}
+    foreach ($extractMethods as $extractKey => $method) {
+      $this->provideExtractMethod($method, $extractKey);
+    }
   }
 
   /**
@@ -82,10 +82,10 @@ class InfoExtractor {
    * @throws \ExtractMethodMissing
    */
   protected function provideExtractMethod($method, $extractKey) {
-	if (!method_exists($this, $method)) {
-	  throw new ExtractMethodMissing(array('method' => $method));
-	}
-	$this->extractMethods[$extractKey] = $method;
+    if (!method_exists($this, $method)) {
+      throw new ExtractMethodMissing(array('method' => $method));
+    }
+    $this->extractMethods[$extractKey] = $method;
   }
 
   /**
@@ -93,7 +93,7 @@ class InfoExtractor {
    *   The info to set.
    */
   protected function setInfo(array $info) {
-	$this->info = $info;
+    $this->info = $info;
   }
 
   /**
@@ -109,12 +109,12 @@ class InfoExtractor {
    * @return mixed
    */
   public function extract($extractKey, array $info = array()) {
-	if (empty($this->info) && empty($info)) {
-	  throw new InfoNotSet();
-	}
-	$method = $this->extractMethods[$extractKey];
+    if (empty($this->info) && empty($info)) {
+      throw new InfoNotSet();
+    }
+    $method = $this->extractMethods[$extractKey];
 
-	return $method();
+    return $method();
   }
 
 }

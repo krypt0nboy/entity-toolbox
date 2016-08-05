@@ -31,13 +31,13 @@ class BuilderBase {
    * @throws EntityToolboxException
    */
   public function __construct($entityType = NULL, array $rawData = array()) {
-	if (!isset($entityType)) {
-	  throw new MissingEntityTypeException();
-	}
-	$this->entityType = $entityType;
-	if (!empty($rawData)) {
-	  $this->rawData = $rawData;
-	}
+    if (!isset($entityType)) {
+      throw new MissingEntityTypeException();
+    }
+    $this->entityType = $entityType;
+    if (!empty($rawData)) {
+      $this->rawData = $rawData;
+    }
   }
 
   /**

@@ -26,12 +26,12 @@ function toolbox_property_default__($entity_type, $name, $key, $info) {
   $key_               = 'default_' . $key;
 
   if (!empty($property_type_info[$key_])) {
-	$variables = array(
-	  'entity_type' => $entity_type,
-	  'reference'   => !empty($property_info['reference'])
-	);
+    $variables = array(
+      'entity_type' => $entity_type,
+      'reference'   => !empty($property_info['reference'])
+    );
 
-	return string_template_process($property_type_info[$key_], $variables);
+    return string_template_process($property_type_info[$key_], $variables);
   }
 }
 
@@ -223,8 +223,8 @@ function property_type_default_callbacks($type) {
   $type_info = entity_toolbox_property_type_get_info($type);
 
   return array(
-	'getter' => 'entity_toolbox_multi_value_property_get',
-	'setter' => 'entity_toolbox_multi_value_property_set'
+    'getter' => 'entity_toolbox_multi_value_property_get',
+    'setter' => 'entity_toolbox_multi_value_property_set'
   );
 }
 

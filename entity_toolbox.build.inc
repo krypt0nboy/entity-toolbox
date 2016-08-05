@@ -24,44 +24,44 @@ function entity_info_build($entity_type) {
    * Builds info for both fieldable and non fieldable types.
    */
   $build[$entity_type] = array(
-	'label'             => $toolbox_info['labels']['single'],
-	'plural label'      => $toolbox_info['labels']['plural'],
-	'entity class'      => toolbox_entity_get_class($entity_type),
-	'controller class'  => toolbox_entity_get_controller_class($entity_type),
-	'base table'        => $toolbox_info['base table'],
-	'fieldable'         => $toolbox_info['fieldable'],
-	'entity keys'       => $toolbox_info['keys'],
-	'creation callback' => $toolbox_info['callbacks']['create'],
-	'access callback'   => $toolbox_info['callbacks']['access'],
-	'label callback'    => $toolbox_info['callbacks']['label'],
-	'uri callback'      => $toolbox_info['callbacks']['uri'],
-	'module'            => $toolbox_info['module'],
-	'admin ui'          => array(
-	  'path'             => entity_admin_path($entity_type),
-	  //@todo handle different locations for admin files.
-	  'file'             => $toolbox_info['module'] . '.' . $entity_type . '.admin.inc',
-	  'controller class' => toolbox_entity_get_ui_controller_class($entity_type),
-	),
+    'label'             => $toolbox_info['labels']['single'],
+    'plural label'      => $toolbox_info['labels']['plural'],
+    'entity class'      => toolbox_entity_get_class($entity_type),
+    'controller class'  => toolbox_entity_get_controller_class($entity_type),
+    'base table'        => $toolbox_info['base table'],
+    'fieldable'         => $toolbox_info['fieldable'],
+    'entity keys'       => $toolbox_info['keys'],
+    'creation callback' => $toolbox_info['callbacks']['create'],
+    'access callback'   => $toolbox_info['callbacks']['access'],
+    'label callback'    => $toolbox_info['callbacks']['label'],
+    'uri callback'      => $toolbox_info['callbacks']['uri'],
+    'module'            => $toolbox_info['module'],
+    'admin ui'          => array(
+      'path'             => entity_admin_path($entity_type),
+      //@todo handle different locations for admin files.
+      'file'             => $toolbox_info['module'] . '.' . $entity_type . '.admin.inc',
+      'controller class' => toolbox_entity_get_ui_controller_class($entity_type),
+    ),
   );
   /**
    * Builds info for fieldable entity types.
    * @TODO : add entity_fieldable_info_build().
    */
   if ($toolbox_info['fieldable']) {
-	$build[$entity_type]['bundles']                          = array();
-	$build[$entity_type]['bundle keys']                      = array(
-	  'bundle' => $toolbox_info['keys']['bundle'],
-	);
-	$build[$entity_type]['admin ui']['menu wildcard']        = "%$entity_type";
-	$build[$entity_type]['inline entity form']['controller'] = toolbox_entity_get_inline_class($entity_type);
+    $build[$entity_type]['bundles']                          = array();
+    $build[$entity_type]['bundle keys']                      = array(
+      'bundle' => $toolbox_info['keys']['bundle'],
+    );
+    $build[$entity_type]['admin ui']['menu wildcard']        = "%$entity_type";
+    $build[$entity_type]['inline entity form']['controller'] = toolbox_entity_get_inline_class($entity_type);
   }
   /**
    * Builds info for non fieldable entity types.
    * @TODO : add entity_not_fieldable_info_build().
    */
   else {
-	$build[$entity_type]['exportable'] = TRUE;
-	$build[$entity_type]['bundle of']  = $toolbox_info['bundle of'];
+    $build[$entity_type]['exportable'] = TRUE;
+    $build[$entity_type]['bundle of']  = $toolbox_info['bundle of'];
   }
 
   return $build;
@@ -99,35 +99,35 @@ function entity_property_info_build($entity_type) {
   $toolbox_info = entity_toolbox_entity_get_info($entity_type);
   $build        = array();
   foreach ($toolbox_info['properties'] as $name => $property) {
-	/**
-	 * @todo process property required keys.
-	 */
-	$schema_field = toolbox_property_extract_schema_field($entity_type, $name);
-	$build[$name] = array(
-	  'label'               => $property['label'],
-	  'description'         => !empty($property['description']) ? $property['description'] : NULL,
-	  'type'                => toolbox_property2drupal_property($property['type'], $entity_type, $name),
-	  'required'            => '',
-	  //@todo : add toolbox_property_default_options_list()
-	  'options list'        => '',
-	  'getter callback'     => !empty($property['callbacks']['getter']) ? $property['callbacks']['getter'] : NULL,
-	  'setter callback'     => !empty($property['callbacks']['setter']) ? $property['callbacks']['setter'] : NULL,
-	  'validation callback' => !empty($property['callbacks']['validate']) ? $property['callbacks']['validate'] : NULL,
-	  'access callback'     => !empty($property['callbacks']['access']) ? $property['callbacks']['access'] : NULL,
-	  'setter permission'   => !empty($property['permissions']['setter']) ? $property['permissions']['setter'] : NULL,
-	  //@todo add toolbox_property_extract_schema_field($entity_type, $name)
-	  'schema field'        => !empty($schema_field) ? $schema_field : NULL,
-	  'entity views field'  => TRUE,
-	  'translatable'        => $property['has_translations'],
-	  'clear'               => (!empty($property['reference'])) && !$property['multiple'] ? array($schema_field) : array()
-	);
-	/**
-	 * @todo handle properties that have
-	 */
-	if (!empty($property['reference']) && !$property['multiple']) {
-	  //@todo add entity_reference_property_info_build_numeric($entity_type, $name);
-	  $build += entity_reference_property_info_build_numeric($entity_type, $name);
-	}
+    /**
+     * @todo process property required keys.
+     */
+    $schema_field = toolbox_property_extract_schema_field($entity_type, $name);
+    $build[$name] = array(
+      'label'               => $property['label'],
+      'description'         => !empty($property['description']) ? $property['description'] : NULL,
+      'type'                => toolbox_property2drupal_property($property['type'], $entity_type, $name),
+      'required'            => '',
+      //@todo : add toolbox_property_default_options_list()
+      'options list'        => '',
+      'getter callback'     => !empty($property['callbacks']['getter']) ? $property['callbacks']['getter'] : NULL,
+      'setter callback'     => !empty($property['callbacks']['setter']) ? $property['callbacks']['setter'] : NULL,
+      'validation callback' => !empty($property['callbacks']['validate']) ? $property['callbacks']['validate'] : NULL,
+      'access callback'     => !empty($property['callbacks']['access']) ? $property['callbacks']['access'] : NULL,
+      'setter permission'   => !empty($property['permissions']['setter']) ? $property['permissions']['setter'] : NULL,
+      //@todo add toolbox_property_extract_schema_field($entity_type, $name)
+      'schema field'        => !empty($schema_field) ? $schema_field : NULL,
+      'entity views field'  => TRUE,
+      'translatable'        => $property['has_translations'],
+      'clear'               => (!empty($property['reference'])) && !$property['multiple'] ? array($schema_field) : array()
+    );
+    /**
+     * @todo handle properties that have
+     */
+    if (!empty($property['reference']) && !$property['multiple']) {
+      //@todo add entity_reference_property_info_build_numeric($entity_type, $name);
+      $build += entity_reference_property_info_build_numeric($entity_type, $name);
+    }
   }
 
   return $build;
@@ -148,14 +148,14 @@ function entity_reference_property_info_build_numeric($entity_type, $name) {
   $ref_info              = reference_entity_info($property['reference']);
   $property_name         = toolbox_property_extract_schema_field($entity_type, $name);
   $build[$property_name] = array(
-	'label'              => "$name ID",
-	'description'        => !empty($property['description']) ? $property['description'] : NULL,
-	'type'               => $property['multiple'] ? 'list<decimal>' : 'decimal',
-	'required'           => '',
-	//@todo : add toolbox_property_default_options_list()
-	'options list'       => '',
-	'entity views field' => TRUE,
-	'clear'              => array($name)
+    'label'              => "$name ID",
+    'description'        => !empty($property['description']) ? $property['description'] : NULL,
+    'type'               => $property['multiple'] ? 'list<decimal>' : 'decimal',
+    'required'           => '',
+    //@todo : add toolbox_property_default_options_list()
+    'options list'       => '',
+    'entity views field' => TRUE,
+    'clear'              => array($name)
   );
 
   return $build;
@@ -192,7 +192,7 @@ function entity_schemas_build($entity_type) {
   $toolbox_info = entity_toolbox_entity_get_info($entity_type, NULL, TRUE);
   $schemas      = array();
   foreach ($toolbox_info['tables'] as $type => $name) {
-	$schemas += schema_build($entity_type, $type, $name);
+    $schemas += schema_build($entity_type, $type, $name);
   }
 
   return $schemas;
@@ -232,19 +232,19 @@ function base_schema_build($entity_type) {
   $toolbox_info     = entity_toolbox_entity_get_info($entity_type);
   $schema_type_info = entity_toolbox_schema_type_get_info('base');
   $schema           = array(
-	'description' => $schema_type_info['description'],
-	'fields'      => array(),
-	'primary key' => array(),
-	'unique keys' => array(),
-	'indexes'     => array(),
+    'description' => $schema_type_info['description'],
+    'fields'      => array(),
+    'primary key' => array(),
+    'unique keys' => array(),
+    'indexes'     => array(),
   );
 
   foreach ($toolbox_info['properties'] as $name => $property) {
-	$schema['fields'][$property['schema_fields']['base']] = schema_field_build($entity_type, $name, 'base');
-	/**
-	 * @todo process primary keys, unique keys, and indexes.
-	 * @todo process revision id if entity type has revisions.
-	 */
+    $schema['fields'][$property['schema_fields']['base']] = schema_field_build($entity_type, $name, 'base');
+    /**
+     * @todo process primary keys, unique keys, and indexes.
+     * @todo process revision id if entity type has revisions.
+     */
   }
 
   return $schema;
@@ -266,19 +266,19 @@ function revision_schema_build($entity_type) {
   $toolbox_info     = entity_toolbox_entity_get_info($entity_type);
   $schema_type_info = entity_toolbox_schema_type_get_info('revision');
   $schema           = array(
-	'description' => $schema_type_info['description'],
-	'fields'      => array(),
-	'primary key' => array(),
-	'unique keys' => array(),
-	'indexes'     => array(),
+    'description' => $schema_type_info['description'],
+    'fields'      => array(),
+    'primary key' => array(),
+    'unique keys' => array(),
+    'indexes'     => array(),
   );
 
   foreach ($toolbox_info['properties'] as $name => $property) {
-	$schema['fields'][$property['schema_fields']['revision']] = schema_field_build($entity_type, $name, 'revision');
-	/**
-	 * @todo process primary keys, unique keys, and indexes.
-	 * @todo process revision id if entity type has revisions.
-	 */
+    $schema['fields'][$property['schema_fields']['revision']] = schema_field_build($entity_type, $name, 'revision');
+    /**
+     * @todo process primary keys, unique keys, and indexes.
+     * @todo process revision id if entity type has revisions.
+     */
   }
 
   return $schema;
@@ -300,19 +300,19 @@ function relation_schema_build($entity_type) {
   $toolbox_info     = entity_toolbox_entity_get_info($entity_type);
   $schema_type_info = entity_toolbox_schema_type_get_info('relation');
   $schema           = array(
-	'description' => $schema_type_info['description'],
-	'fields'      => array(),
-	'primary key' => array(),
-	'unique keys' => array(),
-	'indexes'     => array(),
+    'description' => $schema_type_info['description'],
+    'fields'      => array(),
+    'primary key' => array(),
+    'unique keys' => array(),
+    'indexes'     => array(),
   );
 
   foreach ($toolbox_info['properties'] as $name => $property) {
-	$schema['fields'][$property['schema_fields']['revision']] = schema_field_build($entity_type, $name, 'revision');
-	/**
-	 * @todo process primary keys, unique keys, and indexes.
-	 * @todo process revision id if entity type has revisions.
-	 */
+    $schema['fields'][$property['schema_fields']['revision']] = schema_field_build($entity_type, $name, 'revision');
+    /**
+     * @todo process primary keys, unique keys, and indexes.
+     * @todo process revision id if entity type has revisions.
+     */
   }
 
   return $schema;
@@ -410,8 +410,8 @@ function views_data_build($entity_type) {
   $data          = array($base_table => array());
   $schema_fields = toolbox_info_extract_schema_fields($entity_type);
   foreach ($toolbox_info['properties'] as $name => $property) {
-	$schema_field                     = $schema_fields[$name];
-	$data[$base_table][$schema_field] = views_data_property_field_build($entity_type, $name);
+    $schema_field                     = $schema_fields[$name];
+    $data[$base_table][$schema_field] = views_data_property_field_build($entity_type, $name);
   }
   $data += views_data_operations_links_build($entity_type);
 
@@ -438,7 +438,7 @@ function views_data_property_field_build($entity_type, $name) {
   $data['help']       = t($property_info['description']);
   $data += $handlers_callback();
   if (($property_info['type'] == 'parent' && 'reference') && !$property_info['multiple']) {
-	$data['relationship'] = views_data_property_relationship_build($entity_type, $name);
+    $data['relationship'] = views_data_property_relationship_build($entity_type, $name);
   }
 
   //@todo handle custom fields
@@ -465,12 +465,12 @@ function views_data_property_relationship_build($entity_type, $name) {
   $help  = $property_info['description'] . ' (relationship)';
 
   return array(
-	'base'       => $rel_table,
-	'base field' => $rel_key_id,
-	'handler'    => 'views_handler_relationship',
-	'label'      => t($label),
-	'title'      => t($title),
-	'help'       => t($help),
+    'base'       => $rel_table,
+    'base field' => $rel_key_id,
+    'handler'    => 'views_handler_relationship',
+    'label'      => t($label),
+    'title'      => t($title),
+    'help'       => t($help),
   );
 }
 
@@ -514,10 +514,10 @@ function views_data_operation_link_build(&$data, $entity_type, $operation) {
   $help = 'Provides a link to %action_type% the %entity_type%.';
 
   $data[$link] = array(
-	'title'   => t($title),
-	'help'    => t($help),
-	'handler' => $action_info['default_views_handler'],
-	'type'    => $entity_type,
+    'title'   => t($title),
+    'help'    => t($help),
+    'handler' => $action_info['default_views_handler'],
+    'type'    => $entity_type,
   );
 }
 
@@ -531,10 +531,10 @@ function views_data_operation_link_build(&$data, $entity_type, $operation) {
  */
 function views_data_operations_link_build($entity_type) {
   return array(
-	'title'   => t('Operations links'),
-	'help'    => t('Display all operations available for this ' . $entity_type),
-	'handler' => 'entity_toolbox_handler_entity_operations_field',
-	'type'    => $entity_type
+    'title'   => t('Operations links'),
+    'help'    => t('Display all operations available for this ' . $entity_type),
+    'handler' => 'entity_toolbox_handler_entity_operations_field',
+    'type'    => $entity_type
   );
 }
 

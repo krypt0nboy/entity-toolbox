@@ -14,7 +14,7 @@ class ContribHookBuilder extends HookBuilder {
 
   /** {{@inheritdoc}} */
   public function __construct($hook, $entityType, array $rawData = array()) {
-	parent::__construct($hook, $entityType, $rawData);
-	$this->toolboxInfo = entity_toolbox_get_info($entityType);
+    parent::__construct($hook, $entityType, $rawData);
+    $this->toolboxInfo = entity_toolbox_get_info($entityType);
   }
 }

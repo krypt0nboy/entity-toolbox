@@ -36,8 +36,8 @@ class EntityGroup {
    *   The group type.
    */
   public function __construct($group_type) {
-	$this->groupType = $group_type;
-	$this->groupInfo = entity_toolbox_entity_group_get_info($group_type);
+    $this->groupType = $group_type;
+    $this->groupInfo = entity_toolbox_entity_group_get_info($group_type);
   }
 
   /**
@@ -46,7 +46,7 @@ class EntityGroup {
    * @return string
    */
   public function groupType() {
-	return $this->groupType;
+    return $this->groupType;
   }
 
   /**
@@ -55,7 +55,7 @@ class EntityGroup {
    * @return array
    */
   public function groupInfo() {
-	return $this->groupInfo;
+    return $this->groupInfo;
   }
 
   /**
@@ -64,6 +64,6 @@ class EntityGroup {
    * @return mixed
    */
   public function groupEntities() {
-	return $this->groupInfo['entities'];
+    return $this->groupInfo['entities'];
   }
 }

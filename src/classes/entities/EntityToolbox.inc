@@ -38,16 +38,16 @@ class EntityToolbox extends Entity {
    * @throws \Exception
    */
   public function __construct($values = array(), $entity_type = NULL) {
-	parent::__construct($values, $entity_type);
+    parent::__construct($values, $entity_type);
   }
 
   /**
    * {@inheritdoc}
    */
   public function setUp() {
-	parent::setUp();
-	$this->toolboxInfo = entity_toolbox_entity_get_info($this->entityType);
-	$this->entityGroup = $this->toolboxInfo['group'];
+    parent::setUp();
+    $this->toolboxInfo = entity_toolbox_entity_get_info($this->entityType);
+    $this->entityGroup = $this->toolboxInfo['group'];
   }
 
   /**
@@ -56,7 +56,7 @@ class EntityToolbox extends Entity {
    * @return array
    */
   public function toolboxInfo() {
-	return $this->toolboxInfo;
+    return $this->toolboxInfo;
   }
 
   /**
@@ -65,7 +65,7 @@ class EntityToolbox extends Entity {
    * @return string
    */
   public function entityGroup() {
-	return $this->entityGroup;
+    return $this->entityGroup;
   }
 
   /**
@@ -75,7 +75,7 @@ class EntityToolbox extends Entity {
    *   Label.
    */
   protected function defaultLabel() {
-	return parent::defaultLabel();
+    return parent::defaultLabel();
   }
 
   /**
@@ -85,8 +85,8 @@ class EntityToolbox extends Entity {
    *   Uri.
    */
   protected function defaultUri() {
-	//TODO : add entity uri template
-	return array('path' => "$this->entityType/" . $this->idKey);
+    //TODO : add entity uri template
+    return array('path' => "$this->entityType/" . $this->idKey);
   }
 }
 

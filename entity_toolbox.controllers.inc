@@ -21,11 +21,11 @@
 function entity_toolbox_controller($entity_type, $bundle = NULL) {
   $controllers = &drupal_static(__FUNCTION__, array());
   if (!isset($controllers[$entity_type])) {
-	$type_info = entity_toolbox_entity_get_info($entity_type);
-	$class     = $type_info['classes']['controllers']['controller'];
-	/** @var \EntityToolboxController */
-	//@todo handle bundle controllers.
-	$controllers[$entity_type] = new $class($entity_type);
+    $type_info = entity_toolbox_entity_get_info($entity_type);
+    $class     = $type_info['classes']['controllers']['controller'];
+    /** @var \EntityToolboxController */
+    //@todo handle bundle controllers.
+    $controllers[$entity_type] = new $class($entity_type);
   }
 
   return $controllers[$entity_type];
