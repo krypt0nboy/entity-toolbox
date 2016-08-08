@@ -54,7 +54,10 @@ files[] = src/classes/builders/values/ArrayValueBuilder.inc
 files[] = src/classes/groups/EntityGroup.inc
 
 # Operations
-files[] = src/classes/operations/
+files[] = src/classes/operations/EntityToolboxOperationsAdd.inc
+files[] = src/classes/operations/EntityToolboxOperationsEdit.inc
+files[] = src/classes/operations/EntityToolboxOperationsView.inc
+files[] = src/classes/operations/EntityToolboxOperationsDelete.inc
 
 # Exceptions
 files[] = src/classes/exceptions/entity_toolbox.exceptions.inc
