@@ -39,7 +39,6 @@ class ValueBuilder extends BuilderBase {
   public function __construct($entityType = NULL, $tableKey = NULL, array $rawData = array()) {
     parent::__construct($entityType, $rawData);
     $this->tableKey = $tableKey;
-    $this->extractRawDataValue();
   }
 
   /**

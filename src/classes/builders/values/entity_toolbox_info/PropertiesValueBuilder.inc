@@ -33,8 +33,14 @@ class PropertiesValueBuilder extends ArrayBuilder {
     $this->missingRequiredProperties = array_diff(array_unique($types), $this->requiredProperties);
   }
 
+  /** {{@inheritdoc}} */
   public function build() {
+  }
 
+  /**
+   * Build default properties.
+   */
+  protected function buildDefault() {
   }
 }
 
@@ -58,9 +64,25 @@ class PropertiesValueBuilderFieldable extends PropertiesValueBuilder {
 
   /** {{@inheritdoc}} */
   public function build() {
-    foreach ($this->missingRequiredProperties as $missingRequiredProperty) {
-      $propertyTypeInfo = entity_toolbox_property_type_get_info($missingRequiredProperty);
+    $default = $this->buildDefault();
+    foreach ($this->rawValueData as $name => $property) {
+
     }
+
+    $this->processedValueData = array_merge($default, $this->processedValueData);
+
+    return $this->processedValueData;
+  }
+
+  /** {{@inheritdoc}} */
+  protected function buildDefault() {
+    $default = array();
+    foreach ($this->missingRequiredProperties as $missingRequiredProperty) {
+      $propertyInfo = entity_toolbox_property_type_get_info($missingRequiredProperty)['fieldable'];
+      $builder      = new $propertyInfo['builder']($this->entityType);
+    }
+
+    return $default;
   }
 }
 

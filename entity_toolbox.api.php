@@ -71,6 +71,7 @@ function hook_entity_toolbox_cache_info() {
  *    - description : (optional) The property description, often used in edit_form and views.
  *    - has_revisions : (optional) A boolean indicating if the property should be added to the revision table.
  *    - has_translations : (optional) A boolean indicating if the property is translatable.
+ *    - tables : (optional) An array of tables
  *    - schemas_fields : (optional) A associative array where the keys are the schema types and the values are the matching field within that schema.
  *    - callbacks : (optional) An associative array where the keys are the callback types and the values the callbacks themselves :
  *     - getter : (optional)A custom getter for the property.
@@ -119,7 +120,7 @@ function hook_entity_toolbox_info() {
       'ui_controller' => 'ProductUIController',
     ),
     'properties'       => array(
-      'product_id' => array(
+      'product_id'     => array(
         'type'             => 'id',
         'key'              => 'id',
         'has_revisions'    => FALSE,
@@ -129,6 +130,15 @@ function hook_entity_toolbox_info() {
         ),
         'forms'            => array(
           'edit' => array()
+        )
+      ),
+      'product_shares' => array(
+        'type'             => 'reference',
+        'multiple'         => TRUE,
+        'has_revisions'    => TRUE,
+        'has_translations' => FALSE,
+        'tables'          => array(
+          'relation' => 'product_has_product_shares'
         )
       ),
     ),
@@ -304,11 +314,70 @@ function hook_hook_register_info() {
  *    - permissions :
  */
 function hook_toolbox_property_type_info() {
-  $info           = array();
-  $info['id']     = array(
-    'default' => array(),
+  $info       = array();
+  $info['id'] = array(
+    'fieldable'     => array(
+      'builder' => 'PropertyIdBuilderFieldable',
+      'default' => array(
+        'name'                => '%entity_type%_id',
+        'value'               => 0,
+        'has_revisions'       => FALSE,
+        'has_translations'    => FALSE,
+        'key_name'            => 'id',
+        'is_multiple'         => FALSE,
+        'callbacks'           => array(),
+        'drupal_property'     => 'decimal',
+        'label'               => '%label% ID',
+        'description'         => 'The %entity_type% ID.',
+        'permissions'         => array(),
+        'schemas'             => array(
+          'base'     => array(
+            'description' => 'Primary Key: Identifier for a %entity_type%.',
+            'type'        => 'serial',
+            'unsigned'    => TRUE,
+            'not null'    => TRUE,
+          ),
+          'revision' => array(
+            'description' => '{%base_table%}.%entity_type%_id.',
+            'type'        => 'int',
+            'not null'    => TRUE,
+            'default'     => 0,
+          ),
+        ),
+        'schemas_field_names' => array(
+          'base'     => '%entity_type%_id',
+          'revision' => '%entity_type%_id'
+        ),
+      ),
+    ),
+    'not_fieldable' => array(
+      'builder' => 'PropertyIdBuilderNotFieldable',
+      'default' => array(
+        'name'                => 'id',
+        'value'               => 0,
+        'has_revisions'       => FALSE,
+        'has_translations'    => FALSE,
+        'key_name'            => 'id',
+        'is_multiple'         => FALSE,
+        'callbacks'           => array(),
+        'drupal_property'     => 'decimal',
+        'label'               => '%label% ID',
+        'description'         => 'The %entity_type% ID.',
+        'permissions'         => array(),
+        'schemas'             => array(
+          'base' => array(
+            'description' => 'Primary Key: Identifier for a %entity_type%.',
+            'type'        => 'serial',
+            'unsigned'    => TRUE,
+            'not null'    => TRUE,
+          ),
+        ),
+        'schemas_field_names' => array(
+          'base' => '%entity_type%_id',
+        ),
+      ),
+    ),
   );
-  $info['bundle'] = array();
 
   return $info;
 }
@@ -336,18 +405,28 @@ function hook_toolbox_property_widget_info() {
  *
  * @return array
  *   An associative array where the keys are the type name, and the values are :
- *    - name : The table name template.
- *    - description : The table description template.
- *    - build callback : The callback to build the schema.
+ *    -
  *
  * @see hook_entity_toolbox_entity_info().
  */
 function hook_schema_type_info() {
   $info                      = array();
-  $info['base']              = 'ValueSchemaBuilderBase';
-  $info['revision']          = 'ValueSchemaBuilderRevision';
-  $info['relation']          = 'ValueSchemaBuilderRelation';
-  $info['relation_revision'] = 'ValueSchemaBuilderRelationRevision';
+  $info['base']              = array(
+    'fieldable'     => '',
+    'not_fieldable' => '',
+  );
+  $info['revision']          = array(
+    'fieldable'     => '',
+    'not_fieldable' => '',
+  );
+  $info['relation']          = array(
+    'fieldable'     => '',
+    'not_fieldable' => '',
+  );
+  $info['relation_revision'] = array(
+    'fieldable'     => '',
+    'not_fieldable' => '',
+  );
 
   return $info;
 }

@@ -48,7 +48,24 @@ files[] = src/classes/builders/hooks/theme/ThemeBuilder.inc
 files[] = src/classes/builders/hooks/token_info/TokenInfoBuilder.inc
 files[] = src/classes/builders/hooks/token_info_alter/TokenInfoBuilder.inc
 files[] = src/classes/builders/values/ValueBuilder.inc
+files[] = src/classes/builders/values/StringValueBuilder.inc
+files[] = src/classes/builders/values/ArrayBuilder.inc
 files[] = src/classes/builders/values/ArrayValueBuilder.inc
+files[] = src/classes/builders/values/ContribStringValueBuilder.inc
+files[] = src/classes/builders/values/ContribArrayBuilder.inc
+files[] = src/classes/builders/values/ContribArrayValueBuilder.inc
+files[] = src/classes/builders/values/entity_info/AdminUIBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/CallbacksValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/CallbacksValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/ClassesValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/ClassValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/EntityTypeValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/KeysValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/LabelBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/LabelsBuidler.inc
+files[] = src/classes/builders/values/entity_toolbox_info/OperationsValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/PropertiesValueBuilder.inc
+files[] = src/classes/builders/values/entity_toolbox_info/PropertyValueBuilder.inc
 
 # Groups
 files[] = src/classes/groups/EntityGroup.inc

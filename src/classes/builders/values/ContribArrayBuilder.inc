@@ -11,8 +11,8 @@ class ContribArrayBuilder extends ArrayBuilder {
   protected $toolboxInfo = array();
 
   /** {{@inheritdoc}} */
-  public function __construct($entityType, $tableKey, array $rawData) {
-    parent::__construct($entityType, $tableKey, $rawData);
+  public function __construct($entityType, $tableKey = NULL) {
+    parent::__construct($entityType, $tableKey);
     $this->toolboxInfo = entity_toolbox_get_info($this->entityType);
   }
 }

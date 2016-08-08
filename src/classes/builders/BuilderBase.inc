@@ -23,6 +23,12 @@ class BuilderBase {
   protected $processedData = array();
 
   /**
+   * @var ValueBuilder[] $valuesBuilders
+   *   Required values builders.
+   */
+  protected $valuesBuilders = array();
+
+  /**
    * BuilderBase constructor.
    *
    * @param null|string $entityType
@@ -38,6 +44,33 @@ class BuilderBase {
     if (!empty($rawData)) {
       $this->rawData = $rawData;
     }
+  }
+
+  /**
+   * Sets the values builders required by the current builder.
+   */
+  protected function setValuesBuilders() {
+  }
+
+  /**
+   * Returns a value builder.
+   *
+   * @param string $name
+   *   The builder name.
+   *
+   * @return \ValueBuilder
+   */
+  protected function getValueBuilder($name) {
+    if (!empty($this->valuesBuilders[$name])) {
+      return $this->valuesBuilders[$name];
+    }
+  }
+
+  /**
+   * @return \ValueBuilder[]
+   */
+  protected function getValuesBuilders() {
+    return $this->valuesBuilders;
   }
 
   /**

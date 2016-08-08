@@ -36,11 +36,12 @@ class StringValueBuilder extends ValueBuilder {
    * @param array       $templateVariables
    *   The variables to be accessed by string_process_template when processing the default value.
    */
-  public function __construct($entityType, $tableKey, array $rawData = array(), $defaultValue = NULL, $defaultValueIsTemplate = NULL, array $templateVariables) {
+  public function __construct($entityType, $tableKey, array $rawData = array(), $defaultValue = NULL, $defaultValueIsTemplate = NULL, array $templateVariables = array()) {
     parent::__construct($entityType, $tableKey, $rawData);
     if (isset($defaultValue)) {
       $this->defaultValue           = $defaultValue;
       $this->defaultValueIsTemplate = isset($defaultValueIsTemplate) ? $defaultValueIsTemplate : preg_match('/%\w+%/', $defaultValue);
+      $this->templateVariables      = $templateVariables;
     }
   }
 

@@ -14,12 +14,15 @@ class EntityInfoBuilderFieldable extends EntityInfoBuilder {
     parent::__construct($entityType);
   }
 
+  /** {{@inheritdoc}} */
   public function build() {
     $this->processedData += parent::build();
-    $this->processedData['fieldable']      = TRUE;
-    $this->processedData['bundles']        = array();
-    $this->processedData['bundle keys']    = array(
+    $this->processedData['fieldable']   = TRUE;
+    $this->processedData['bundles']     = array();
+    $this->processedData['bundle keys'] = array(
       'bundle' => 'type'
     );
+
+    return $this->processedData;
   }
 }

@@ -13,4 +13,13 @@ class EntityInfoBuilderNotFieldable extends EntityInfoBuilder {
   public function __construct($entityType) {
     parent::__construct($entityType);
   }
+
+  /** {{@inheritdoc}} */
+  public function build() {
+    $this->processedData += parent::build();
+    $this->processedData['fieldable'] = FALSE;
+    $this->processedData['bundle of'] = $this->toolboxInfo['bundle_of'];
+
+    return $this->processedData;
+  }
 }

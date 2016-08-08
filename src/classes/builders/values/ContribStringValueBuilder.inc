@@ -11,8 +11,8 @@ class ContribStringValueBuilder extends StringValueBuilder {
   protected $toolboxInfo = array();
 
   /** {{@inheritdoc}} */
-  public function __construct($entityType, $tableKey, array $rawData, $defaultValue, $defaultValueIsTemplate, array $templateVariables) {
-    parent::__construct($entityType, $tableKey, $rawData, $defaultValue, $defaultValueIsTemplate, $templateVariables);
+  public function __construct($entityType, $tableKey, $defaultValue = NULL, $defaultValueIsTemplate = NULL, array $templateVariables = array()) {
+    parent::__construct($entityType, $tableKey, array(), $defaultValue, $defaultValueIsTemplate, $templateVariables);
     $this->toolboxInfo = entity_toolbox_get_info($this->entityType);
   }
 }

@@ -14,7 +14,6 @@ class EntityToolboxInfoBuilderFieldable extends EntityToolboxInfoBuilder {
   /** {{@inheritdoc}} */
   protected function setValuesBuilders() {
     parent::setValuesBuilders();
-    $this->valuesBuilders['classes']    = new ClassesValueBuilder($this->entityType, $this->rawData);
     $this->valuesBuilders['properties'] = new PropertiesValueBuilderFieldable($this->entityType, $this->rawData);
     $this->valuesBuilders['callbacks']  = new CallbacksValueBuilder($this->entityType, $this->rawData);
     $this->valuesBuilders['operations'] = new OperationsValueBuilder($this->entityType, $this->rawData);
@@ -29,8 +28,6 @@ class EntityToolboxInfoBuilderFieldable extends EntityToolboxInfoBuilder {
     $this->processedData['has_translations'] = !empty($this->rawData['has_translations']) ? $this->rawData['has_translations'] : TRUE;
     $this->processedData['exportable']       = !empty($this->rawData['has_translations']) ? $this->rawData['has_translations'] : FALSE;
     $this->processedData['bundle_entity']    = !empty($this->rawData['bundle_entity']) ? $this->rawData['bundle_entity'] : $this->entityType . "_type";
-    $this->processedData['classes']          = $this->getValueBuilder('classes')
-                                                    ->build();
     $this->processedData['properties']       = $this->getValueBuilder('properties')
                                                     ->build();
     $this->processedData['callbacks']        = $this->getValueBuilder('callbacks')

@@ -1,16 +1,28 @@
 <?php
 
 /**
- * Builds the info for an entity type property.
+ * Return build info for entity_toolbox_info().
  *
+ * @param string $type
  * @param array  $info
- *   The entity info passed by reference.
- * @param string $entity_type
- *   The entity type.
- * @param string $name
  *
- * @see entity_toolbox_get_info().
+ * @return array
  */
-function toolbox_property_build(&$info, $entity_type, $name) {
+function entity_toolbox_info_build($type, $info) {
+  $builder = $info['fieldable'] ? new EntityToolboxInfoBuilderFieldable($type, $info) : new EntityToolboxInfoBuilderNotFieldable($type, $info);
+
+  return $builder->build();
+}
+
+/**
+ * Return build info for an entity_toolbox property.
+ *
+ * @param string $type
+ * @param string $name
+ * @param array  $info
+ *
+ * @return array
+ */
+function entity_toolbox_property_build($type, $name, $info) {
 
 }

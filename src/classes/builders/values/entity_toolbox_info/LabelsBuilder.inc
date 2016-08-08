@@ -11,9 +11,17 @@ class LabelsValueBuilder extends ArrayBuilder {
   }
 
   /** {{@inheritdoc}} */
+  protected function setValuesBuilders() {
+    $this->valuesBuilders['single'] = new LabelBuilderSingle($this->entityType, $this->rawData);
+    $this->valuesBuilders['plural'] = new LabelBuilderPlural($this->entityType, $this->rawData);
+  }
+
+  /** {{@inheritdoc}} */
   public function build() {
-    $this->processedValueData['single'] = !empty($this->rawValueData['single']) ? $this->rawValueData['single'] : new LabelBuilderSingle($this->entityType, $this->rawData);
-    $this->processedValueData['plural'] = !empty($this->rawValueData['single']) ? $this->rawValueData['single'] : new LabelBuilderPlural($this->entityType, $this->rawData);
+    $this->processedValueData['single'] = $this->getValueBuilder('single')
+                                               ->build();
+    $this->processedValueData['plural'] = $this->getValueBuilder('plural')
+                                               ->build();
 
     return $this->processedValueData;
   }
