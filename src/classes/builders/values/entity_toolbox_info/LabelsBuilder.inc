@@ -4,7 +4,7 @@
  * Class LabelsValueBuilder
  *
  */
-class LabelsValueBuilder extends ArrayValueBuilder {
+class LabelsValueBuilder extends ArrayBuilder {
   /** {{@inheritdoc}} */
   public function __construct($entityType, array $rawData = array()) {
     parent::__construct($entityType, 'labels', $rawData);
@@ -12,7 +12,9 @@ class LabelsValueBuilder extends ArrayValueBuilder {
 
   /** {{@inheritdoc}} */
   public function build() {
-    $labelSingle = !empty($this->rawValueData['single']) ? $this->rawValueData['single'] : new LabelBuilderSingle($this->entityType, $this->rawData);
-    $labelPlural = !empty($this->rawValueData['single']) ? $this->rawValueData['single'] : new LabelBuilderPlural($this->entityType, $this->rawData);
+    $this->processedValueData['single'] = !empty($this->rawValueData['single']) ? $this->rawValueData['single'] : new LabelBuilderSingle($this->entityType, $this->rawData);
+    $this->processedValueData['plural'] = !empty($this->rawValueData['single']) ? $this->rawValueData['single'] : new LabelBuilderPlural($this->entityType, $this->rawData);
+
+    return $this->processedValueData;
   }
 }

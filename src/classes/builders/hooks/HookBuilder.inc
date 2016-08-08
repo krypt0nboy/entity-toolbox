@@ -21,6 +21,12 @@ class HookBuilder extends BuilderBase {
   protected $hookInfo = array();
 
   /**
+   * @var ValueBuilder[] $valuesBuilders
+   *   Required values builders.
+   */
+  protected $valuesBuilders = array();
+
+  /**
    * HookBuilder constructor.
    *
    * @param string $hook
@@ -37,6 +43,28 @@ class HookBuilder extends BuilderBase {
     }
     $this->hook     = $hook;
     $this->hookInfo = entity_toolbox_hook_get_info($this->hook);
+    $this->setValuesBuilders();
+  }
+
+  /**
+   * Sets the values builders required by the current builder.
+   */
+  protected function setValuesBuilders() {
+
+  }
+
+  /**
+   * Returns a value builder.
+   *
+   * @param string $name
+   *   The builder name.
+   *
+   * @return \ValueBuilder
+   */
+  protected function getValueBuilder($name) {
+    if (!empty($this->valuesBuilders[$name])) {
+      return $this->valuesBuilders[$name];
+    }
   }
 
   /** {{@inheritdoc}} */

@@ -12,7 +12,19 @@ class EntityToolboxInfoBuilder extends HookBuilder {
   }
 
   /** {{@inheritdoc}} */
-  public function build() {
-    $this->processedData['entity_type'] = new EntityTypeValueBuilder($this->entityType, $this->rawData);
+  protected function setValuesBuilders() {
+    parent::setValuesBuilders();
+    $this->valuesBuilders['entity_type'] = new EntityTypeValueBuilder($this->entityType, $this->rawData);
+    $this->valuesBuilders['labels']      = new LabelsValueBuilder($this->entityType, $this->rawData);
   }
+
+  /** {{@inheritdoc}} */
+  public function build() {
+    $this->processedData['entity_type'] = $this->getValueBuilder('entity_type')->build();
+    $this->processedData['labels']      = $this->getValueBuilder('labels')->build();
+
+
+    return array_merge($this->processedData, $this->rawData);
+  }
+
 }

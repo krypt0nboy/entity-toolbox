@@ -3,10 +3,10 @@
 /**
  * Class LabelBuilder
  */
-class LabelBuilder extends ValueBuilder {
+class LabelBuilder extends StringValueBuilder {
   /** {{@inheritdoc}} */
-  public function __construct($entityType, $tableKey, array $rawData = array()) {
-    parent::__construct($entityType, $tableKey, $rawData);
+  public function __construct($entityType, $tableKey, array $rawData = array(), $defaultValue = NULL, $defaultValueIsTemplate, array $templateVariables = array()) {
+    parent::__construct($entityType, $tableKey, $rawData, $defaultValue, $defaultValueIsTemplate, $templateVariables);
   }
 }
 

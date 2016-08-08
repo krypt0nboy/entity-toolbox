@@ -82,7 +82,7 @@ function hook_entity_toolbox_cache_info() {
  *     - forms : (optional)
  *    - field : (optional) An array with the form field settings and parameters for a property.
  *   - keys : (optional) An associative array where the keys are the properties keys and the values their matching schema fields.
- *   - children inherit : (optional) An array whose values are the properties to be inherited by children entities.
+ *   - children inherit : (optional) An array containing the properties to be inherited by children entities.
  *   - group : (optional) The entity group.
  *
  * @see entity_toolbox_get_info().
@@ -114,23 +114,16 @@ function hook_entity_toolbox_info() {
       'plural' => t('Products'),
     ),
     'classes'          => array(
-      'entity'        => '',
-      'controller'    => '',
-      'ui_controller' => '',
+      'entity'        => 'Product',
+      'controller'    => 'ProductController',
+      'ui_controller' => 'ProductUIController',
     ),
     'properties'       => array(
       'product_id' => array(
-        'type'             => '',
-        'reference'        => '',
-        'multiple'         => '',
-        'serialize'        => '',
-        'key'              => '',
-        'has_revisions'    => '',
-        'has_translations' => '',
-        'label'            => '',
-        'description'      => '',
-        'schemas_fields'   => array(),
-        'callbacks'        => array(),
+        'type'             => 'id',
+        'key'              => 'id',
+        'has_revisions'    => FALSE,
+        'has_translations' => FALSE,
         'expose'           => array(
           'forms' => array()
         ),
@@ -312,7 +305,9 @@ function hook_hook_register_info() {
  */
 function hook_toolbox_property_type_info() {
   $info           = array();
-  $info['id']     = array();
+  $info['id']     = array(
+    'default' => array(),
+  );
   $info['bundle'] = array();
 
   return $info;
