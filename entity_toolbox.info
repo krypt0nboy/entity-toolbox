@@ -10,7 +10,7 @@ dependencies[] = views_ui
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = inline_entity_form
-dependencies[] = operations
+dependencies[] = entity_operations
 
 # Features
 features[ctools][] = views:views_default:3.0
