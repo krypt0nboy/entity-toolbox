@@ -43,6 +43,11 @@ files[] = src/classes/builders/hooks/operations_info/OperationsInfoBuilder.inc
 files[] = src/classes/builders/hooks/operations_info_alter/OperationsInfoAlterBuilder.inc
 files[] = src/classes/builders/hooks/permission/PermissionBuilder.inc
 files[] = src/classes/builders/hooks/schema/SchemaBuilder.inc
+files[] = src/classes/builders/hooks/schema/SchemaBuilderBase.inc
+files[] = src/classes/builders/hooks/schema/SchemaBuilderRevision.inc
+files[] = src/classes/builders/hooks/schema/SchemaBuilderRelation.inc
+files[] = src/classes/builders/hooks/schema/SchemaBuilderRelationRevision.inc
+
 files[] = src/classes/builders/hooks/schema_alter/SchemaAlterBuilder.inc
 files[] = src/classes/builders/hooks/theme/ThemeBuilder.inc
 files[] = src/classes/builders/hooks/token_info/TokenInfoBuilder.inc
