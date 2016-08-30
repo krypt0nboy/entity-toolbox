@@ -28,7 +28,7 @@ function entity_property_types_default($entity_type) {
  * @param string $entity_type
  *   The entity type.
  * @param string $name
- *   The property type.
+ *   The property name.
  *
  * @return mixed
  */

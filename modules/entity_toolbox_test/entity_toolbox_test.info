@@ -1,5 +1,5 @@
 name = Entity toolbox test
-description = "Test module for entity toolbox"
+description = "Example module for entity toolbox"
 core = 7.x
 version = 7.x-1.0-beta1
 

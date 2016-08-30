@@ -3,7 +3,7 @@
 /**
  * Entity info test.
  */
-module_load_include('inc', 'entity_toolbox_test', 'entity_toolbox_test.test');
+module_load_include('inc', 'entity_toolbox_test', 'entity_toolbox_test.info');
 
 /**
  * Implements @see hook_menu().
@@ -24,4 +24,13 @@ function entity_toolbox_test_menu() {
  * Entity toolbox test function.
  */
 function entity_toolbox_test() {
+  $info          = array();
+  $property_info = array();
+  $schema        = array();
+  $info += entity_info_build('product');
+  $info += entity_info_build('product_type');
+  $property_info += entity_property_info_build('product');
+  $property_info += entity_property_info_build('product_type');
+  $schema += schema_build('product');
+  $schema += schema_build('product_type');
 }

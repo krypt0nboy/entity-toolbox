@@ -333,5 +333,4 @@ function field_ajax_process($form, &$form_state, $name) {
  * @param array          $form_state
  *   The form state, passed by reference.
  */
-function property_default_extract_form_values($entity_type, $entity, $name, &$items, $langcode = NULL, $form, &$form_state) {
-}
+function property_default_extract_form_values($entity_type, $entity, $name, &$items, $langcode = NULL, $form, &$form_state) {}

@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function entity_toolbox_example_schema() {
+  $schema = array();
+  $schema += hook_build('schema', 'example');
+  $schema += hook_build('schema', 'example_type');
+
+  return $schema;
+}

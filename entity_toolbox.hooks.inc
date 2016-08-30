@@ -59,13 +59,16 @@ function _toolbox_property_info_process(&$info, $entity_type, $name) {
  *   The hook name.
  */
 function _toolbox_cache_clear($hook) {
-  foreach (entity_toolbox_cache_hook_get_info($hook) as $cids) {
-    $cleared = array();
-    foreach ($cids as $cid) {
-      //Prevents the same cache cid to be cleared twice.
-      if (!in_array($cid, $cleared)) {
-        entity_toolbox_cache_clear($cid);
-        $cleared[] = $cid;
+  $hooks = entity_toolbox_cache_hook_get_info($hook);
+  if (!empty($hooks)) {
+    foreach ($hooks as $cids) {
+      $cleared = array();
+      foreach ($cids as $cid) {
+        //Prevents the same cache cid to be cleared twice.
+        if (!in_array($cid, $cleared)) {
+          entity_toolbox_cache_clear($cid);
+          $cleared[] = $cid;
+        }
       }
     }
   }

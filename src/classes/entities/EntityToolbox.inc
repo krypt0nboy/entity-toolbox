@@ -10,7 +10,6 @@
  * Class EntityToolbox
  */
 class EntityToolbox extends Entity {
-
   /**
    * Toolbox info retrieved and processed by entity toolbox.
    *
@@ -18,7 +17,6 @@ class EntityToolbox extends Entity {
    * @see entity_toolbox_get_info().
    */
   protected $toolboxInfo;
-
   /**
    * @var string $entityGroup
    *   The entity group.
@@ -88,18 +86,4 @@ class EntityToolbox extends Entity {
     //TODO : add entity uri template
     return array('path' => "$this->entityType/" . $this->idKey);
   }
-}
-
-/**
- * Class EntityToolboxFieldable
- */
-class EntityToolboxFieldable extends EntityToolbox {
-
-}
-
-/**
- * Class EntityToolboxNotFieldable
- */
-class EntityToolboxNotFieldable extends EntityToolbox {
-
 }

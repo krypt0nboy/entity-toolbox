@@ -84,19 +84,43 @@ function entity_type2entity_label_plural($entity_type) {
  * Transforms the entity_type machine_name into the entity class name.
  * (Eg : "foo_bar" turns to "FooBar").
  *
- * @param $entity_type
- *   The entity type machine name.
+ * @param $string
+ *   The string.
  *
  * @return string
  */
-function entity_type2entity_class($entity_type) {
-  $split = explode('_', $entity_type);
+function lowercase2camelcase($string) {
+  $split = explode('_', $string);
   $class = '';
   for ($i = 0; $i < count($split); $i++) {
     $class .= ucfirst($split[$i]);
   }
 
   return $class;
+}
+
+/**
+ * Transforms the entity_type machine_name into the entity class name.
+ * (Eg : "foo_bar" turns to "FooBar").
+ *
+ * @param $string
+ *   The string.
+ *
+ * @return string
+ */
+function camelcase2lowercase($string) {
+  $regexp = '/(?P<upper>[A-Z])/';
+  preg_match_all($regexp, $string, $matches, PREG_OFFSET_CAPTURE);
+  $index_mod = 0;
+  foreach ($matches['upper'] as $match) {
+    $upper         = $match[0];
+    $pos           = $match[1] + $index_mod;
+    $upper_replace = '_' . strtolower($upper);
+    $string        = substr_replace($string, $upper_replace, $pos, 1);
+    $index_mod++;
+  }
+
+  return $string;
 }
 
 /**
@@ -189,13 +213,34 @@ function entity_type_single2plural($entity_type) {
  * @param array  $variables
  *   The replacing variables.
  *
- * @return string
+ * @return mixed
  */
 function string_replace_tokens($string, $wildcards = array(), $variables) {
   for ($i = 0; $i < count($wildcards); $i++) {
     $varname = str_replace('%', '', $wildcards[$i]);
     $rgx     = '/' . $wildcards[$i] . '/';
-    $string  = preg_replace($rgx, $variables[$varname], $string);
+    if (isset($variables[$varname])) {
+      switch (gettype($variables[$varname])) {
+        case 'boolean':
+        case 'integer':
+        case 'float':
+          $string = $variables[$varname];
+          break;
+        default:
+          $string = preg_replace($rgx, $variables[$varname], $string);
+          break;
+      }
+      $reprocess_var = preg_match_all('/(?P<wildcards>%\w+%)/', $variables[$varname], $matches);
+      if ($reprocess_var != 0) {
+        for ($ii = 0; $ii < count($matches['wildcards']); $ii++) {
+          $var_n = str_replace('%', '', $matches['wildcards'][$ii]);
+          if (isset($variables[$var_n])) {
+            $rgx_n  = '/' . $matches['wildcards'][$ii] . '/';
+            $string = preg_replace($rgx_n, $variables[$var_n], $string);
+          }
+        }
+      }
+    }
   }
 
   return $string;

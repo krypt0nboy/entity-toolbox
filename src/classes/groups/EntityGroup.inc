@@ -45,7 +45,7 @@ class EntityGroup {
    *
    * @return string
    */
-  public function groupType() {
+  public function getGroupType() {
     return $this->groupType;
   }
 
@@ -54,7 +54,7 @@ class EntityGroup {
    *
    * @return array
    */
-  public function groupInfo() {
+  public function getGroupInfo() {
     return $this->groupInfo;
   }
 
@@ -63,7 +63,7 @@ class EntityGroup {
    *
    * @return mixed
    */
-  public function groupEntities() {
+  public function getGroupEntities() {
     return $this->groupInfo['entities'];
   }
 }

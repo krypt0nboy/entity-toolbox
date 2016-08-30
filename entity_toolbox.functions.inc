@@ -110,32 +110,6 @@ function toolbox_property_default_widget($type) {
 }
 
 /**
- * Translate an entity_toolbox property type to a drupal property type.
- *
- * @param string $type
- *   The toolbox property type.
- * @param string $entity_type
- *   The entity type.
- * @param string $name
- *   The property name.
- * @param bool   $multiple
- *   A boolean to indicate if the property is multiple.
- *
- * @return string
- */
-function toolbox_property2drupal_property($type, $entity_type = NULL, $name = NULL, $multiple = FALSE) {
-  $info = entity_toolbox_property_type_get_info($type);
-  if (!empty($info['drupal_property_callback'])) {
-    $callback = !empty($info['drupal_property_callback']) ? $info['drupal_property_callback'] : '';
-
-    return isset($callback) ? $callback($entity_type, $name) : '';
-  }
-  else {
-    return !empty($info['drupal_property']) ? $info['drupal_property'] : '';
-  }
-}
-
-/**
  * Returns a list property type for drupal system when processing a multi value property.
  *
  * @param $type
@@ -145,94 +119,6 @@ function toolbox_property2drupal_property($type, $entity_type = NULL, $name = NU
  */
 function toolbox_multiple2drupal_multiple($type) {
   return "list<$type>";
-}
-
-/**
- * Returns a drupal property type from a toolbox reference.
- *
- * @param string $entity_type
- *   The entity type.
- * @param string $name
- *   The property name.
- *
- * @return string
- */
-function toolbox_reference_type($entity_type, $name) {
-  $property = entity_toolbox_get_info($entity_type)['properties'][$name];
-
-  return $property['reference'];
-}
-
-/**
- * Returns an entity type class, processed by entity toolbox.
- *
- * @param string $entity_type
- *   The entity type.
- *
- * @return string
- */
-function toolbox_entity_get_class($entity_type) {
-  $classes = &drupal_static(__FUNCTION__, array());
-  if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_get_info($entity_type);
-    $classes[$entity_type] = $toolbox_info['classes']['entities']['entity'];
-  }
-
-  return $classes[$entity_type];
-}
-
-/**
- * Returns an entity type controller class, processed by entity toolbox.
- *
- * @param string $entity_type
- *   The entity type.
- *
- * @return string
- */
-function toolbox_entity_get_controller_class($entity_type) {
-  $classes = &drupal_static(__FUNCTION__, array());
-  if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_get_info($entity_type);
-    $classes[$entity_type] = $toolbox_info['classes']['controllers']['controller'];
-  }
-
-  return $classes[$entity_type];
-}
-
-/**
- * Returns an entity type ui controller class, processed by entity toolbox.
- *
- * @param string $entity_type
- *   The entity type.
- *
- * @return string
- */
-function toolbox_entity_get_ui_controller_class($entity_type) {
-  $classes = &drupal_static(__FUNCTION__, array());
-  if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_get_info($entity_type);
-    $classes[$entity_type] = $toolbox_info['classes']['controllers']['ui'];
-  }
-
-  return $classes[$entity_type];
-}
-
-/**
- * Returns an entity type inline entity form controller class, processed by entity toolbox.
- *
- * @param string $entity_type
- *   The entity type.
- *
- * @return string
- */
-function toolbox_entity_get_inline_class($entity_type) {
-  $classes = &drupal_static(__FUNCTION__, array());
-  if (!isset($classes[$entity_type])) {
-    $toolbox_info          = entity_toolbox_get_info($entity_type);
-    $classes[$entity_type] = $toolbox_info['classes']['controllers']['inline'];
-  }
-
-  return $classes[$entity_type];
 }
 
 /**
@@ -323,39 +209,6 @@ function toolbox_widget2form_field_type($widget, $multiple = FALSE) {
 }
 
 /**
- * Returns a default callback.
- *
- * @param $type
- *   The callback type.
- *
- * @return false|string
- */
-function toolbox_entity_default_callback($type) {
-  $callback = 'toolbox_' . $type;
-
-  //If the function does not exist, returns FALSE, so that entity toolbox will be able to unset the callback from the build.
-  return function_exists($callback) ? $callback : FALSE;
-}
-
-/**
- * Returns a default callback string.
- * If the default format callback does not exist, a generic one is returned.
- *
- * @param string $entity_type
- *   The entity type.
- * @param string $type
- *   The type of callback.
- *   (Eg : "create", "access", "uri")
- *
- * @return false|string
- */
-function entity_default_callback_format($entity_type, $type) {
-  $formatted = $entity_type . '_' . $type;
-
-  return function_exists($formatted) ? $formatted : toolbox_entity_default_callback($type);
-}
-
-/**
  * Returns the form type of a form.
  * Eg : "my_entity_edit_form" is a form of type "edit".
  * Base types are :
@@ -389,4 +242,24 @@ function reference_entity_info($entity_type) {
   $toolbox_info = entity_toolbox_get_info();
 
   return in_array($entity_type, array_keys($toolbox_info)) ? $toolbox_info[$entity_type] : entity_get_info($entity_type);
+}
+
+/**
+ * Returns REQUEST_TIME.
+ *
+ * @return int
+ */
+function request_time() {
+  return REQUEST_TIME;
+}
+
+/**
+ * Returns the current $user->uid.
+ *
+ * @return int
+ */
+function user_id() {
+  global $user;
+
+  return $user->uid;
 }

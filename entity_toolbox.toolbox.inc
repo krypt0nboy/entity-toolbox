@@ -39,6 +39,9 @@ function entity_toolbox_cache_get_info($cid = NULL) {
       drupal_alter('entity_toolbox_cache_info', $data);
       $info = array();
       foreach ($data as $key => $value) {
+        $value += array(
+          'cache' => TRUE
+        );
         $info[$key] = $value;
       }
 
@@ -121,15 +124,50 @@ function entity_toolbox_hook_get_info($hook = NULL) {
       $hook_register_info = $cache->data;
     }
     else {
-      $hooks = array();
-      $data  = module_invoke_all($HOOK);
+      $data = module_invoke_all($HOOK);
       drupal_alter($HOOK, $data);
-      $hook_register_info = $hooks;
+      $hook_register_info = $data;
       entity_toolbox_cache_set($CACHEKEY, $hook_register_info);
     }
   }
 
   return isset($hook) ? $hook_register_info[$hook] : $hook_register_info;
+}
+
+/**
+ * Returns the classes types declared in entity_toolbox.
+ *
+ * @param string $class
+ *   The class type, or NULL to return info on evert class type.
+ *
+ * @return array|null
+ */
+function entity_toolbox_class_type_get_info($class = NULL) {
+  $HOOK     = 'class_type_info';
+  $CACHEKEY = ENTITY_TOOLBOX__CLASS_TYPE_INFO;
+
+  /**
+   * Cached since used very often.
+   */
+  static $drupal_static_fast;
+  if (!isset($drupal_static_fast)) {
+    $drupal_static_fast['class_type_info'] = &drupal_static(__FUNCTION__);
+  }
+
+  $class_type_info = &$drupal_static_fast['class_type_info'];
+  if (empty($class_type_info)) {
+    if ($cache = entity_toolbox_cache_get($CACHEKEY)) {
+      $class_type_info = $cache->data;
+    }
+    else {
+      $data = module_invoke_all($HOOK);
+      drupal_alter($HOOK, $data);
+      $class_type_info = $data;
+      entity_toolbox_cache_set($CACHEKEY, $class_type_info);
+    }
+  }
+
+  return isset($class) ? $class_type_info[$class] : $class_type_info;
 }
 
 /**
@@ -433,9 +471,18 @@ function entity_toolbox_get_info($entity_type = NULL, $update_N = NULL, $reset =
 }
 
 /**
- * @param null $entity_type
+ * Returns entities classes declared through entity_toolbox.
+ *
+ * @param null|string $entity_type
+ *   The entity type, or NULL to return info on every entity type.
+ * @param null|string $class
+ *   The class type, or NULL to return info on every class type.
+ *
+ * @return array
+ *
+ * @see hook_entity_class_info().
  */
-function entity_toolbox_entity_get_classes_info($entity_type = NULL) {
+function entity_toolbox_get_entity_class_info($entity_type = NULL, $class = NULL) {
 
 }
 
@@ -497,6 +544,7 @@ function entity_toolbox_get_schema($entity_type = NULL, $reset = FALSE) {
  * @see hook_entity_toolbox_entity_group_info().
  */
 function entity_toolbox_entity_group_get_info($group = NULL) {
+  $HOOK     = 'entity_group_info';
   $CACHEKEY = ENTITY_TOOLBOX__ENTITY_GROUP_INFO;
 
   /**
@@ -514,16 +562,16 @@ function entity_toolbox_entity_group_get_info($group = NULL) {
     }
     else {
       $groups = array();
-      $data   = module_invoke_all('entity_toolbox_entity_group_info');
-      drupal_alter('entity_toolbox_entity_group_info', $data);
+      $data   = module_invoke_all($HOOK);
+      drupal_alter($HOOK, $data);
       foreach ($data as $name => $group_info) {
         $groups[$name] = $group_info;
-        $groups[$name]['entities'] += entity_toolbox_entity_group_attach_get_info($name);
-        foreach (entity_toolbox_field_category_group_get_info() as $field_category_group => $field_category_group_info) {
-          if ($field_category_group_info['group'] == $name) {
-            $groups[$name]['field_category_groups'][] = $field_category_group;
-          }
-        }
+//        $groups[$name]['entities'] += entity_toolbox_entity_group_attach_get_info($name);
+//        foreach (entity_toolbox_field_category_group_get_info() as $field_category_group => $field_category_group_info) {
+//          if ($field_category_group_info['group'] == $name) {
+//            $groups[$name]['field_category_groups'][] = $field_category_group;
+//          }
+//        }
       }
       $entity_groups = $groups;
       entity_toolbox_cache_set($CACHEKEY, $entity_groups);
@@ -1019,10 +1067,10 @@ function entity_toolbox_entity_skip_load_get_info() {
  */
 function entity_install_get_info($entity_type) {
   $installed = &drupal_static(__FUNCTION__, array());
-  if (in_array($entity_type, $installed)) {
+  if (!in_array($entity_type, $installed)) {
     $info = entity_get_info();
     if (in_array($entity_type, array_keys($info))) {
-      if (db_table_exists($info['base table'])) {
+      if (db_table_exists($info[$entity_type]['base table'])) {
         $installed[] = $entity_type;
       }
     }

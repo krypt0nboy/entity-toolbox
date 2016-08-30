@@ -5,43 +5,37 @@
  *
  * Base build class for hook_entity_info().
  */
-class EntityInfoBuilder extends ContribHookBuilder {
+class EntityInfoBuilder extends EntityToolboxDependentHookBuilder {
   /**
-   * EntityInfoBuilder constructor.
-   * @param null|string $entityType
+   * @var bool $fieldable
+   *   If the entity_type is fieldable or not.
    */
-  public function __construct($entityType) {
-    parent::__construct('entity_info', $entityType);
-  }
+  protected $fieldable;
 
   /** {{@inheritdoc}} */
-  protected function setValuesBuilders() {
-    parent::setValuesBuilders();
-    $this->valuesBuilders['admin ui'] = new AdminUIBuilder($this->entityType);
+  public function __construct(array $args = array()) {
+    $args = $this->mergeConstructArgs(array(
+      'hook'                 => 'entity_info',
+      'key_builders_classes' => array(
+        'admin ui' => 'AdminUIBuilder',
+      )
+    ), $args);
+    parent::__construct($args);
   }
 
-  /** {{@inheritdoc}} */
-  public function build() {
-    $this->processedData['label']            = $this->toolboxInfo['labels']['single'];
-    $this->processedData['plural label']     = $this->toolboxInfo['labels']['plural'];
-    $this->processedData['entity class']     = $this->toolboxInfo['classes']['entity'];
-    $this->processedData['controller class'] = $this->toolboxInfo['classes']['controller'];
-    $this->processedData['base table']       = $this->toolboxInfo['tables']['base'];
-    if ($this->toolboxInfo['has_revisions']) {
-      $this->processedData['revision table'] = $this->toolboxInfo['tables']['revision'];
-    }
-    $this->processedData['entity keys']        = $this->toolboxInfo['keys'];
-    $this->processedData['label callback']     = $this->toolboxInfo['callbacks']['label'];
-    $this->processedData['uri callback']       = $this->toolboxInfo['callbacks']['uri'];
-    $this->processedData['creation callback']  = $this->toolboxInfo['callbacks']['creation'];
-    $this->processedData['access callback']    = $this->toolboxInfo['callbacks']['access'];
-    $this->processedData['module']             = $this->toolboxInfo['module'];
-    $this->processedData['admin ui']           = $this->getValueBuilder('admin ui')
-                                                      ->build();
-    $this->processedData['inline entity form'] = array(
-      'controller' => $this->toolboxInfo['classes']['inline controller']
-    );
+  protected function initTemplateVars() {
+    $this->templateVars += $this->extractToolboxInfoTemplateVars();
+  }
 
-    return $this->processedData;
+  protected function buildAdminUi() {
+    return $this->getKeyBuilder('admin ui')->build();
+  }
+
+  protected function buildEntityKeys() {
+    return $this->toolboxInfo['keys'];
+  }
+
+  protected function buildInlineEntityForm() {
+
   }
 }

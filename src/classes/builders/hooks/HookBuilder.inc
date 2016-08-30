@@ -20,26 +20,73 @@ class HookBuilder extends BuilderBase {
    */
   protected $hookInfo = array();
 
-  /**
-   * HookBuilder constructor.
-   *
-   * @param string $hook
-   *   The hook for which the data is built/rebuilt.
-   * @param string $entityType
-   *   The entity type.
-   *
-   * @throws EntityToolboxException
-   */
-  public function __construct($hook = NULL, $entityType = NULL, array $rawData = array()) {
-    parent::__construct($entityType, $rawData);
-    if (!isset($hook)) {
+  /** {{@inheritdoc}} */
+  public function __construct(array $args = array()) {
+    if (empty($args['hook'])) {
       throw new HookNameNotProvided();
     }
-    $this->hook     = $hook;
-    $this->hookInfo = entity_toolbox_hook_get_info($this->hook);
-    $this->setValuesBuilders();
+    parent::__construct($args);
   }
 
-  /** {{@inheritdoc}} */
-  public function build() {}
+  /**
+   * Getter for "hook".
+   *
+   * @return string
+   */
+  public function getHook() {
+    return $this->hook;
+  }
+
+  /**
+   * Setter for "hook".
+   *
+   * @param string $hook
+   *   The hook name.
+   */
+  public function setHook($hook) {
+    $this->hook = $hook;
+  }
+
+  /**
+   * Sets hookInfo after hook has been set.
+   */
+  protected function postSetHook() {
+    $this->setHookInfo(entity_toolbox_hook_get_info($this->hook));
+  }
+
+  /**
+   * Getter for "hookInfo".
+   *
+   * @return array
+   */
+  public function getHookInfo() {
+    return $this->hookInfo;
+  }
+
+  /**
+   * Setter for "hookInfo".
+   *
+   * @param array $hookInfo
+   *   The hook info to set.
+   *
+   * @see hook_hook_register_info().
+   */
+  public function setHookInfo($hookInfo) {
+    $this->hookInfo = $hookInfo;
+  }
+
+  /**
+   * @param       $keyBuilderClass
+   * @param array $args
+   *
+   * @return mixed
+   */
+  protected function keyBuilderGetInstance($keyBuilderClass, array $args = array()) {
+    $args = $this->mergeConstructArgs(array(
+      'hook'         => $this->getHook(),
+      'hook_builder' => $this,
+    ), $args);
+
+    return parent::keyBuilderGetInstance($keyBuilderClass, $args);
+  }
 }

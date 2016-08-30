@@ -94,116 +94,89 @@ function hook_entity_toolbox_cache_info() {
  * @see toolbox_property_types().
  */
 function hook_entity_toolbox_info() {
-  $info                 = array();
-  $info['product']      = array(
+  $info                = array();
+  $info['entity_type'] = array(
     'fieldable'        => TRUE,
-    'entity_type'      => 'product',
+    'entity_type'      => '',
     'has_revisions'    => TRUE,
     'has_translations' => TRUE,
     'exportable'       => FALSE,
     'tables'           => array(
-      'base'     => 'product',
-      'revision' => 'product_revision',
-      'relation' => array(
-        'product_shares' => 'product_has_product_shares'
+      'base'              => '',
+      'revision'          => '',
+      'relation'          => array(
+        'relation_property_name' => 'relation_table_name'
       ),
+      'relation_revision' => array(
+        'relation_property_name' => 'relation_revision_table_name'
+      )
     ),
-    'bundle_entity'    => 'product_type',
-    'module'           => 'product',
+    'bundle_entity'    => '',
+    'module'           => '',
+    'root path'        => '',
     'labels'           => array(
-      'single' => t('Product'),
-      'plural' => t('Products'),
+      'single' => '',
+      'plural' => '',
     ),
     'classes'          => array(
-      'entity'        => 'Product',
-      'controller'    => 'ProductController',
-      'ui_controller' => 'ProductUIController',
+      'entity'                 => '',
+      'controller'             => '',
+      'ui controller'          => '',
+      'inline form controller' => '',
     ),
     'properties'       => array(
-      'product_id'     => array(
-        'type'             => 'id',
-        'key'              => 'id',
-        'has_revisions'    => FALSE,
-        'has_translations' => FALSE,
-        'expose'           => array(
-          'forms' => array()
-        ),
-        'forms'            => array(
-          'edit' => array()
-        )
-      ),
-      'product_shares' => array(
-        'type'             => 'reference',
-        'multiple'         => TRUE,
-        'has_revisions'    => TRUE,
-        'has_translations' => FALSE,
-        'tables'          => array(
-          'relation' => 'product_has_product_shares'
-        )
-      ),
-    ),
-    'callbacks'        => array(
-      'create' => '',
-      'save'   => '',
-      'delete' => '',
-      'access' => '',
-      'label'  => '',
-      'uri'    => '',
-    ),
-    'operations'       => array(
-      'add'     => TRUE,
-      'delete'  => TRUE,
-      'preview' => FALSE,
-    ),
-    'keys'             => array(
-      'id' => 'product_id',
-    ),
-    'children_inherit' => array(
-      'status',
-    ),
-    'group'            => 'catalog',
-  );
-  $info['product_type'] = array(
-    'fieldable'        => FALSE,
-    'entity_type'      => 'product_type',
-    'has_revisions'    => FALSE,
-    'has_translations' => FALSE,
-    'exportable'       => TRUE,
-    'tables'           => array(
-      'base' => 'product_type',
-    ),
-    'module'           => 'product',
-    'labels'           => array(
-      'single' => t('Product type'),
-      'plural' => t('Product types'),
-    ),
-    'classes'          => array(
-      'entity'        => '',
-      'controller'    => '',
-      'ui_controller' => '',
-    ),
-    'properties'       => array(
-      'id' => array(
-        'type'                => 'id',
-        'label'               => t('Product_type ID'),
-        'description'         => t('The product_type ID'),
+      '' => array(
+        'type'                => '',
+        'drupal type'         => '',
+        'reference'           => '',
+        'label'               => '',
+        'description'         => '',
+        'multiple'            => FALSE,
+        'has_revisions'       => TRUE,
+        'has_translations'    => TRUE,
+        'required'            => FALSE,
+        'serialize'           => FALSE,
+        'key'                 => '',
+        'tables'              => array(),
         'schemas_fields_name' => array(
-          'base' => 'id'
+          'base'     => '',
+          'revision' => ''
         ),
         'schemas_fields'      => array(
-          'base' => array(
-            'type'        => 'int',
-            'description' => 'The product_type unique identifier.',
-            'serial'      => TRUE,
-          )
-        ),
-        'callbacks'           => array(),
-        'expose'              => array(
-          'forms' => array()
+          'base'     => array(),
+          'revision' => array(),
         ),
         'forms'               => array(
-          'edit' => array()
-        )
+          'edit' => array(
+            'expose'   => TRUE,
+            'widget'   => '',
+            'required' => TRUE,
+            'cols'     => '',
+            'rows'     => '',
+            'weight'   => 0,
+          ),
+        ),
+        'callbacks'           => array(
+          'getter'       => '',
+          'setter'       => '',
+          'validation'   => '',
+          'permission'   => '',
+          'default'      => '',
+          'options list' => '',
+        ),
+        'is_unique'           => FALSE,
+        'view expose'         => TRUE,
+        'value'               => array(
+          'default'    => '',
+          'min length' => '',
+          'max length' => '',
+          'floor'      => '',
+          'ceil'       => '',
+          'filter'     => array(
+            'char' => 'replace',
+          )
+        ),
+        'weight'              => 0
       ),
     ),
     'callbacks'        => array(
@@ -215,17 +188,114 @@ function hook_entity_toolbox_info() {
       'uri'    => '',
     ),
     'operations'       => array(
-      'add'     => TRUE,
-      'delete'  => TRUE,
-      'preview' => FALSE,
+      'add'  => TRUE,
+      'edit' => TRUE,
     ),
     'keys'             => array(
       'id' => 'product_id',
     ),
     'children_inherit' => array(
-      'status',
+      '',
     ),
-    'group'            => 'catalog',
+    'group'            => '',
+  );
+  $info['city']        = array(
+    'fieldable'        => TRUE,
+    'entity_type'      => 'city',
+    'has_revisions'    => TRUE,
+    'has_translations' => TRUE,
+    'exportable'       => FALSE,
+    'tables'           => array(
+      'base'     => 'city',
+      'revision' => 'city_revision',
+    ),
+    'bundle_entity'    => 'city_type',
+    'module'           => 'cities',
+    'labels'           => array(
+      'single' => 'City',
+      'plural' => 'Cities',
+    ),
+    'classes'          => array(
+      'entity'                 => 'City',
+      'controller'             => 'CityController',
+      'ui controller'          => 'CityUIController',
+      'inline form controller' => 'CityInlineFormController',
+    ),
+    'properties'       => array(
+      'province' => array(
+        'type'                => 'parent',
+        'reference'           => 'province',
+        'label'               => 'Province',
+        'description'         => 'The province where the city is located.',
+        'multiple'            => FALSE,
+        'has_revisions'       => TRUE,
+        'has_translations'    => FALSE,
+        'required'            => FALSE,
+        'schemas_fields_name' => array(
+          'base'     => 'province_id',
+          'revision' => 'province_id'
+        ),
+        'forms'               => array(
+          'edit' => array(
+            'expose' => TRUE,
+          ),
+        ),
+        'callbacks'           => array(),
+        'is_unique'           => FALSE,
+        'view expose'         => TRUE,
+        'value'               => array(),
+        'weight'              => -1
+      ),
+      'code'     => array(
+        'type'                => 'alphanumeric',
+        'label'               => 'City code',
+        'description'         => 'The city administrative code.',
+        'multiple'            => FALSE,
+        'has_revisions'       => TRUE,
+        'has_translations'    => FALSE,
+        'required'            => FALSE,
+        'serialize'           => FALSE,
+        'schemas_fields_name' => array(
+          'base'     => 'code',
+          'revision' => 'code'
+        ),
+        'schemas_fields'      => array(),
+        'forms'               => array(
+          'edit' => array(
+            'expose' => TRUE,
+            'widget' => 'textfield'
+          ),
+        ),
+        'callbacks'           => array(),
+        'is_unique'           => TRUE,
+        'view expose'         => TRUE,
+        'value'               => array(
+          'max length' => 12,
+        ),
+        'weight'              => 0
+      ),
+    ),
+    'callbacks'        => array(
+      'create' => 'city_create',
+      'save'   => 'city_save',
+      'delete' => 'city_delete',
+      'access' => 'city_access',
+      'label'  => 'city_label',
+      'uri'    => 'city_uri',
+      'view'   => 'city_page_view'
+    ),
+    'operations'       => array(
+      'add'    => TRUE,
+      'edit'   => TRUE,
+      'delete' => TRUE,
+    ),
+    'keys'             => array(
+      'code' => 'code',
+    ),
+    'children_inherit' => array(
+      'province',
+    ),
+    'group'            => 'locations',
   );
 
   return $info;
@@ -237,58 +307,32 @@ function hook_entity_toolbox_info() {
  * @return array
  *   An associative array where the keys are the hook names and the values are :
  *   - build callback : Callback function to build the hook data.
- *   - base builder : A builder class by default.
- *   - builder argument : A key from toolbox_info to be passed as argument and get a specific builder.
- *   - builders : An associative array where the keys are the builder class and the value is the argument condition to be selected.
+ *   - base class : A base builder class.
+ *   - model class : A model use for dependency injection.
  */
 function hook_hook_register_info() {
   $info                        = array();
   $info['entity_toolbox_info'] = array(
     'build callback' => 'entity_toolbox_info_build',
-    'base builder'   => 'EntityToolboxInfoBuilder',
-    'struct'         => array(
-      'fieldable'        => array('type' => 'bool'),
-      'entity_type'      => array('type' => 'string', 'default' => '%entity_type%'),
-      'has_translations' => array('type' => 'bool'),
-      'has_revisions'    => array('type' => 'bool'),
-      'exportable'       => array('type' => 'bool'),
-      'bundle_entity'    => array('type' => 'string', 'default' => '%entity_type%_type'),
-      'bundle_of'        => array('type' => 'string', 'builder' => 'BundleOf'),
-      'module'           => array('type' => 'string'),
-      'labels'           => array('type' => 'array', 'builder' => 'LabelsBuilder'),
-      'callbacks'        => array('type' => 'array', 'builder' => 'CallbacksBuilder'),
-      'classes'          => array('type' => 'array', 'builder' => 'ClassesBuilder'),
-      'properties'       => array('type' => 'array', 'builder' => 'ToolboxPropertiesBuilder'),
-      'tables'           => array('type' => 'array', 'builder' => 'TablesBuilder'),
-      'children_inherit' => array('type' => 'array', 'builder' => 'ChildrenInheritBuilder'),
-      'group'            => array('type' => 'string'),
-    ),
+    'base class'     => 'EntityToolboxInfoBuilder',
+    'model class'    => 'EntityToolboxInfoBuilder%fieldable%',
   );
   $info['entity_info']         = array(
-    'build callback'   => 'entity_info_build',
-    'base builder'     => 'EntityInfoBuilder',
-    'builder argument' => 'fieldable',
-    'builders'         => array(
-      'EntityInfoBuilderFieldable'    => TRUE,
-      'EntityInfoBuilderNotFieldable' => FALSE,
-    ),
-    'struct'           => array(
-      'label'             => array('type' => 'string'),
-      'label plural'      => array('type' => 'string'),
-      'entity class'      => array('type' => 'string'),
-      'controller class'  => array('type' => 'string'),
-      'base table'        => array('type' => 'string'),
-      'fieldable'         => array('type' => 'bool'),
-      'entity keys'       => array('type' => 'array', 'builder' => 'EntityKeysBuilder'),
-      'creation callback' => array('type' => 'string'),
-      'access callback'   => array('type' => 'string'),
-      'uri callback'      => array('type' => 'string'),
-      'label callback'    => array('type' => 'string'),
-      'module'            => array('type' => 'string'),
-      'admin ui'          => array('type' => 'array', 'builder' => 'AdminUIBuilder'),
-      'exportable'        => array('type' => 'bool'),
-      'bundle_keys'       => array('type' => 'array', 'builder' => 'BundleKeysBuilder'),
-    )
+    'build callback' => 'entity_info_build',
+    'base class'     => 'EntityInfoBuilder',
+    'model class'    => 'EntityInfoBuilder%fieldable%',
+  );
+
+  return $info;
+}
+
+/**
+ * @return array
+ */
+function hook_model_info() {
+  $info                        = array();
+  $info['entity_toolbox_info'] = array(
+    '' => '',
   );
 
   return $info;
@@ -299,84 +343,26 @@ function hook_hook_register_info() {
  *
  * @return array
  *   An associative array whose keys are the property type name and the values are :
- *   - default : An array to store the default values for this property type :
- *    - name :
- *    - value :
- *    - has_revisions :
- *    - has_translations :
- *    - key_name :
- *    - is_multiple :
- *    - callbacks :
- *    - drupal_property :
- *    - label :
- *    - description :
- *    - callbacks :
- *    - permissions :
+ *   - base class : A base class.
+ *   - class model : (optional) A model use for dependency injection.
  */
 function hook_toolbox_property_type_info() {
-  $info       = array();
-  $info['id'] = array(
-    'fieldable'     => array(
-      'builder' => 'PropertyIdBuilderFieldable',
-      'default' => array(
-        'name'                => '%entity_type%_id',
-        'value'               => 0,
-        'has_revisions'       => FALSE,
-        'has_translations'    => FALSE,
-        'key_name'            => 'id',
-        'is_multiple'         => FALSE,
-        'callbacks'           => array(),
-        'drupal_property'     => 'decimal',
-        'label'               => '%label% ID',
-        'description'         => 'The %entity_type% ID.',
-        'permissions'         => array(),
-        'schemas'             => array(
-          'base'     => array(
-            'description' => 'Primary Key: Identifier for a %entity_type%.',
-            'type'        => 'serial',
-            'unsigned'    => TRUE,
-            'not null'    => TRUE,
-          ),
-          'revision' => array(
-            'description' => '{%base_table%}.%entity_type%_id.',
-            'type'        => 'int',
-            'not null'    => TRUE,
-            'default'     => 0,
-          ),
-        ),
-        'schemas_field_names' => array(
-          'base'     => '%entity_type%_id',
-          'revision' => '%entity_type%_id'
-        ),
-      ),
-    ),
-    'not_fieldable' => array(
-      'builder' => 'PropertyIdBuilderNotFieldable',
-      'default' => array(
-        'name'                => 'id',
-        'value'               => 0,
-        'has_revisions'       => FALSE,
-        'has_translations'    => FALSE,
-        'key_name'            => 'id',
-        'is_multiple'         => FALSE,
-        'callbacks'           => array(),
-        'drupal_property'     => 'decimal',
-        'label'               => '%label% ID',
-        'description'         => 'The %entity_type% ID.',
-        'permissions'         => array(),
-        'schemas'             => array(
-          'base' => array(
-            'description' => 'Primary Key: Identifier for a %entity_type%.',
-            'type'        => 'serial',
-            'unsigned'    => TRUE,
-            'not null'    => TRUE,
-          ),
-        ),
-        'schemas_field_names' => array(
-          'base' => '%entity_type%_id',
-        ),
-      ),
-    ),
+  $info            = array();
+  $info['numeric'] = array(
+    'base class' => 'NumericProperty',
+  );
+  $info['int']     = array(
+    'base class' => 'IntegerProperty'
+  );
+  $info['id']      = array(
+    'base class'  => 'IdProperty',
+    'class model' => 'IdProperty%fieldable%'
+  );
+  $info['boolean'] = array(
+    'base class' => 'BooleanProperty',
+  );
+  $info['status']  = array(
+    'base class' => 'StatusProperty',
   );
 
   return $info;
@@ -410,22 +396,10 @@ function hook_toolbox_property_widget_info() {
  * @see hook_entity_toolbox_entity_info().
  */
 function hook_schema_type_info() {
-  $info                      = array();
-  $info['base']              = array(
-    'fieldable'     => '',
-    'not_fieldable' => '',
-  );
-  $info['revision']          = array(
-    'fieldable'     => '',
-    'not_fieldable' => '',
-  );
-  $info['relation']          = array(
-    'fieldable'     => '',
-    'not_fieldable' => '',
-  );
-  $info['relation_revision'] = array(
-    'fieldable'     => '',
-    'not_fieldable' => '',
+  $info         = array();
+  $info['base'] = array(
+    'base class'  => 'SchemaBaseBuilder',
+    'class model' => 'SchemaBaseBuilder%fieldable%'
   );
 
   return $info;
@@ -474,14 +448,31 @@ function hook_toolbox_callback_type_info() {
  *   -
  *
  */
-function hook_toolbox_class_type_info() {
-  $info           = array();
-  $info['entity'] = array(
-    'default_name' => '$upper_case_first(%entity_type%)$',
-    'default_path' => '%module_path%/src/classes/entities/',
-    'default_file' => '$upper_case_first(%entity_type%)$',
-    'hook_info'    => 'entity_class_info',
-    'group'        => 'entities'
+function hook_class_type_info() {
+  $info                  = array();
+  $info['entity']        = array(
+    'base class' => 'EntityToolbox%fieldable%',
+    'default'    => array(
+      'class' => '%class_base_class%',
+      'path'  => '%toolbox_info_module_path%/src/classes/entities',
+      'file'  => '%class_base_class%.inc',
+    ),
+  );
+  $info['controller']    = array(
+    'base class' => 'EntityToolboxController%fieldable%',
+    'default'    => array(
+      'class' => '%class_base_class%Controller',
+      'path'  => '%toolbox_info_module_path%/src/classes/controllers',
+      'file'  => '%class_base_class%Controller.inc',
+    ),
+  );
+  $info['ui controller'] = array(
+    'base class' => 'EntityToolboxUIController%fieldable%',
+    'default'    => array(
+      'class' => '%class_base_class%UiController',
+      'path'  => '%toolbox_info_module_path%/src/classes/controllers',
+      'file'  => '%class_base_class%UiController.inc',
+    ),
   );
 
   return $info;
@@ -498,74 +489,30 @@ function hook_toolbox_class_type_info() {
  *   - file : (optional) The file containing the class.
  */
 function hook_entity_class_info() {
-  $info            = array();
-  $info['product'] = array(
-    'class' => 'Product',
-    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/entities/',
-    'file'  => 'Product.inc'
+  $info                = array();
+  $info['entity_type'] = array(
+    'class_type' => array(
+      'class' => 'EntityClass',
+      'path'  => 'path',
+      'file'  => 'filename.extension'
+    )
   );
-
-  return $info;
-}
-
-/**
- * Declares the entity controller class name.
- * This hook is optional. Entity Toolbox will used default parameters if not declared.
- *
- * @return array
- *   An associative array where the keys are the entity types and the values are :
- *   - class : (optional) The class name. If not specified, a default class name will be used.
- *   - path : (optional) The path of the file containing the class.
- *   - file : (optional) The file containing the class.
- */
-function hook_entity_controller_info() {
-  $info            = array();
-  $info['product'] = array(
-    'class' => 'ProductController',
-    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
-    'file'  => 'ProductController.inc'
-  );
-
-  return $info;
-}
-
-/**
- * Declares the entity ui controller class name.
- * This hook is optional. Entity Toolbox will used default parameters if not declared.
- *
- * @return array
- *   An associative array where the keys are the entity types and the values are :
- *   - class : (optional) The class name. If not specified, a default class name will be used.
- *   - path : (optional) The path of the file containing the class.
- *   - file : (optional) The file containing the class.
- */
-function hook_entity_ui_controller_info() {
-  $info            = array();
-  $info['product'] = array(
-    'class' => 'ProductUIController',
-    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
-    'file'  => 'ProductUIController.inc'
-  );
-
-  return $info;
-}
-
-/**
- * Declares the entity inline form controller class name.
- * This hook is optional. Entity Toolbox will used default parameters if not declared.
- *
- * @return array
- *   An associative array where the keys are the entity types and the values are :
- *   - class : (optional) The class name. If not specified, a default class name will be used.
- *   - path : (optional) The path of the file containing the class.
- *   - file : (optional) The file containing the class.
- */
-function hook_entity_inline_form_controller_info() {
-  $info            = array();
-  $info['product'] = array(
-    'class' => 'ProductInlineFormController',
-    'path'  => drupal_get_path('module', 'hedios_catalog') . '/Src/classes/controllers/',
-    'file'  => 'ProductInlineFormController.inc'
+  $info['city']        = array(
+    'entity'        => array(
+      'class' => 'City',
+      'path'  => '/src/classes/entity',
+      'file'  => 'City.inc'
+    ),
+    'controller'    => array(
+      'class' => 'City',
+      'path'  => '/src/classes/entity',
+      'file'  => 'City.inc'
+    ),
+    'ui controller' => array(
+      'class' => 'CityUIController',
+      'path'  => '/src/classes/controllers',
+      'file'  => 'CityUIController.inc'
+    )
   );
 
   return $info;
@@ -620,65 +567,6 @@ function hook_update_entity_field_settings($entity_type, $bundle, $name) {
 }
 
 /**
- * Declares an entity info builder.
- *
- * @return array
- *   An associative array where the keys are the builders class name and the values are :
- *    - types : An array containing the entity types whose toolbox info is processed and build by the current builder.
- */
-function hook_entity_info_builder_info() {
-  $info                                = array();
-  $info['catalog_entity_info_builder'] = array(
-    'types' => array(
-      'product_category',
-      'product'
-    )
-  );
-
-  return $info;
-}
-
-/**
- * Acts on an entity info being process by entity toolbox.
- * This hook is invoked right before properties info are being processed.
- * Unlike "alter", this hook is here to allow other modules to add information to toolbox_info, not to alter existing data.
- *
- * @param string $entity_type
- *   The entity type.
- * @param array  $info
- *   The entity info built and processed by entity_toolbox, passed by reference.
- *
- * @see entity_toolbox_get_info().
- * @see _toolbox_info_process().
- */
-function hook_toolbox_info_process($entity_type, &$info) {
-  if ($entity_type == 'foobar') {
-    //do whatever
-  }
-}
-
-/**
- * Acts on an entity info being process by entity toolbox.
- * This hook is invoked right before properties info are being processed.
- * Unlike "alter", this hook is here to allow other modules to add information to toolbox_info, not to alter existing data.
- *
- * @param string $entity_type
- *   The entity type.
- * @param array  $info
- *   The entity info built and processed by entity_toolbox, passed by reference.
- * @param string $name
- *   The property being processed.
- *
- * @see entity_toolbox_get_info().
- * @see _toolbox_property_info_process().
- */
-function hook_toolbox_property_info_process($entity_type, &$info, $name) {
-  if ($entity_type == 'foobar') {
-    //do whatever
-  }
-}
-
-/**
  * Returns an array containing info to create an entities group.
  * Entities group are meant to ease functions use and data formatting/validation.
  *
@@ -701,8 +589,7 @@ function hook_entity_group_info() {
     'classes'     => array(
       'group'      => 'Catalog',
       'controller' => 'CatalogController'
-    ),
-    'entities'    => array()
+    )
   );
 
   return $info;
@@ -769,6 +656,30 @@ function hook_entity_toolbox_field_category_info() {
 }
 
 /**
+ * Alter a property form field when attached to the entity form.
+ *
+ * @param string         $entity_type
+ *   The entity type.
+ * @param \EntityToolbox $entity
+ *   The entity.
+ * @param string         $name
+ *   The property name.
+ * @param array          $form
+ *   The form, passed by reference.
+ * @param array          $form_state
+ *   The form_state, passed by reference.
+ * @param string         $langcode
+ *   The language code.
+ * @param string[]       $options
+ *   The property fields options.
+ */
+function hook_property_attach_form($entity_type, $entity, $name, &$form, &$form_state, $langcode = NULL, $options = array()) {
+  if ($entity_type == 'foobar') {
+    //do whatever
+  }
+}
+
+/**
  * Allows to alter an entity type edit form.
  *
  * @param $form
@@ -827,24 +738,40 @@ function hook_type_ENTITY_TYPE_inline_entity_form__alter(&$form, &$form_state, $
 }
 
 /**
- * Alter a property form field when attached to the entity form.
+ * Acts on an entity info being process by entity toolbox.
+ * This hook is invoked right before properties info are being processed.
+ * Unlike "alter", this hook is here to allow other modules to add information to toolbox_info, not to alter existing data.
  *
- * @param string         $entity_type
+ * @param string $entity_type
  *   The entity type.
- * @param \EntityToolbox $entity
- *   The entity.
- * @param string         $name
- *   The property name.
- * @param array          $form
- *   The form, passed by reference.
- * @param array          $form_state
- *   The form_state, passed by reference.
- * @param string         $langcode
- *   The language code.
- * @param string[]       $options
- *   The property fields options.
+ * @param array  $info
+ *   The entity info built and processed by entity_toolbox, passed by reference.
+ *
+ * @see entity_toolbox_get_info().
+ * @see _toolbox_info_process().
  */
-function hook_property_attach_form($entity_type, $entity, $name, &$form, &$form_state, $langcode = NULL, $options = array()) {
+function hook_toolbox_info_process($entity_type, &$info) {
+  if ($entity_type == 'foobar') {
+    //do whatever
+  }
+}
+
+/**
+ * Acts on an entity info being process by entity toolbox.
+ * This hook is invoked right before properties info are being processed.
+ * Unlike "alter", this hook is here to allow other modules to add information to toolbox_info, not to alter existing data.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param array  $info
+ *   The entity info built and processed by entity_toolbox, passed by reference.
+ * @param string $name
+ *   The property being processed.
+ *
+ * @see entity_toolbox_get_info().
+ * @see _toolbox_property_info_process().
+ */
+function hook_toolbox_property_info_process($entity_type, &$info, $name) {
   if ($entity_type == 'foobar') {
     //do whatever
   }

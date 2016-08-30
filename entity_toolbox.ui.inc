@@ -10,20 +10,6 @@
  */
 
 /**
- * Return the toolbox ui controller for a entity type.
- *
- * @param $entity_type
- *   The entity type.
- *
- * @return \EntityToolboxUIController
- */
-function entity_toolbox_ui_controller($entity_type) {
-  if (in_array($entity_type, entity_toolbox_get_info())) {
-    return entity_ui_controller($entity_type);
-  }
-}
-
-/**
  * Returns the entity type add page content.
  *
  * @param $entity_type

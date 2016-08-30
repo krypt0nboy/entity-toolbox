@@ -145,8 +145,8 @@ define('ENTITY_TOOLBOX__INHERITED_FIELD_INFO', 'inherited_field_info');
  */
 function entity_toolbox_cache_set($cid, $data, $expire = CACHE_PERMANENT) {
   $cache_enabled = variable_get('cache_enabled');
-  list($expires) = array_values(entity_toolbox_cache_get_info($cid));
-  if ($cache_enabled) {
+  list($expires, $cache) = array_values(entity_toolbox_cache_get_info($cid));
+  if ($cache_enabled && $cache) {
     cache_set($cid, $data, ENTITY_TOOLBOX_DB__CACHE, isset($expires) ? $expires : $expire);
   }
 }
@@ -196,6 +196,9 @@ function entity_toolbox_entity_toolbox_cache_info() {
   $info[ENTITY_TOOLBOX__HOOK_REGISTER_INFO]        = array(
     'expires' => CACHE_PERMANENT
   );
+  $info[ENTITY_TOOLBOX__CLASS_TYPE_INFO]           = array(
+    'expires' => CACHE_PERMANENT
+  );
   $info[ENTITY_TOOLBOX__PROPERTY_TYPE_INFO]        = array(
     'expires' => CACHE_PERMANENT,
   );
@@ -210,6 +213,7 @@ function entity_toolbox_entity_toolbox_cache_info() {
   );
   $info[ENTITY_TOOLBOX__ENTITY_INFO]               = array(
     'expires' => CACHE_PERMANENT,
+    'cache'   => TRUE,
     'clear'   => array(
       ENTITY_TOOLBOX__ENTITY_GROUP_INFO,
       ENTITY_TOOLBOX__ENTITY_GROUP_ATTACH_INFO,
@@ -229,14 +233,6 @@ function entity_toolbox_entity_toolbox_cache_info() {
     'clear'   => array(),
     'hooks'   => array(
       'module_install',
-    )
-  );
-  $info[ENTITY_TOOLBOX__ENTITY_RESOURCES_INFO]     = array(
-    'expires' => CACHE_PERMANENT,
-    'clear'   => array(),
-    'hooks'   => array(
-      //@todo add hook_module_pre_install
-      'module_pre_install',
     )
   );
   $info[ENTITY_TOOLBOX__ENTITY_GROUP_INFO]         = array(
