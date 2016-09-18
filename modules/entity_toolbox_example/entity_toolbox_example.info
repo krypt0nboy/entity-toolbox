@@ -1,0 +1,13 @@
+name = "Entity toolbox example"
+description = "Example module for entity toolbox"
+core = 7.x
+version = 7.x-1.0-beta1
+
+dependencies[] = entity_toolbox
+
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+entity_toolbox[toolbox_api][] = api:1
+
+files[] = src/classes/controllers/ExampleGroupController.inc
+files[] = src/classes/groups/ExampleGroup.inc

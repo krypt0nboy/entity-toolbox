@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function foo_schema() {
+  $schema = array();
+  $schema += schema_build('foo');
+  $schema += schema_build('foo_type');
+
+  return $schema;
+}

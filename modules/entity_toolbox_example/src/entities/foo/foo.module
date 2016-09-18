@@ -1,0 +1,70 @@
+<?php
+
+module_load_include('inc', 'foo', 'foo.info');
+module_load_include('inc', 'foo', 'foo.functions');
+
+///**
+// * Implements hook_menu().
+// */
+//function foo_menu() {
+//  $items = array();
+//  $items += menu_build('foo');
+//
+//  return $items;
+//}
+
+/**
+ * Implements hook_entity_info().
+ */
+function foo_entity_info() {
+  $info = array();
+
+  $info += entity_info_retrieve('foo');
+  $info += entity_info_retrieve('foo_type');
+
+
+  return $info;
+}
+
+///**
+// * Implements hook_entity_property_info().
+// */
+//function foo_entity_property_info() {
+//  $info = array();
+//  $info += entity_property_info_build('foo');
+//  $info += entity_property_info_build('foo_type');
+//
+//  return $info;
+//}
+
+///**
+// * Implements hook_entity_operation_info().
+// */
+//function foo_entity_operation_info() {
+//  $info = array();
+//  $info += entity_operation_info_build('foo');
+//  $info += entity_operation_info_build('foo_type');
+//
+//  return $info;
+//}
+//
+///**
+// * Implements hook_permission().
+// */
+//function foo_permission() {
+//  $permissions = array();
+//  $permissions += permissions_build('foo');
+//  $permissions += permissions_build('foo_type');
+//
+//  return $permissions;
+//}
+//
+///**
+// * Implements hook_theme().
+// */
+//function foo_theme($existing, $type, $theme, $path) {
+//  $themes = array();
+//  $themes += theme_build('foo');
+//
+//  return $themes;
+//}

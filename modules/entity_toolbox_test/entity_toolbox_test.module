@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * Entity info test.
+ */
+module_load_include('inc', 'entity_toolbox_test', 'entity_toolbox_test.info');
+
+/**
+ * Implements @see hook_menu().
+ */
+function entity_toolbox_test_menu() {
+  $items                                     = array();
+  $items['admin/config/entity_toolbox/test'] = array(
+    'title'            => 'Entity Toolbox test page',
+    'type'             => MENU_NORMAL_ITEM,
+    'page callback'    => 'entity_toolbox_test',
+    'access arguments' => array('access site configuration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Entity toolbox test function.
+ */
+function entity_toolbox_test() {
+  $info = schema_build('foo');
+}
+
+
+/**
+ * Implements hook_field_category_group_info().
+ */
+function entity_toolbox_test_field_category_group_info() {
+  $info                       = array();
+  $info['catalog_attributes'] = array(
+    'label'       => t('Catalog attribute categories'),
+    'description' => t('Catalog attribute categories'),
+    'group'       => 'catalog',
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_field_category_info().
+ */
+function entity_toolbox_test_field_category_info() {
+  $info              = array();
+  $info['technical'] = array(
+    'label'       => t('Technical'),
+    'description' => t('A category for technical data, such as an ISIN code, etc...'),
+    'group'       => 'catalog_attributes'
+  );
+  $info['marketing'] = array(
+    'label'       => t('Marketing'),
+    'description' => t('A category for marketing data.'),
+    'group'       => 'catalog_attributes'
+  );
+  $info['media']     = array(
+    'label'       => t('Media'),
+    'description' => t('A category for media, such as product image, brochures, videos, etc...'),
+    'group'       => 'catalog_attributes'
+  );
+
+  return $info;
+}

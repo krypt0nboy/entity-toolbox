@@ -1,0 +1,68 @@
+<?php
+
+module_load_include('inc', 'bar', 'bar.info');
+module_load_include('inc', 'bar', 'bar.functions');
+
+/**
+ * Implements hook_menu().
+ */
+function bar_menu() {
+  $items = array();
+  $items += menu_build('bar');
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function bar_entity_info() {
+  $info = array();
+  $info += entity_info_build('bar');
+  $info += entity_info_build('bar_type');
+
+  return $info;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function bar_entity_property_info() {
+  $info = array();
+  $info += entity_property_info_build('bar');
+  $info += entity_property_info_build('bar_type');
+
+  return $info;
+}
+
+/**
+ * Implements hook_entity_operation_info().
+ */
+function bar_entity_operation_info() {
+  $info = array();
+  $info += entity_operation_info_build('bar');
+  $info += entity_operation_info_build('bar_type');
+
+  return $info;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function bar_permission() {
+  $permissions = array();
+  $permissions += permissions_build('bar');
+  $permissions += permissions_build('bar_type');
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function bar_theme($existing, $type, $theme, $path) {
+  $themes = array();
+  $themes += theme_build('bar');
+
+  return $themes;
+}

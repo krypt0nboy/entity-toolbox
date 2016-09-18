@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function bar_schema() {
+  $schema = array();
+  $schema += schema_build('bar');
+  $schema += schema_build('bar_type');
+
+  return $schema;
+}
